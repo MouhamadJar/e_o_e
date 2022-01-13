@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="84" height="44" viewBox="0 0 84 44">
+  <defs>
+    <filter id="Rectangle_200" x="0" y="0" width="84" height="44" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#ca5b5b"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_983" data-name="Group 983" transform="translate(21802 21000)">
+    <g transform="matrix(1, 0, 0, 1, -21802, -21000)" filter="url(#Rectangle_200)">
+      <rect id="Rectangle_200-2" data-name="Rectangle 200" width="66" height="26" rx="13" transform="translate(9 6)" fill="#f67d20"/>
+    </g>
+    <text id="Login" transform="translate(-21776 -20976)" fill="#fff" font-size="13" font-family="Cambria-Bold, Cambria" font-weight="700"><tspan x="0" y="0">Login</tspan></text>
+  </g>
+</svg>
