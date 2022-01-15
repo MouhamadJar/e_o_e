@@ -46,6 +46,7 @@ dependencies:
   dio: ^4.0.4
   device_preview:
   image_picker:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:

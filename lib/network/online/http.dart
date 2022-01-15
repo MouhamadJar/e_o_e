@@ -290,7 +290,7 @@ Future<http.Response> myWallet({
 //   request.headers.addAll({
 //     "Authorization": token,
 //   });
-//   return request;
+//   return await request.send();
 // }
 
 Future<http.Response> cutFromWallet({

@@ -1,0 +1,53 @@
+{
+  "message": "success",
+  "token": "7c40513a62b86f335777fa7bc574191e77398b78",
+  "instructor": {
+    "id": 1,
+    "user": {
+      "username": "admin",
+      "email": "a@a.com",
+      "first_name": "shareef2",
+      "last_name": "hussami",
+      "id": 1,
+      "date_joined": "2021-11-15T07:12:56Z"
+    },
+    "favourite_category": {
+      "category_id": "ec4511d3-b0ae-43e7-bca0-5c9f7a42bd26",
+      "category_name": "cat6",
+      "category_image": "/static/images/next2x.png",
+      "category_description": "Lorem ipsum dolor sit amet, consectetur adipiscing\r\n elit, sed do eiusmod tempor incididunt ut labore \r\net dolore magna aliqua. Ut enim ad minim veniam, \r\nquis nostrud exercitation ullamco laboris\r\n nisi ut aliquip ex ea commodo consequat.",
+      "students_count": 0,
+      "parent_category": "a9ed116a-1094-443b-ad6b-2b7eeba165a1"
+    },
+    "certificates": [
+      {
+        "id": 1,
+        "certificate_description": "you deserved this certificate for my course of frontend dev with reactjs",
+        "certificate_date": "2021-12-31T11:22:00Z",
+        "certificate_file": "/static/files/color.pdf"
+      }
+    ],
+    "availaibe_for_meetings": [
+      {
+        "id": 1,
+        "day": "Sunday",
+        "availaibe_for_meetings_from_hour": "06:00:00",
+        "availaibe_for_meetings_to_hour": "18:00:00",
+        "note": "i am free for lessons"
+      }
+    ],
+    "bio": "this is my bio please enjoy my courses",
+    "total_students": 0,
+    "total_balance": 0,
+    "total_rate": 0,
+    "badges": "1",
+    "profile_image": "/static/images/index2.jpg",
+    "age": 24,
+    "education": "MIT",
+    "facebook_link": "https://facebook.com",
+    "job_role": "Head of data science .",
+    "courses_count": 0,
+    "phone_number": "+963937817839",
+    "website_role": "instructor"
+  }
+}
