@@ -1,0 +1,11 @@
+//SUCCESS
+{
+    "message": "Instructor Created Successfully",
+    "token": "11f733ac49398df2556818c03834a89a41d5a425"
+}
+
+// SAME USERNAME
+
+{
+    "message": "Username Already Used"
+}
