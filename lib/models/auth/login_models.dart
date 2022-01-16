@@ -1,20 +1,20 @@
 class LoginModel {
   late String message, token;
-  late instructor _instructor;
+  late login_instructor _instructor;
 
   LoginModel.fromJson({required Map<String, dynamic> json}) {
     message = json['message'];
     token = json['token'];
-    _instructor = instructor.fromJson(json: json);
+    _instructor = login_instructor.fromJson(json: json);
   }
 }
 
-class instructor {
+class login_instructor {
   late int id;
   late String profile_image, website_role;
   late USERMODEL usermodel;
 
-  instructor.fromJson({
+  login_instructor.fromJson({
     required Map<String, dynamic> json,
   }) {
     profile_image = json['profile_image'];
