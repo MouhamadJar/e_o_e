@@ -86,17 +86,18 @@ const kInputDecoration = InputDecoration(
   labelText: "Enter your email",
   labelStyle: TextStyle(
     color: Colors.grey,
+    fontSize: 8,
   ),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(
-      Radius.circular(30),
+      Radius.circular(15),
     ),
   ),
   focusColor: Color(0xFF085CB1),
   hoverColor: Color(0xFF085CB1),
   focusedBorder: OutlineInputBorder(
     borderRadius: BorderRadius.all(
-      Radius.circular(35.0),
+      Radius.circular(20.0),
     ),
   ),
   filled: true,

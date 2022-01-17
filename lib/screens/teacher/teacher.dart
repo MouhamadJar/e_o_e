@@ -23,6 +23,8 @@ class TeacherPage extends StatefulWidget {
 class _TeacherPageState extends State<TeacherPage> {
   @override
   Widget build(BuildContext context) {
+  final width = MediaQuery.of(context)?.size.width ?? double.nan;
+  final height = MediaQuery.of(context)?.size.height ?? double.nan;
     Drawer myDrawer = Drawer(
       child: SafeArea(
         child: Scaffold(
@@ -39,9 +41,9 @@ class _TeacherPageState extends State<TeacherPage> {
                     children: [
                       CircleAvatar(
                         child: Image.asset("assets/Image 7.png"),
-                        radius: 50,
+                        radius: width*.11,
                       ),
-                      const SizedBox(width: 11.0),
+                       SizedBox(width: width*.01),
                       Column(
                         children: [
                           const SizedBox(
@@ -383,8 +385,6 @@ class _TeacherPageState extends State<TeacherPage> {
         ),
       ),
     );
-    final width = MediaQuery.of(context)?.size.width ?? double.nan;
-    final height = MediaQuery.of(context)?.size.height ?? double.nan;
     return Scaffold(
       drawer: myDrawer,
       appBar: AppBar(

@@ -8,11 +8,11 @@ import 'package:get/get.dart';
 
 import 'network/local/cache.dart';
 
-void main() async{
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
-  await Cache.init();
+ // await Cache.init();
   runApp(
   const MyApp(),
   );

@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_o_e/component/components.dart';
+import 'package:e_o_e/network/online/http.dart';
 import 'package:e_o_e/screens/sign/light_theme/rest_password.dart';
 import 'package:e_o_e/screens/sign/light_theme/signup_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get.dart';
-
 import '../../../constants.dart';
 import '../../home_screen.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -26,11 +28,12 @@ class _LoginScreenState extends State<LoginScreen> {
         reverseAnimationCurve: Curves.easeIn);
     super.initState();
   }
-
+    bool isLoged = false;
   var formKey = GlobalKey<FormState>();
   var userNameController = TextEditingController();
   var passwordController = TextEditingController();
   bool secure = true;
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context)?.size.width ?? double.nan;
@@ -58,10 +61,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: EdgeInsets.only(top: height * 0.3),
                       child: const AutoSizeText(
                         "Log in to your Account",
-                        style:
-                            TextStyle(fontFamily: kFontFamily, fontSize: 100),
-                        maxFontSize: 20,
-                        minFontSize: 16,
+                        style: TextStyle(
+                          fontFamily: kFontFamily,
+                        ),
+                        maxFontSize: 16,
+                        minFontSize: 6,
                       ),
                     ),
                     SizedBox(height: height * 0.02),
@@ -80,6 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: userNameController,
                           style: const TextStyle(
                             color: Colors.black,
+                            fontSize: 8,
                           ),
                           decoration: kInputDecoration.copyWith(
                             labelText: 'Enter your username',
@@ -87,8 +92,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               Icons.supervised_user_circle_outlined,
                               size: height * 0.035,
                             ),
-                            labelStyle:
-                                const TextStyle(fontFamily: kFontFamily),
+                            labelStyle: const TextStyle(
+                              fontFamily: kFontFamily,
+                              fontSize: 8,
+                            ),
                           ),
                         ),
                       ),
@@ -102,21 +109,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: TextFormField(
                         style: const TextStyle(
                           color: Colors.black,
+                          fontSize: 8,
                         ),
                         decoration: kInputDecoration.copyWith(
-
                           icon: SvgPicture.asset(
                             "assets/padlock (2).svg",
                             height: height * 0.04,
                             color: Colors.black,
                           ),
                           suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() => secure = !secure);
-                              },
-                              icon: Icon(CupertinoIcons.eye)),
+                            onPressed: () {
+                              setState(() => secure = !secure);
+                            },
+                            icon: Icon(
+                              !secure
+                                  ? CupertinoIcons.eye
+                                  : CupertinoIcons.eye_slash,
+                              color: secure ? Colors.black45 : Colors.blue,
+                            ),
+                          ),
                           labelText: "Enter your password",
-                          labelStyle: const TextStyle(fontFamily: kFontFamily),
+                          labelStyle: const TextStyle(
+                            fontFamily: kFontFamily,
+                            fontSize: 8,
+                          ),
                         ),
                         obscureText: secure,
                         keyboardType: TextInputType.visiblePassword,
@@ -134,15 +150,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                       padding: EdgeInsets.only(left: width * 0.07),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
                               const AutoSizeText(
                                 "Or ",
-                                style: TextStyle(
-                                    fontSize: 100, fontFamily: kFontFamily),
-                                maxFontSize: 16,
-                                minFontSize: 14,
+                                style: TextStyle(fontFamily: kFontFamily),
+                                maxFontSize: 12,
+                                minFontSize: 6,
+                                overflow: TextOverflow.fade,
                               ),
                               InkWell(
                                 onTap: () {
@@ -158,11 +175,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   "Forgot Password ",
                                   style: TextStyle(
                                     color: Colors.blue,
-                                    fontSize: 105,
                                     fontFamily: kFontFamily,
                                   ),
-                                  maxFontSize: 16,
-                                  minFontSize: 14,
+                                  maxFontSize: 12,
+                                  minFontSize: 6,
+                                  overflow: TextOverflow.fade,
                                 ),
                               ),
                             ],
@@ -171,13 +188,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: height * 0.02,
                           ),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               const AutoSizeText(
-                                "Don't have an account ? ",
-                                style: TextStyle(
-                                    fontSize: 105, fontFamily: kFontFamily),
-                                maxFontSize: 16,
-                                minFontSize: 14,
+                                "Don't have account ? ",
+                                style: TextStyle(fontFamily: kFontFamily),
+                                maxFontSize: 12,
+                                minFontSize: 6,
+                                maxLines: 2,
+                                overflow: TextOverflow.fade,
                               ),
                               InkWell(
                                 onTap: () {
@@ -191,10 +211,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 child: const AutoSizeText(
                                   "Sign up!",
-                                  maxFontSize: 16,
-                                  minFontSize: 14,
+                                  maxFontSize: 12,
+                                  minFontSize: 6,
+                                  overflow: TextOverflow.fade,
                                   style: TextStyle(
-                                    fontSize: 105,
                                     fontFamily: kFontFamily,
                                     color: Colors.blue,
                                   ),
@@ -209,14 +229,26 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: EdgeInsets.only(
                           left: width * 0.2865, top: height * 0.07),
                       child: InkWell(
-                        onTap: () {
+                        onTap: () async {
                           if (formKey.currentState!.validate()) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomeScreen(),
-                              ),
+                            http.Response _response = await login(
+                              username: userNameController.text,
+                              password: passwordController.text,
                             );
+                            if (_response.statusCode == 200) {
+                              messageToast(
+                                  msg: "Login success", color: Colors.green);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => HomeScreen(),
+                                ),
+                              );
+                            } else {
+                              messageToast(
+                                  msg: "Pleas Pass Valid Credentials",
+                                  color: Colors.red);
+                            }
                           }
                         },
                         child: SvgPicture.asset(
