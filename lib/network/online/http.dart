@@ -3,7 +3,7 @@ import 'dart:html';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
-const String baseURL = "localhost:8000";
+const String baseURL = "37.44.247.50:8000";
 
 Future<http.Response> login({
   required String username,

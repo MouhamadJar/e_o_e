@@ -42,9 +42,9 @@ class _XDShoppingCart1State extends State<XDShoppingCart1> {
                     children: [
                       CircleAvatar(
                         child: Image.asset("assets/Image 7.png"),
-                        radius: 50,
+                        radius: width*.11,
                       ),
-                      const SizedBox(width: 11.0),
+                       SizedBox(width: width*.01),
                       Column(
                         children: [
                           const SizedBox(
@@ -53,7 +53,7 @@ class _XDShoppingCart1State extends State<XDShoppingCart1> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(width: 15),
+                              const SizedBox(width: 10),
                               Row(
                                 children: [
                                   const Text(

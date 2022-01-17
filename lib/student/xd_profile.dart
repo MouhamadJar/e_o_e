@@ -26,6 +26,8 @@ class XDProfile extends StatefulWidget {
 class _XDProfileState extends State<XDProfile> {
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context)?.size.width ?? double.nan;
+    final height = MediaQuery.of(context)?.size.height ?? double.nan;
     Drawer myDrawer = Drawer(
       child: SafeArea(
         child: Scaffold(
@@ -42,9 +44,9 @@ class _XDProfileState extends State<XDProfile> {
                     children: [
                       CircleAvatar(
                         child: Image.asset("assets/Image 7.png"),
-                        radius: 50,
+                        radius: width*.11,
                       ),
-                      const SizedBox(width: 11.0),
+                       SizedBox(width: width*.01),
                       Column(
                         children: [
                           const SizedBox(
@@ -386,8 +388,6 @@ class _XDProfileState extends State<XDProfile> {
         ),
       ),
     );
-    final width = MediaQuery.of(context)?.size.width ?? double.nan;
-    final height = MediaQuery.of(context)?.size.height ?? double.nan;
     return SafeArea(
       child: Scaffold(
         drawer: myDrawer,
@@ -454,8 +454,8 @@ class _XDProfileState extends State<XDProfile> {
               children: [
                 Row(
                   children: [
-                    const CircleAvatar(
-                      radius: 42,
+                     CircleAvatar(
+                      radius: width*.12,
                       backgroundImage: AssetImage("assets/Image 8.png"),
                       backgroundColor: Colors.white,
                     ),
@@ -465,36 +465,38 @@ class _XDProfileState extends State<XDProfile> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        const AutoSizeText(
                           "Maggi Vega",
                           style: TextStyle(
                             fontFamily: kFontFamily,
-                            fontSize: 22,
                           ),
+                          maxFontSize: 20,
+                          minFontSize: 8,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         SizedBox(
                           height: height * 0.01,
                         ),
-                        Row(
-                          children: [
-                            const Text(
-                              "maggi.vega@gmail.com",
-                              style: TextStyle(
-                                fontFamily: kFontFamily,
-                                fontSize: 15,
-                              ),
-                            ),
-                            SizedBox(
-                              width: width * 0.04,
-                            ),
-                            const Text(
-                              "23 years",
-                              style: TextStyle(
-                                fontFamily: kFontFamily,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
+                        const AutoSizeText(
+                          "maggi.vega@gmail.com",
+                          style: TextStyle(
+                            fontFamily: kFontFamily,
+                          ),
+                          maxFontSize: 16,
+                          minFontSize: 8,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(
+                          width: height * 0.04,
+                        ),
+                        const AutoSizeText(
+                          "23 years",
+                          style: TextStyle(
+                            fontFamily: kFontFamily,
+                          ),
+                          maxFontSize: 16,
+                          minFontSize: 8,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         SizedBox(
                           height: height * 0.01,
@@ -502,12 +504,19 @@ class _XDProfileState extends State<XDProfile> {
                         Row(
                           children: [
                             SvgPicture.asset("assets/graduation-cap.svg"),
-                            SizedBox(width: width * 0.02),
-                            const Text(
-                              "Lorem ipsum dolor sit amet",
-                              style: TextStyle(
-                                fontFamily: kFontFamily,
-                                fontSize: 15,
+                            SizedBox(width: width * 0.01),
+                            Container(
+                              height: height*.05,
+                              width: width*.5,
+                              child: const AutoSizeText(
+                                "Lorem ipsum dolor sit amet",
+                                style: TextStyle(
+                                  fontFamily: kFontFamily,
+                                ),
+                                maxFontSize: 16,
+                                minFontSize: 8,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ],
@@ -522,27 +531,44 @@ class _XDProfileState extends State<XDProfile> {
                 Padding(
                   padding: EdgeInsets.only(left: width * 0.07),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SvgPicture.asset("assets/category (2).svg"),
                       SizedBox(
-                        width: width * 0.03,
+                        width: width * 0.02,
                       ),
-                      const Text(
-                        "Favorite category :",
-                        style: TextStyle(
-                          fontFamily: kFontFamily,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
+                      Container(
+                        height: height*.03,
+                        width: width*.37,
+                        child:const Center(
+                          child:  AutoSizeText(
+                            "Favorite category :",
+                            style: TextStyle(
+                              fontFamily: kFontFamily,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxFontSize: 20,
+                            minFontSize: 8,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
                       SizedBox(
                         width: width * 0.01,
                       ),
-                      const Text(
-                        "Flutter Developer",
-                        style: TextStyle(
-                          fontFamily: kFontFamily,
-                          fontSize: 14,
+                      Container(
+                        height: height*.03,
+                        width: width*.3,
+                        child:const Center(
+                          child:  AutoSizeText(
+                            "Flutter Developer",
+                            style: TextStyle(
+                              fontFamily: kFontFamily,
+                            ),
+                            maxFontSize: 20,
+                            minFontSize: 8,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
                     ],
@@ -556,24 +582,33 @@ class _XDProfileState extends State<XDProfile> {
                   children: [
                     SvgPicture.asset("assets/certificate (1).svg"),
                     SizedBox(
-                      width: width * 0.015,
+                      width: width * 0.012,
                     ),
-                    const Text(
-                      "Certficates :",
-                      style: TextStyle(
-                        fontFamily: kFontFamily,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                    Container(
+                      height: height*.033,
+                      width: width*.25,
+                      child:const Center(
+                        child:  AutoSizeText(
+                          "Certficates :",
+                          style: TextStyle(
+                            fontFamily: kFontFamily,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxFontSize: 20,
+                          minFontSize: 8,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                     SizedBox(
-                      width: width * 0.05,
+                      width: width * 0.04,
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
-                            SvgPicture.asset("assets/dry-clean (2).svg"),
+                            //   SvgPicture.asset("assets/dry-clean (2).svg"),
                             Column(
                               children: [
                                 SizedBox(
@@ -581,18 +616,21 @@ class _XDProfileState extends State<XDProfile> {
                                   height: height * 0.02,
                                 ),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
+                                    const AutoSizeText(
                                       "Lorem ipsum dolor sit amet",
                                       style: TextStyle(
                                         fontFamily: kFontFamily,
-                                        fontSize: 15,
                                       ),
+                                      maxFontSize: 12,
+                                      minFontSize: 8,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                     Row(
                                       children: [
                                         SizedBox(
-                                          width: width * 0.425,
+                                          width: width * 0.4,
                                         ),
                                         const Text(
                                           "5/2021",
@@ -612,7 +650,7 @@ class _XDProfileState extends State<XDProfile> {
                         ),
                         Row(
                           children: [
-                            SvgPicture.asset("assets/dry-clean (2).svg"),
+                            //   SvgPicture.asset("assets/dry-clean (2).svg"),
                             Column(
                               children: [
                                 SizedBox(
@@ -620,18 +658,21 @@ class _XDProfileState extends State<XDProfile> {
                                   height: height * 0.02,
                                 ),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
+                                    const AutoSizeText(
                                       "Lorem ipsum dolor sit amet",
                                       style: TextStyle(
                                         fontFamily: kFontFamily,
-                                        fontSize: 15,
                                       ),
+                                      maxFontSize: 12,
+                                      minFontSize: 8,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                     Row(
                                       children: [
                                         SizedBox(
-                                          width: width * 0.425,
+                                          width: width * 0.4,
                                         ),
                                         const Text(
                                           "5/2021",
@@ -651,7 +692,7 @@ class _XDProfileState extends State<XDProfile> {
                         ),
                         Row(
                           children: [
-                            SvgPicture.asset("assets/dry-clean (2).svg"),
+                            //   SvgPicture.asset("assets/dry-clean (2).svg"),
                             Column(
                               children: [
                                 SizedBox(
@@ -659,18 +700,21 @@ class _XDProfileState extends State<XDProfile> {
                                   height: height * 0.02,
                                 ),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
+                                    const AutoSizeText(
                                       "Lorem ipsum dolor sit amet",
                                       style: TextStyle(
                                         fontFamily: kFontFamily,
-                                        fontSize: 15,
                                       ),
+                                      maxFontSize: 12,
+                                      minFontSize: 8,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                     Row(
                                       children: [
                                         SizedBox(
-                                          width: width * 0.425,
+                                          width: width * 0.4,
                                         ),
                                         const Text(
                                           "5/2021",
@@ -685,21 +729,6 @@ class _XDProfileState extends State<XDProfile> {
                                   ],
                                 ),
                               ],
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: width * 0.35,
-                            ),
-                            const Text(
-                              "show more >",
-                              style: TextStyle(
-                                fontFamily: kFontFamily,
-                                fontSize: 12,
-                                color: Colors.red,
-                              ),
                             ),
                           ],
                         ),

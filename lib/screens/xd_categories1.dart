@@ -39,9 +39,9 @@ class _XDCategories1State extends State<XDCategories1> {
                     children: [
                       CircleAvatar(
                         child: Image.asset("assets/Image 7.png"),
-                        radius: 50,
+                        radius: width*.11,
                       ),
-                      const SizedBox(width: 11.0),
+                       SizedBox(width: width*.01),
                       Column(
                         children: [
                           const SizedBox(
