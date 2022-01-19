@@ -1,7 +1,4 @@
-import 'dart:html';
-
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 
 const String baseURL = "37.44.247.50:8000";
 
@@ -360,16 +357,16 @@ Future<http.Response> updateProfile({
     headers: {
       "Authorization": token,
     },
-    body:{
-      "email" : email,
-      "password" : password,
-      "new_password" : newPassword,
-      "first_name" : first_name,
-      "last_name" : last_name,
-      "age" : age,
-      "education" : education,
-      "favourite_category_id" :favourite_category_id,
-      "job_role" : job_role
+    body: {
+      "email": email,
+      "password": password,
+      "new_password": newPassword,
+      "first_name": first_name,
+      "last_name": last_name,
+      "age": age,
+      "education": education,
+      "favourite_category_id": favourite_category_id,
+      "job_role": job_role
     },
   );
   return _response;

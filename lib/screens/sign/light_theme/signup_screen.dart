@@ -1,4 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:e_o_e/component/components.dart';
+import 'package:e_o_e/network/online/http.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,6 +9,7 @@ import '../../../constants.dart';
 import '../../home_screen.dart';
 import 'login_screen.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -27,11 +31,12 @@ class _SignupScreenState extends State<SignupScreen> {
   var myKey = GlobalKey<FormState>();
   var usernameController = TextEditingController();
   var first_nameController = TextEditingController();
-  var seconde_nameController = TextEditingController();
+  var last_nameController = TextEditingController();
   var emailController = TextEditingController();
-  var phoneController = TextEditingController();
+  var numberController = TextEditingController();
   var passwordController = TextEditingController();
   bool secure = true;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,7 @@ class _SignupScreenState extends State<SignupScreen> {
           child: Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 image: AssetImage("assets/sign up 2.png"),
               ),
             ),
@@ -65,7 +70,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           style: TextStyle(
                             fontFamily: kFontFamily,
                           ),
-                          maxFontSize: 12,
+                          maxFontSize: 24,
                           minFontSize: 6,
                           overflow: TextOverflow.fade,
                         ),
@@ -108,7 +113,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       margin: EdgeInsets.only(left: width * 0.04),
                       padding: EdgeInsets.only(top: height * 0.03),
                       child: TextFormField(
-                        controller: seconde_nameController,
+                        controller: last_nameController,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'firstname must not be empty';
@@ -170,7 +175,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       margin: EdgeInsets.only(left: width * 0.04),
                       padding: EdgeInsets.only(top: height * 0.03),
                       child: TextFormField(
-                        controller: phoneController,
+                        controller: numberController,
                         keyboardType: TextInputType.phone,
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -252,7 +257,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               !secure
                                   ? CupertinoIcons.eye
                                   : CupertinoIcons.eye_slash,
-                              color: secure ? Colors.black45 : Colors.blue,
+                              color: secure ? Colors.black45 : kPrimaryColor,
                             ),
                           ),
                           icon: SvgPicture.asset(
@@ -280,13 +285,13 @@ class _SignupScreenState extends State<SignupScreen> {
                               Container(
                                 //color: Colors.blue,
                                 height: height * 0.03,
-                                width: width * 0.51,
+                                width: width * 0.45,
                                 child: const AutoSizeText(
                                   "By signing up you agree to our ",
                                   style: TextStyle(
                                     fontFamily: kFontFamily,
                                   ),
-                                  maxFontSize: 12,
+                                  maxFontSize: 24,
                                   maxLines: 1,
                                   minFontSize: 8,
                                 ),
@@ -311,7 +316,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       fontFamily: kFontFamily,
                                       color: Colors.blue,
                                     ),
-                                    maxFontSize: 12,
+                                    maxFontSize: 24,
                                     minFontSize: 8,
                                     maxLines: 1,
                                   ),
@@ -327,11 +332,11 @@ class _SignupScreenState extends State<SignupScreen> {
                           children: [
                             Container(
                               height: height * 0.03,
-                              width: width * 0.51,
+                              width: width * 0.4,
                               child: const AutoSizeText(
                                 "Already have Account ?!",
                                 style: TextStyle(fontFamily: kFontFamily),
-                                maxFontSize: 12,
+                                maxFontSize: 24,
                                 minFontSize: 6,
                                 overflow: TextOverflow.fade,
                               ),
@@ -354,7 +359,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     color: Colors.blue,
                                     fontFamily: kFontFamily,
                                   ),
-                                  maxFontSize: 12,
+                                  maxFontSize: 24,
                                   minFontSize: 8,
                                   overflow: TextOverflow.fade,
                                 ),
@@ -367,24 +372,92 @@ class _SignupScreenState extends State<SignupScreen> {
                     Padding(
                       padding: EdgeInsets.only(
                           left: width * 0.2865, top: height * 0.07),
-                      child: InkWell(
-                        onTap: () {
-                          if (myKey.currentState!.validate()) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomeScreen(),
-                              ),
-                            );
-                          }
+                      child: ConditionalBuilder(
+                        condition: !isLoading,
+                        fallback: (BuildContext context) {
+                          return const Center(
+                            child: CircularProgressIndicator.adaptive(),
+                          );
                         },
-                        child: SvgPicture.asset(
-                          "assets/Group 1350.svg",
-                          width: width * 0.05,
-                          height: height * 0.08,
-                          placeholderBuilder: (_) =>
-                              const CircularProgressIndicator(),
-                        ),
+                        builder: (BuildContext context) {
+                          return ConditionalBuilder(
+                            condition: !isLoading,
+                            fallback: (BuildContext context) {
+                              return const Center(
+                                child: CircularProgressIndicator.adaptive(),
+                              );
+                            },
+                            builder: (BuildContext context) {
+                              return InkWell(
+                                onTap: () async {
+                                  setState(
+                                    () {
+                                      isLoading = true;
+                                    },
+                                  );
+                                  if (myKey.currentState!.validate()) {
+                                    http.Response _response = await signup(
+                                            first_name:
+                                                first_nameController.text,
+                                            last_name: last_nameController.text,
+                                            username: usernameController.text,
+                                            email: emailController.text,
+                                            number: numberController.text,
+                                            password: passwordController.text)
+                                        .then((value) {
+                                      print(value.toString);
+                                      return value;
+                                    }).catchError(
+                                      (onError) {
+                                        setState(
+                                              () {
+                                            isLoading = false;
+                                            print(onError.toString());
+                                            messageToast(
+                                              msg: "Connection failed",
+                                              color: Colors.redAccent,
+                                            );
+                                          },
+                                        );
+                                      },
+                                    );
+                                    if (_response.statusCode == 200) {
+                                      messageToast(
+                                          msg: "Login success",
+                                          color: Colors.green);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => HomeScreen(),
+                                        ),
+                                      );
+                                    } else {
+                                      messageToast(
+                                          msg: "Pleas Pass Valid Credentials",
+                                          color: Colors.red);
+                                    }
+                                  } else {
+                                    setState(
+                                      () {
+                                        isLoading = false;
+                                        messageToast(
+                                            msg: "Pleas Pass Valid Credentials",
+                                            color: Colors.red);
+                                      },
+                                    );
+                                  }
+                                },
+                                child: SvgPicture.asset(
+                                  "assets/Group 1350.svg",
+                                  width: width * 0.05,
+                                  height: height * 0.08,
+                                  placeholderBuilder: (_) =>
+                                      const CircularProgressIndicator(),
+                                ),
+                              );
+                            },
+                          );
+                        },
                       ),
                     ),
                   ],

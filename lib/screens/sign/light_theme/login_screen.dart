@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:e_o_e/component/components.dart';
 import 'package:e_o_e/network/online/http.dart';
 import 'package:e_o_e/screens/sign/light_theme/rest_password.dart';
@@ -6,11 +7,11 @@ import 'package:e_o_e/screens/sign/light_theme/signup_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:http/http.dart' as http;
 import '../../../constants.dart';
 import '../../home_screen.dart';
-import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -28,7 +29,9 @@ class _LoginScreenState extends State<LoginScreen> {
         reverseAnimationCurve: Curves.easeIn);
     super.initState();
   }
-    bool isLoged = false;
+
+  bool isLoading = false;
+  bool isLoged = false;
   var formKey = GlobalKey<FormState>();
   var userNameController = TextEditingController();
   var passwordController = TextEditingController();
@@ -64,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                           fontFamily: kFontFamily,
                         ),
-                        maxFontSize: 16,
+                        maxFontSize: 24,
                         minFontSize: 6,
                       ),
                     ),
@@ -76,6 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: EdgeInsets.only(top: height * 0.03),
                       child: Center(
                         child: TextFormField(
+                          keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'your name must not be empty';
@@ -84,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: userNameController,
                           style: const TextStyle(
                             color: Colors.black,
-                            fontSize: 8,
+                            fontSize: 10,
                           ),
                           decoration: kInputDecoration.copyWith(
                             labelText: 'Enter your username',
@@ -94,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             labelStyle: const TextStyle(
                               fontFamily: kFontFamily,
-                              fontSize: 8,
+                              fontSize: 10,
                             ),
                           ),
                         ),
@@ -109,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: TextFormField(
                         style: const TextStyle(
                           color: Colors.black,
-                          fontSize: 8,
+                          fontSize: 10,
                         ),
                         decoration: kInputDecoration.copyWith(
                           icon: SvgPicture.asset(
@@ -125,13 +129,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               !secure
                                   ? CupertinoIcons.eye
                                   : CupertinoIcons.eye_slash,
-                              color: secure ? Colors.black45 : Colors.blue,
+                              color: secure ? Colors.black45 : kPrimaryColor,
                             ),
                           ),
                           labelText: "Enter your password",
                           labelStyle: const TextStyle(
                             fontFamily: kFontFamily,
-                            fontSize: 8,
+                            fontSize: 10,
                           ),
                         ),
                         obscureText: secure,
@@ -157,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               const AutoSizeText(
                                 "Or ",
                                 style: TextStyle(fontFamily: kFontFamily),
-                                maxFontSize: 12,
+                                maxFontSize: 24,
                                 minFontSize: 6,
                                 overflow: TextOverflow.fade,
                               ),
@@ -177,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     color: Colors.blue,
                                     fontFamily: kFontFamily,
                                   ),
-                                  maxFontSize: 12,
+                                  maxFontSize: 24,
                                   minFontSize: 6,
                                   overflow: TextOverflow.fade,
                                 ),
@@ -194,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               const AutoSizeText(
                                 "Don't have account ? ",
                                 style: TextStyle(fontFamily: kFontFamily),
-                                maxFontSize: 12,
+                                maxFontSize: 24,
                                 minFontSize: 6,
                                 maxLines: 2,
                                 overflow: TextOverflow.fade,
@@ -211,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 child: const AutoSizeText(
                                   "Sign up!",
-                                  maxFontSize: 12,
+                                  maxFontSize: 24,
                                   minFontSize: 6,
                                   overflow: TextOverflow.fade,
                                   style: TextStyle(
@@ -228,36 +232,82 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: EdgeInsets.only(
                           left: width * 0.2865, top: height * 0.07),
-                      child: InkWell(
-                        onTap: () async {
-                          if (formKey.currentState!.validate()) {
-                            http.Response _response = await login(
-                              username: userNameController.text,
-                              password: passwordController.text,
-                            );
-                            if (_response.statusCode == 200) {
-                              messageToast(
-                                  msg: "Login success", color: Colors.green);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => HomeScreen(),
-                                ),
-                              );
-                            } else {
-                              messageToast(
-                                  msg: "Pleas Pass Valid Credentials",
-                                  color: Colors.red);
-                            }
-                          }
+                      child: ConditionalBuilder(
+                        condition: !isLoading,
+                        fallback: (BuildContext context) {
+                          return const Center(
+                            child: CircularProgressIndicator.adaptive(),
+                          );
                         },
-                        child: SvgPicture.asset(
-                          "assets/Group 1350.svg",
-                          width: width * 0.05,
-                          height: height * 0.08,
-                          placeholderBuilder: (_) =>
-                              const CircularProgressIndicator(),
-                        ),
+                        builder: (BuildContext context) {
+                          return InkWell(
+                            onTap: () async {
+                              setState(
+                                () {
+                                  isLoading = true;
+                                },
+                              );
+                              if (formKey.currentState!.validate()) {
+                                http.Response _response = await login(
+                                  username: userNameController.text,
+                                  password: passwordController.text,
+                                ).then(
+                                  (value) {
+                                    print(value.toString);
+                                    return value;
+                                  },
+                                ).catchError(
+                                  (onError) {
+                                    setState(
+                                      () {
+                                        isLoading = false;
+                                        print(onError.toString());
+                                        messageToast(
+                                          msg: "Connection failed",
+                                          color: Colors.redAccent,
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+                                if (_response.statusCode == 200) {
+                                  messageToast(
+                                      msg: "Login success",
+                                      color: Colors.green);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => HomeScreen(),
+                                    ),
+                                  );
+                                } else {
+                                  setState(
+                                    () {
+                                      isLoading = false;
+                                      messageToast(
+                                          msg: "Pleas Pass Valid Credentials",
+                                          color: Colors.red);
+                                    },
+                                  );
+                                }
+                              } else {
+                                setState(() {
+                                  isLoading = false;
+                                  messageToast(
+                                      msg: "Pleas Pass Valid Credentials",
+                                      color: Colors.red);
+                                });
+                              }
+                            },
+                            child: SvgPicture.asset(
+                              "assets/Group 1350.svg",
+                              width: width * 0.05,
+                              height: height * 0.08,
+                              placeholderBuilder: (_) =>
+                                  const CircularProgressIndicator(),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],
