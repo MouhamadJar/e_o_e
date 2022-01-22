@@ -1,39 +1,49 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:e_o_e/network/online/dio_helper.dart';
 import 'package:e_o_e/screens/BoardingScreens/light_theme/first_screen_board.dart';
+import 'package:e_o_e/screens/home_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get.dart';
 
 import 'network/local/cache.dart';
 
-void main() {
+void main()  async{
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-      overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
- // await Cache.init();
+  DioHelper.init();
+  await Cache.init();
+  bool? token = Cache.getCache(key: 'token');
+  if (kDebugMode) {
+    print(token);
+  }
   runApp(
-  const MyApp(),
+    MyApp(
+      token: token,
+    ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key, required this.token}) : super(key: key);
+  final bool? token;
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
       builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       title: 'EOE',
-      home: SplashScreen(),
+      home: SplashScreen(
+        token: token,
+      ),
     );
   }
 }
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({Key? key,required this.token }) : super(key: key);
+  final bool? token;
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -48,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
       (value) => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => HomePage(),
+          builder: (context) =>widget.token == false ?  HomePage() : HomeScreen(),
         ),
       ),
     );

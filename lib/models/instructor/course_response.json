@@ -1,0 +1,33 @@
+{
+  "course_id": "667bf221-6185-4047-943c-315fe67c77f2",
+  "course_name": "ewfsdfiwerugh",
+  "course_instructor": {
+    "user": {
+      "username": "hhulhlu",
+      "first_name": "grewerhwe",
+      "last_name": "efwrhwwqerh",
+      "id": 4
+    },
+    "profile_image": "/static/images/about-logo_42a28Hw.jpg",
+    "id": 4,
+    "job_role": "",
+    "bio": "aasddsafdsfd",
+    "total_students": 0,
+    "total_balance": 0,
+    "total_rate": 0,
+    "courses_count": 0
+  },
+  "course_level": "Beginner",
+  "course_description": "jhqjwiehjweqfgywqjkefbu",
+  "course_rate": 3.4,
+  "course_price": 99,
+  "is_free": false,
+  "currency": "NONE",
+  "course_videos_count": 1,
+  "course_duration": 74,
+  "badges": "Best Selling",
+  "course_subtitle": "ifuwehnfioweuifh",
+  "course_image": "/static/images/index.jpg",
+  "course_students": 0,
+  "course_language": "English"
+}

@@ -1,6 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:e_o_e/component/components.dart';
+import 'package:e_o_e/network/local/cache.dart';
+import 'package:e_o_e/network/online/dio_helper.dart';
+import 'package:e_o_e/network/online/end_points.dart';
 import 'package:e_o_e/network/online/http.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,12 +40,20 @@ class _SignupScreenState extends State<SignupScreen> {
   var passwordController = TextEditingController();
   bool secure = true;
   bool isLoading = false;
+  late Map<String, dynamic> _response;
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context)?.size.width ?? double.nan;
     final height = MediaQuery.of(context)?.size.height ?? double.nan;
-
+    Map<String, dynamic> data = {
+      'first_name': first_nameController.text,
+      'last_name': last_nameController.text,
+      'username': usernameController.text,
+      'email': emailController.text,
+      'phone_number': numberController.text,
+      'password': passwordController.text
+    };
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -70,7 +81,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           style: TextStyle(
                             fontFamily: kFontFamily,
                           ),
-                          maxFontSize: 24,
+                          maxFontSize: 14,
                           minFontSize: 6,
                           overflow: TextOverflow.fade,
                         ),
@@ -116,7 +127,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         controller: last_nameController,
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return 'firstname must not be empty';
+                            return 'lastname must not be empty';
                           }
                         },
                         keyboardType: TextInputType.name,
@@ -129,7 +140,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             "assets/name (2).svg",
                             height: height * 0.04,
                           ),
-                          labelText: "Enter your firstname",
+                          labelText: "Enter your lastname",
                           labelStyle: const TextStyle(
                             fontFamily: kFontFamily,
                             fontSize: 8,
@@ -147,7 +158,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         controller: usernameController,
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return 'secondname must not be empty';
+                            return 'username must not be empty';
                           }
                         },
                         keyboardType: TextInputType.name,
@@ -160,7 +171,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             "assets/name (2).svg",
                             height: height * 0.04,
                           ),
-                          labelText: "Enter your secondname",
+                          labelText: "Enter your username",
                           labelStyle: const TextStyle(
                             fontFamily: kFontFamily,
                             fontSize: 8,
@@ -291,7 +302,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   style: TextStyle(
                                     fontFamily: kFontFamily,
                                   ),
-                                  maxFontSize: 24,
+                                  maxFontSize: 14,
                                   maxLines: 1,
                                   minFontSize: 8,
                                 ),
@@ -316,7 +327,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       fontFamily: kFontFamily,
                                       color: Colors.blue,
                                     ),
-                                    maxFontSize: 24,
+                                    maxFontSize: 14,
                                     minFontSize: 8,
                                     maxLines: 1,
                                   ),
@@ -336,7 +347,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               child: const AutoSizeText(
                                 "Already have Account ?!",
                                 style: TextStyle(fontFamily: kFontFamily),
-                                maxFontSize: 24,
+                                maxFontSize: 14,
                                 minFontSize: 6,
                                 overflow: TextOverflow.fade,
                               ),
@@ -359,7 +370,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     color: Colors.blue,
                                     fontFamily: kFontFamily,
                                   ),
-                                  maxFontSize: 24,
+                                  maxFontSize: 14,
                                   minFontSize: 8,
                                   overflow: TextOverflow.fade,
                                 ),
@@ -375,87 +386,77 @@ class _SignupScreenState extends State<SignupScreen> {
                       child: ConditionalBuilder(
                         condition: !isLoading,
                         fallback: (BuildContext context) {
-                          return const Center(
-                            child: CircularProgressIndicator.adaptive(),
-                          );
+                          return Container(
+                              margin: EdgeInsets.only(left: width * 0.15),
+                              child: CircularProgressIndicator.adaptive());
                         },
                         builder: (BuildContext context) {
-                          return ConditionalBuilder(
-                            condition: !isLoading,
-                            fallback: (BuildContext context) {
-                              return const Center(
-                                child: CircularProgressIndicator.adaptive(),
+                          return InkWell(
+                            onTap: () async {
+                              setState(
+                                () {
+                                  isLoading = true;
+                                },
                               );
-                            },
-                            builder: (BuildContext context) {
-                              return InkWell(
-                                onTap: () async {
-                                  setState(
-                                    () {
-                                      isLoading = true;
-                                    },
-                                  );
-                                  if (myKey.currentState!.validate()) {
-                                    http.Response _response = await signup(
-                                            first_name:
-                                                first_nameController.text,
-                                            last_name: last_nameController.text,
-                                            username: usernameController.text,
-                                            email: emailController.text,
-                                            number: numberController.text,
-                                            password: passwordController.text)
-                                        .then((value) {
-                                      print(value.toString);
-                                      return value;
-                                    }).catchError(
-                                      (onError) {
-                                        setState(
-                                              () {
-                                            isLoading = false;
-                                            print(onError.toString());
-                                            messageToast(
-                                              msg: "Connection failed",
-                                              color: Colors.redAccent,
-                                            );
-                                          },
-                                        );
-                                      },
-                                    );
-                                    if (_response.statusCode == 200) {
-                                      messageToast(
-                                          msg: "Login success",
-                                          color: Colors.green);
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => HomeScreen(),
-                                        ),
-                                      );
-                                    } else {
-                                      messageToast(
-                                          msg: "Pleas Pass Valid Credentials",
-                                          color: Colors.red);
-                                    }
-                                  } else {
+                              if (myKey.currentState!.validate()) {
+                                DioHelper.postData(
+                                  url: SIGNUP,
+                                  data: data,
+                                ).then(
+                                  (value) {
                                     setState(
                                       () {
                                         isLoading = false;
-                                        messageToast(
-                                            msg: "Pleas Pass Valid Credentials",
-                                            color: Colors.red);
+                                        print(value.data);
+                                        _response = value.data;
+                                        if (value.statusCode == 201) {
+                                          messageToast(
+                                            msg: "Registering success",
+                                            color: Colors.green,
+                                          );
+                                          Cache.saveCache(key: 'token', value: true);
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomeScreen(),
+                                            ),
+                                          );
+                                        } else if (value.statusCode == 400) {
+                                          setState(
+                                            () {
+                                              isLoading = false;
+                                              messageToast(
+                                                msg: 'Username Already Used',
+                                                color: Colors.red,
+                                              );
+                                            },
+                                          );
+                                        }
                                       },
                                     );
-                                  }
-                                },
-                                child: SvgPicture.asset(
-                                  "assets/Group 1350.svg",
-                                  width: width * 0.05,
-                                  height: height * 0.08,
-                                  placeholderBuilder: (_) =>
-                                      const CircularProgressIndicator(),
-                                ),
-                              );
+                                  },
+                                ).catchError((error) {
+                                  setState(
+                                    () {
+                                      isLoading = false;
+                                      messageToast(
+                                        msg: 'Username Already Used',
+                                        color: Colors.red,
+                                      );
+                                      print(error.toString());
+                                    },
+                                  );
+                                });
+                              }else{isLoading = false;}
                             },
+                            child: SvgPicture.asset(
+                              "assets/Group 1350.svg",
+                              width: width * 0.05,
+                              height: height * 0.08,
+                              placeholderBuilder: (_) =>
+                                  const CircularProgressIndicator(),
+                            ),
                           );
                         },
                       ),

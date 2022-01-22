@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:e_o_e/component/components.dart';
-import 'package:e_o_e/network/online/http.dart';
+import 'package:e_o_e/network/local/cache.dart';
+import 'package:e_o_e/network/online/dio_helper.dart';
+import 'package:e_o_e/network/online/end_points.dart';
 import 'package:e_o_e/screens/sign/light_theme/rest_password.dart';
 import 'package:e_o_e/screens/sign/light_theme/signup_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,11 +38,16 @@ class _LoginScreenState extends State<LoginScreen> {
   var userNameController = TextEditingController();
   var passwordController = TextEditingController();
   bool secure = true;
+  late Map<String, dynamic> _response;
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context)?.size.width ?? double.nan;
     final height = MediaQuery.of(context)?.size.height ?? double.nan;
+    Map<String, dynamic> data = {
+      'username': userNameController.text,
+      'password': passwordController.text,
+    };
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -67,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                           fontFamily: kFontFamily,
                         ),
-                        maxFontSize: 24,
+                        maxFontSize: 12,
                         minFontSize: 6,
                       ),
                     ),
@@ -161,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               const AutoSizeText(
                                 "Or ",
                                 style: TextStyle(fontFamily: kFontFamily),
-                                maxFontSize: 24,
+                                maxFontSize: 12,
                                 minFontSize: 6,
                                 overflow: TextOverflow.fade,
                               ),
@@ -171,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const RestPasswordScreen(),
+                                          RestPasswordScreen(),
                                     ),
                                   );
                                 },
@@ -181,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     color: Colors.blue,
                                     fontFamily: kFontFamily,
                                   ),
-                                  maxFontSize: 24,
+                                  maxFontSize: 12,
                                   minFontSize: 6,
                                   overflow: TextOverflow.fade,
                                 ),
@@ -198,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               const AutoSizeText(
                                 "Don't have account ? ",
                                 style: TextStyle(fontFamily: kFontFamily),
-                                maxFontSize: 24,
+                                maxFontSize: 12,
                                 minFontSize: 6,
                                 maxLines: 2,
                                 overflow: TextOverflow.fade,
@@ -215,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 child: const AutoSizeText(
                                   "Sign up!",
-                                  maxFontSize: 24,
+                                  maxFontSize: 12,
                                   minFontSize: 6,
                                   overflow: TextOverflow.fade,
                                   style: TextStyle(
@@ -235,67 +242,70 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: ConditionalBuilder(
                         condition: !isLoading,
                         fallback: (BuildContext context) {
-                          return const Center(
-                            child: CircularProgressIndicator.adaptive(),
-                          );
+                          return Container(
+                              margin: EdgeInsets.only(left: width * 0.15),
+                              child: CircularProgressIndicator.adaptive());
                         },
                         builder: (BuildContext context) {
                           return InkWell(
                             onTap: () async {
+                              print(userNameController.text);
                               setState(
                                 () {
                                   isLoading = true;
                                 },
                               );
                               if (formKey.currentState!.validate()) {
-                                http.Response _response = await login(
-                                  username: userNameController.text,
-                                  password: passwordController.text,
+                                DioHelper.postData(
+                                  url: LOGIN,
+                                  data: data,
                                 ).then(
                                   (value) {
-                                    print(value.toString);
-                                    return value;
-                                  },
-                                ).catchError(
-                                  (onError) {
                                     setState(
                                       () {
-                                        isLoading = false;
-                                        print(onError.toString());
-                                        messageToast(
-                                          msg: "Connection failed",
-                                          color: Colors.redAccent,
-                                        );
+                                        print(value.data);
+                                        _response = value.data;
+                                        if (value.statusCode == 200) {
+                                          messageToast(
+                                              msg: "Login success",
+                                              color: Colors.green);
+                                          print(
+                                            value.data['token'],
+                                          );
+                                          Cache.saveCache(
+                                            key: 'token',
+                                            value: true,
+                                          );
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomeScreen(token: value.data['token'],),
+                                            ),
+                                          );
+                                        } else {
+                                          setState(
+                                            () {
+                                              isLoading = false;
+                                              messageToast(
+                                                  msg: value.data["message"],
+                                                  color: Colors.red);
+                                            },
+                                          );
+                                        }
                                       },
                                     );
                                   },
-                                );
-                                if (_response.statusCode == 200) {
-                                  messageToast(
-                                      msg: "Login success",
-                                      color: Colors.green);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => HomeScreen(),
-                                    ),
-                                  );
-                                } else {
+                                ).catchError((error) {
                                   setState(
                                     () {
+                                      print(error.toString());
                                       isLoading = false;
                                       messageToast(
-                                          msg: "Pleas Pass Valid Credentials",
+                                          msg: 'Pleas Pass Valid Credentials',
                                           color: Colors.red);
                                     },
                                   );
-                                }
-                              } else {
-                                setState(() {
-                                  isLoading = false;
-                                  messageToast(
-                                      msg: "Pleas Pass Valid Credentials",
-                                      color: Colors.red);
                                 });
                               }
                             },
