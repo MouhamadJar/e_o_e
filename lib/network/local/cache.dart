@@ -7,16 +7,14 @@ class Cache {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  static Future<bool> putLoginCache({
-    required String token,
+  static Future<bool> saveCache({
+    required String key,
+    required dynamic value,
   }) async {
-    return await _sharedPreferences.setString('token', token);
-  }
-
-  static Future<bool> putThemeCache({
-    required bool isDark,
-  }) async {
-    return await _sharedPreferences.setBool('theme', isDark);
+    if (value is String) return await _sharedPreferences.setString(key, value);
+    if (value is bool) return await _sharedPreferences.setBool(key, value);
+    if (value is int) return await _sharedPreferences.setInt(key, value);
+    return await _sharedPreferences.setDouble(key, value);
   }
 
   static bool? getCache({

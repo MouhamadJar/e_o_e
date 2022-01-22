@@ -10,7 +10,7 @@ void messageToast({required String msg,required Color color}){
       timeInSecForIosWeb: 5,
       backgroundColor: color,
       textColor: Colors.white,
-      fontSize: 16.0
+      fontSize: 12.0
   );
 }
 

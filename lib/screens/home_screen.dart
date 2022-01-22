@@ -1,6 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:e_o_e/network/local/cache.dart';
+import 'package:e_o_e/network/online/dio_helper.dart';
+import 'package:e_o_e/network/online/end_points.dart';
 import 'package:e_o_e/screens/rooms.dart';
+import 'package:e_o_e/screens/sign/light_theme/login_screen.dart';
 import 'package:e_o_e/screens/teacher/home_teacher.dart';
 import 'package:e_o_e/screens/teacher/over_view.dart';
 import 'package:e_o_e/screens/teacher/teacher.dart';
@@ -25,20 +29,16 @@ import 'package:get/get.dart';
 import 'notification.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
-
+  HomeScreen({this.token = 'c'});
+  String token ;
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   int index = 0;
-  final screens = [
-    const HomePage(),
-    XDStudentCourse(),
-    HomeTeacher(),
-    NotificationScreen()
-  ]; //
+
 
   @override
   void initState() {
@@ -50,6 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screens = [
+      HomePage(token : widget.token),
+      XDStudentCourse(),
+      HomeTeacher(),
+      NotificationScreen()
+    ]; //
     final width = MediaQuery
         .of(context)
         ?.size
@@ -84,122 +90,128 @@ class _HomeScreenState extends State<HomeScreen> {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: const Color(0xff085cb1),
-          body: Padding(
-            padding: const EdgeInsets.all(11.0),
-            child: Column(
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Color(0xff085cb1),
-                  ),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        child: Image.asset("assets/Image 7.png"),
-                        radius: width*.11,
-                      ),
-                       SizedBox(width: width*.01),
-                      Column(
-                        children: [
-                          const SizedBox(
-                            height: 32,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                               SizedBox(width: width*.01),
-                              Row(
-                                children: [
-                                  const AutoSizeText(
-                                    'Hello',
-                                    style: TextStyle(
-                                      fontFamily: kFontFamily,
-                                      color: Color(0xFFFEC668),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(11.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0xff085cb1),
+                    ),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          child: Image.asset("assets/Image 7.png"),
+                          radius: width * .11,
+                        ),
+                        SizedBox(width: width * .01),
+                        Column(
+                          children: [
+                            const SizedBox(
+                              height: 32,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(width: width * .01),
+                                Row(
+                                  children: [
+                                    const AutoSizeText(
+                                      'Hello',
+                                      style: TextStyle(
+                                        fontFamily: kFontFamily,
+                                        color: Color(0xFFFEC668),
+                                      ),
+                                      maxFontSize: 16,
+                                      minFontSize: 8,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    maxFontSize: 16,
+                                    SvgPicture.asset(
+                                        "assets/icons8-waving-hand-light-skin-tone-96.svg"),
+                                  ],
+                                ),
+                                const Text(
+                                  "Maggi Vega",
+                                  style: TextStyle(
+                                    fontFamily: kFontFamily,
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                const SizedBox(height: 7),
+                                Container(
+                                  width: width * .4,
+                                  height: height * .03,
+                                  child: const AutoSizeText(
+                                    "maggi.vega@gmail.com",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: kFontFamily,
+                                    ),
+                                    maxFontSize: 12,
                                     minFontSize: 8,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  SvgPicture.asset(
-                                      "assets/icons8-waving-hand-light-skin-tone-96.svg"),
-                                ],
-                              ),
-                              const Text(
-                                "Maggi Vega",
-                                style: TextStyle(
-                                  fontFamily: kFontFamily,
-                                  color: Colors.white,
                                 ),
-                              ),
-                              const SizedBox(height: 7),
-                              const AutoSizeText(
-                                "maggi.vega@gmail.com",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: kFontFamily,
-                                ),
-                                maxFontSize: 16,
-                                minFontSize: 8,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
-                          const Divider(
-                            color: Color(0xFFFEC668),
-                          ),
-                        ],
-                      ),
-                    ],
+                              ],
+                            ),
+                            const Divider(
+                              color: Color(0xFFFEC668),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    const Divider(
-                      color: Color(0xFFFEC668),
-                      height: 7,
-                      indent: 25,
-                      endIndent: 25,
-                    ),
-                    SizedBox(
-                      height: MediaQuery
-                          .of(context)
-                          .size
-                          .height * 0.05,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          Navigator.pop(context);
-                          if (index == 2) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => TeacherPage(),
-                              ),
-                            );
-                          } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => StudentPage(),
-                              ),
-                            );
-                          }
-                        });
-                      },
-                      child: Container(
+                  Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      const Divider(
+                        color: Color(0xFFFEC668),
+                        height: 7,
+                        indent: 25,
+                        endIndent: 25,
+                      ),
+                      SizedBox(
                         height: MediaQuery
                             .of(context)
                             .size
-                            .height * 0.091,
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            InkWell(
-                              child: Container(
+                            .height * 0.05,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            Navigator.pop(context);
+                            if (index == 2) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TeacherPage(),
+                                ),
+                              );
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => StudentPage(),
+                                ),
+                              );
+                            }
+                          });
+                        },
+                        child: Container(
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.11,
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
                                 height: 25,
                                 width: MediaQuery
                                     .of(context)
@@ -219,41 +231,146 @@ class _HomeScreenState extends State<HomeScreen> {
                                       style: TextStyle(
                                         fontFamily: kFontFamily,
                                         color: Colors.white,
-                                        fontSize: 20,
+                                        fontSize: 12,
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MainSetting(),
-                            ),
-                          );
-                        });
-                      },
-                      child: Container(
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.091,
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            InkWell(
-                              child: Container(
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MainSetting(),
+                              ),
+                            );
+                          });
+                        },
+                        child: Container(
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.11,
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              InkWell(
+                                child: Container(
+                                  height: 25,
+                                  width:
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width * 0.75,
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        "assets/settings (5).svg",
+                                        height: 20,
+                                      ),
+                                      const SizedBox(
+                                        width: 7,
+                                      ),
+                                      const Text(
+                                        "Settings",
+                                        style: TextStyle(
+                                          fontFamily: kFontFamily,
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Wallet(),
+                              ),
+                            );
+                          });
+                        },
+                        child: Container(
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.11,
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width * 0.75,
+                                height: 25,
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/wallet (1).svg",
+                                      height: 20,
+                                    ),
+                                    const SizedBox(
+                                      width: 7,
+                                    ),
+                                    const Text(
+                                      "Wallet",
+                                      style: TextStyle(
+                                        fontFamily: kFontFamily,
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => XDProfile(),
+                              ),
+                            );
+                          });
+                        },
+                        child: Container(
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.11,
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
                                 height: 25,
                                 width: MediaQuery
                                     .of(context)
@@ -262,239 +379,191 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Row(
                                   children: [
                                     SvgPicture.asset(
-                                      "assets/settings (5).svg",
+                                      "assets/bubble-chat (3).svg",
                                       height: 20,
                                     ),
                                     const SizedBox(
                                       width: 7,
                                     ),
                                     const Text(
-                                      "Settings",
+                                      "Chat",
                                       style: TextStyle(
                                         fontFamily: kFontFamily,
                                         color: Colors.white,
-                                        fontSize: 20,
+                                        fontSize: 12,
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Wallet(),
-                            ),
-                          );
-                        });
-                      },
-                      child: Container(
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.091,
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Container(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * 0.75,
-                              height: 25,
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/wallet (1).svg",
-                                    height: 20,
-                                  ),
-                                  const SizedBox(
-                                    width: 7,
-                                  ),
-                                  const Text(
-                                    "Wallet",
-                                    style: TextStyle(
-                                      fontFamily: kFontFamily,
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ],
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AboutUs(),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => XDProfile(),
-                            ),
-                          );
-                        });
-                      },
-                      child: Container(
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.091,
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Container(
-                              height: 25,
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * 0.75,
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/bubble-chat (3).svg",
-                                    height: 20,
-                                  ),
-                                  const SizedBox(
-                                    width: 7,
-                                  ),
-                                  const Text(
-                                    "Chat",
-                                    style: TextStyle(
-                                      fontFamily: kFontFamily,
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ],
+                            );
+                          });
+                        },
+                        child: Container(
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.11,
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 10,
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const AboutUs(),
-                            ),
-                          );
-                        });
-                      },
-                      child: Container(
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.091,
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Container(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * 0.75,
-                              height: 25,
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/information-button (1).svg",
-                                    height: 20,
-                                  ),
-                                  const SizedBox(
-                                    width: 7,
-                                  ),
-                                  const Text(
-                                    "About us",
-                                    style: TextStyle(
-                                      fontFamily: kFontFamily,
-                                      color: Colors.white,
-                                      fontSize: 20,
+                              Container(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width * 0.75,
+                                height: 25,
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/information-button (1).svg",
+                                      height: 20,
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => RoomsScreen(),
-                            ),
-                          );
-                        });
-                      },
-                      child: Container(
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.091,
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Container(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * 0.75,
-                              height: 25,
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/classroom (2).svg",
-                                    height: 20,
-                                  ),
-                                  const SizedBox(
-                                    width: 7,
-                                  ),
-                                  const Text(
-                                    "Rooms",
-                                    style: TextStyle(
-                                      fontFamily: kFontFamily,
-                                      color: Colors.white,
-                                      fontSize: 20,
+                                    const SizedBox(
+                                      width: 7,
                                     ),
-                                  ),
-                                ],
+                                    const Text(
+                                      "About us",
+                                      style: TextStyle(
+                                        fontFamily: kFontFamily,
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RoomsScreen(),
+                              ),
+                            );
+                          });
+                        },
+                        child: Container(
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.091,
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width * 0.75,
+                                height: 25,
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/classroom (2).svg",
+                                      height: 20,
+                                    ),
+                                    const SizedBox(
+                                      width: 7,
+                                    ),
+                                    const Text(
+                                      "Rooms",
+                                      style: TextStyle(
+                                        fontFamily: kFontFamily,
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            Navigator.pop(context);
+                            Cache.saveCache(
+                              key: 'token',
+                              value: false,
+                            );
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(),
+                              ),
+                            );
+                          });
+                        },
+                        child: Container(
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.091,
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width * 0.75,
+                                height: 25,
+                                child: Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.logout_outlined,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      width: 7,
+                                    ),
+                                    Text(
+                                      "Logout",
+                                      style: TextStyle(
+                                        fontFamily: kFontFamily,
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -742,15 +811,16 @@ class _HomeScreenState extends State<HomeScreen> {
 class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
+    required this.token,
   }) : super(key: key);
-
+ final String token;
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late AnimationController controller;
-
+  late Map<String , dynamic> response;
   @override
   void initState() {
     super.initState();
@@ -762,6 +832,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     controller.forward();
     controller.addListener(() {
       setState(() {});
+      DioHelper.getData(url: SUGGESTEDCOURSES,).then((value) {
+        print(value.data);
+        response = value.data;
+      }).catchError((onError) {
+        print(onError.toString(),);
+      });
     });
   }
 
@@ -827,7 +903,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           height: height * 0.033,
                           child: const AutoSizeText(
                             "Name of course",
-                            style: TextStyle(color: Colors.blue,),
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
                             maxFontSize: 12,
                             minFontSize: 8,
                             maxLines: 1,
@@ -842,8 +920,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           height: height * 0.0269,
                           child: const AutoSizeText(
                             "By Teacher",
-                            style:
-                            TextStyle(color: Colors.black,),
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
                             maxFontSize: 16,
                             minFontSize: 8,
                             maxLines: 1,
@@ -988,7 +1067,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           height: height * 0.033,
                           child: const AutoSizeText(
                             "Name of course",
-                            style: TextStyle(color: Colors.blue,),
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
                             maxFontSize: 12,
                             minFontSize: 8,
                             maxLines: 1,
@@ -1003,8 +1084,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           height: height * 0.0269,
                           child: const AutoSizeText(
                             "By Teacher",
-                            style:
-                            TextStyle(color: Colors.black,),
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
                             maxFontSize: 16,
                             minFontSize: 8,
                             maxLines: 1,
@@ -1149,7 +1231,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           height: height * 0.033,
                           child: const AutoSizeText(
                             "Name of course",
-                            style: TextStyle(color: Colors.blue,),
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
                             maxFontSize: 12,
                             minFontSize: 8,
                             maxLines: 1,
@@ -1164,8 +1248,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           height: height * 0.0269,
                           child: const AutoSizeText(
                             "By Teacher",
-                            style:
-                            TextStyle(color: Colors.black,),
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
                             maxFontSize: 16,
                             minFontSize: 8,
                             maxLines: 1,
@@ -1370,8 +1455,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               bottom: height * 0.016,
               right: width * 0.02,
               left: width * 0.02),
-          height: height * 0.163,
-          width: width * 0.5833,
+          height: height * 0.2,
+          width: width * 0.6,
           // color: Colors.black,
           child: Column(
             children: [
@@ -1393,41 +1478,53 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     margin: const EdgeInsets.all(8),
                     child: Column(
                       children: [
-                        const AutoSizeText(
-                          "Dr. Jose Porilla",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontFamily: kFontFamily,
+                        Container(
+                          height: height * 0.025,
+                          width: width * .3,
+                          child: const AutoSizeText(
+                            "Dr. Jose Porilla",
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontFamily: kFontFamily,
+                            ),
+                            maxFontSize: 12,
+                            minFontSize: 8,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          maxFontSize: 12,
-                          minFontSize: 8,
-                          overflow: TextOverflow.clip,
                         ),
-                        const AutoSizeText(
-                          "Data Science",
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: kFontFamily,
+                        Container(
+                          height: height * 0.023,
+                          width: width * .27,
+                          child: const AutoSizeText(
+                            "Data Science",
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: kFontFamily,
+                            ),
+                            maxFontSize: 12,
+                            minFontSize: 6,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          maxFontSize: 12,
-                          minFontSize: 6,
-                          overflow: TextOverflow.clip,
                         ),
                         SizedBox(
                           height: height * 0.01,
                         ),
                         Row(
                           children: [
-                            const AutoSizeText(
-                              "4.5",
-                              style: TextStyle(
-                                color: Color(0xFFFB0000),
-                                fontWeight: FontWeight.bold,
-                                fontFamily: kFontFamily,
+                            Container(
+                              height: height * 0.03,
+                              width: width * .1,
+                              child: const AutoSizeText(
+                                "4.5",
+                                style: TextStyle(
+                                  color: Color(0xFFFB0000),
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: kFontFamily,
+                                ),
+                                maxFontSize: 12,
+                                minFontSize: 6,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              maxFontSize: 12,
-                              minFontSize: 6,
-                              overflow: TextOverflow.clip,
                             ),
                             SvgPicture.asset("assets/pointed-star.svg")
                           ],
@@ -1445,28 +1542,38 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   SizedBox(
                     width: width * 0.03,
                   ),
-                  const AutoSizeText(
-                    "234,45  students",
-                    style: TextStyle(
-                      fontFamily: kFontFamily,
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    height: height * 0.0323,
+                    width: width * .323,
+                    child: const Center(
+                      child: AutoSizeText(
+                        "234,45  students",
+                        style: TextStyle(
+                          fontFamily: kFontFamily,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxFontSize: 12,
+                        minFontSize: 6,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    maxFontSize: 12,
-                    minFontSize: 6,
-                    overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(
                     width: width * 0.05,
                   ),
-                  const AutoSizeText(
-                    "8 Course",
-                    style: TextStyle(
-                      fontFamily: kFontFamily,
-                      fontWeight: FontWeight.w300,
+                  Container(
+                    height: height * 0.025,
+                    width: width * .18,
+                    child: const AutoSizeText(
+                      "8 Course",
+                      style: TextStyle(
+                        fontFamily: kFontFamily,
+                        fontWeight: FontWeight.w300,
+                      ),
+                      maxFontSize: 12,
+                      minFontSize: 8,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    maxFontSize: 12,
-                    minFontSize: 8,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
@@ -1489,8 +1596,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               bottom: height * 0.016,
               right: width * 0.02,
               left: width * 0.02),
-          height: height * 0.163,
-          width: width * 0.5833,
+          height: height * 0.2,
+          width: width * 0.6,
           // color: Colors.black,
           child: Column(
             children: [
@@ -1512,41 +1619,53 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     margin: const EdgeInsets.all(8),
                     child: Column(
                       children: [
-                        const AutoSizeText(
-                          "Dr. Jose Porilla",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontFamily: kFontFamily,
+                        Container(
+                          height: height * 0.025,
+                          width: width * .3,
+                          child: const AutoSizeText(
+                            "Dr. Jose Porilla",
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontFamily: kFontFamily,
+                            ),
+                            maxFontSize: 12,
+                            minFontSize: 8,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          maxFontSize: 12,
-                          minFontSize: 8,
-                          overflow: TextOverflow.clip,
                         ),
-                        const AutoSizeText(
-                          "Data Science",
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: kFontFamily,
+                        Container(
+                          height: height * 0.023,
+                          width: width * .27,
+                          child: const AutoSizeText(
+                            "Data Science",
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: kFontFamily,
+                            ),
+                            maxFontSize: 12,
+                            minFontSize: 6,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          maxFontSize: 12,
-                          minFontSize: 6,
-                          overflow: TextOverflow.clip,
                         ),
                         SizedBox(
                           height: height * 0.01,
                         ),
                         Row(
                           children: [
-                            const AutoSizeText(
-                              "4.5",
-                              style: TextStyle(
-                                color: Color(0xFFFB0000),
-                                fontWeight: FontWeight.bold,
-                                fontFamily: kFontFamily,
+                            Container(
+                              height: height * 0.03,
+                              width: width * .1,
+                              child: const AutoSizeText(
+                                "4.5",
+                                style: TextStyle(
+                                  color: Color(0xFFFB0000),
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: kFontFamily,
+                                ),
+                                maxFontSize: 12,
+                                minFontSize: 6,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              maxFontSize: 12,
-                              minFontSize: 6,
-                              overflow: TextOverflow.clip,
                             ),
                             SvgPicture.asset("assets/pointed-star.svg")
                           ],
@@ -1564,504 +1683,38 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   SizedBox(
                     width: width * 0.03,
                   ),
-                  const AutoSizeText(
-                    "234,45  students",
-                    style: TextStyle(
-                      fontFamily: kFontFamily,
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    height: height * 0.0323,
+                    width: width * .323,
+                    child: const Center(
+                      child: AutoSizeText(
+                        "234,45  students",
+                        style: TextStyle(
+                          fontFamily: kFontFamily,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxFontSize: 12,
+                        minFontSize: 6,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    maxFontSize: 12,
-                    minFontSize: 6,
-                    overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(
                     width: width * 0.05,
                   ),
-                  const AutoSizeText(
-                    "8 Course",
-                    style: TextStyle(
-                      fontFamily: kFontFamily,
-                      fontWeight: FontWeight.w300,
-                    ),
-                    maxFontSize: 12,
-                    minFontSize: 8,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-      GestureDetector(
-        onTap: () {
-          Get.to(
-            TeacherProfile(),
-          );
-        },
-        child: Container(
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(color: Colors.blueGrey, blurRadius: 7),
-          ]),
-          margin: EdgeInsets.only(
-              top: height * 0.016,
-              bottom: height * 0.016,
-              right: width * 0.02,
-              left: width * 0.02),
-          height: height * 0.163,
-          width: width * 0.5833,
-          // color: Colors.black,
-          child: Column(
-            children: [
-              Row(
-                children: [
                   Container(
-                    color: Colors.grey,
-                    height: height * 0.11,
-                    width: width * 0.2,
-                    child: Image.asset("assets/unnamed.png",
-                        filterQuality: FilterQuality.high,
-                        fit: BoxFit.fill,
-                        isAntiAlias: true),
-                  ),
-                  SizedBox(
-                    width: width * 0.01,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(8),
-                    child: Column(
-                      children: [
-                        const AutoSizeText(
-                          "Dr. Jose Porilla",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontFamily: kFontFamily,
-                          ),
-                          maxFontSize: 12,
-                          minFontSize: 8,
-                          overflow: TextOverflow.clip,
-                        ),
-                        const AutoSizeText(
-                          "Data Science",
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: kFontFamily,
-                          ),
-                          maxFontSize: 12,
-                          minFontSize: 6,
-                          overflow: TextOverflow.clip,
-                        ),
-                        SizedBox(
-                          height: height * 0.01,
-                        ),
-                        Row(
-                          children: [
-                            const AutoSizeText(
-                              "4.5",
-                              style: TextStyle(
-                                color: Color(0xFFFB0000),
-                                fontWeight: FontWeight.bold,
-                                fontFamily: kFontFamily,
-                              ),
-                              maxFontSize: 12,
-                              minFontSize: 6,
-                              overflow: TextOverflow.clip,
-                            ),
-                            SvgPicture.asset("assets/pointed-star.svg")
-                          ],
-                        ),
-                      ],
+                    height: height * 0.025,
+                    width: width * .18,
+                    child: const AutoSizeText(
+                      "8 Course",
+                      style: TextStyle(
+                        fontFamily: kFontFamily,
+                        fontWeight: FontWeight.w300,
+                      ),
+                      maxFontSize: 12,
+                      minFontSize: 8,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: width * 0.03,
-                  ),
-                  const AutoSizeText(
-                    "234,45  students",
-                    style: TextStyle(
-                      fontFamily: kFontFamily,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxFontSize: 12,
-                    minFontSize: 6,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(
-                    width: width * 0.05,
-                  ),
-                  const AutoSizeText(
-                    "8 Course",
-                    style: TextStyle(
-                      fontFamily: kFontFamily,
-                      fontWeight: FontWeight.w300,
-                    ),
-                    maxFontSize: 12,
-                    minFontSize: 8,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-      GestureDetector(
-        onTap: () {
-          Get.to(
-            TeacherProfile(),
-          );
-        },
-        child: Container(
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(color: Colors.blueGrey, blurRadius: 7),
-          ]),
-          margin: EdgeInsets.only(
-              top: height * 0.016,
-              bottom: height * 0.016,
-              right: width * 0.02,
-              left: width * 0.02),
-          height: height * 0.163,
-          width: width * 0.5833,
-          // color: Colors.black,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    color: Colors.grey,
-                    height: height * 0.11,
-                    width: width * 0.2,
-                    child: Image.asset("assets/unnamed.png",
-                        filterQuality: FilterQuality.high,
-                        fit: BoxFit.fill,
-                        isAntiAlias: true),
-                  ),
-                  SizedBox(
-                    width: width * 0.01,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(8),
-                    child: Column(
-                      children: [
-                        const AutoSizeText(
-                          "Dr. Jose Porilla",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontFamily: kFontFamily,
-                          ),
-                          maxFontSize: 12,
-                          minFontSize: 8,
-                          overflow: TextOverflow.clip,
-                        ),
-                        const AutoSizeText(
-                          "Data Science",
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: kFontFamily,
-                          ),
-                          maxFontSize: 12,
-                          minFontSize: 6,
-                          overflow: TextOverflow.clip,
-                        ),
-                        SizedBox(
-                          height: height * 0.01,
-                        ),
-                        Row(
-                          children: [
-                            const AutoSizeText(
-                              "4.5",
-                              style: TextStyle(
-                                color: Color(0xFFFB0000),
-                                fontWeight: FontWeight.bold,
-                                fontFamily: kFontFamily,
-                              ),
-                              maxFontSize: 12,
-                              minFontSize: 6,
-                              overflow: TextOverflow.clip,
-                            ),
-                            SvgPicture.asset("assets/pointed-star.svg")
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: width * 0.03,
-                  ),
-                  const AutoSizeText(
-                    "234,45  students",
-                    style: TextStyle(
-                      fontFamily: kFontFamily,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxFontSize: 12,
-                    minFontSize: 6,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(
-                    width: width * 0.05,
-                  ),
-                  const AutoSizeText(
-                    "8 Course",
-                    style: TextStyle(
-                      fontFamily: kFontFamily,
-                      fontWeight: FontWeight.w300,
-                    ),
-                    maxFontSize: 12,
-                    minFontSize: 8,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-      GestureDetector(
-        onTap: () {
-          Get.to(
-            TeacherProfile(),
-          );
-        },
-        child: Container(
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(color: Colors.blueGrey, blurRadius: 7),
-          ]),
-          margin: EdgeInsets.only(
-              top: height * 0.016,
-              bottom: height * 0.016,
-              right: width * 0.02,
-              left: width * 0.02),
-          height: height * 0.163,
-          width: width * 0.5833,
-          // color: Colors.black,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    color: Colors.grey,
-                    height: height * 0.11,
-                    width: width * 0.2,
-                    child: Image.asset("assets/unnamed.png",
-                        filterQuality: FilterQuality.high,
-                        fit: BoxFit.fill,
-                        isAntiAlias: true),
-                  ),
-                  SizedBox(
-                    width: width * 0.01,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(8),
-                    child: Column(
-                      children: [
-                        const AutoSizeText(
-                          "Dr. Jose Porilla",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontFamily: kFontFamily,
-                          ),
-                          maxFontSize: 12,
-                          minFontSize: 8,
-                          overflow: TextOverflow.clip,
-                        ),
-                        const AutoSizeText(
-                          "Data Science",
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: kFontFamily,
-                          ),
-                          maxFontSize: 12,
-                          minFontSize: 6,
-                          overflow: TextOverflow.clip,
-                        ),
-                        SizedBox(
-                          height: height * 0.01,
-                        ),
-                        Row(
-                          children: [
-                            const AutoSizeText(
-                              "4.5",
-                              style: TextStyle(
-                                color: Color(0xFFFB0000),
-                                fontWeight: FontWeight.bold,
-                                fontFamily: kFontFamily,
-                              ),
-                              maxFontSize: 12,
-                              minFontSize: 6,
-                              overflow: TextOverflow.clip,
-                            ),
-                            SvgPicture.asset("assets/pointed-star.svg")
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: width * 0.03,
-                  ),
-                  const AutoSizeText(
-                    "234,45  students",
-                    style: TextStyle(
-                      fontFamily: kFontFamily,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxFontSize: 12,
-                    minFontSize: 6,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(
-                    width: width * 0.05,
-                  ),
-                  const AutoSizeText(
-                    "8 Course",
-                    style: TextStyle(
-                      fontFamily: kFontFamily,
-                      fontWeight: FontWeight.w300,
-                    ),
-                    maxFontSize: 12,
-                    minFontSize: 8,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-      GestureDetector(
-        onTap: () {
-          Get.to(
-            TeacherProfile(),
-          );
-        },
-        child: Container(
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(color: Colors.blueGrey, blurRadius: 7),
-          ]),
-          margin: EdgeInsets.only(
-              top: height * 0.016,
-              bottom: height * 0.016,
-              right: width * 0.02,
-              left: width * 0.02),
-          height: height * 0.163,
-          width: width * 0.5833,
-          // color: Colors.black,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    color: Colors.grey,
-                    height: height * 0.11,
-                    width: width * 0.2,
-                    child: Image.asset("assets/unnamed.png",
-                        filterQuality: FilterQuality.high,
-                        fit: BoxFit.fill,
-                        isAntiAlias: true),
-                  ),
-                  SizedBox(
-                    width: width * 0.01,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(8),
-                    child: Column(
-                      children: [
-                        const AutoSizeText(
-                          "Dr. Jose Porilla",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontFamily: kFontFamily,
-                          ),
-                          maxFontSize: 12,
-                          minFontSize: 8,
-                          overflow: TextOverflow.clip,
-                        ),
-                        const AutoSizeText(
-                          "Data Science",
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: kFontFamily,
-                          ),
-                          maxFontSize: 12,
-                          minFontSize: 6,
-                          overflow: TextOverflow.clip,
-                        ),
-                        SizedBox(
-                          height: height * 0.01,
-                        ),
-                        Row(
-                          children: [
-                            const AutoSizeText(
-                              "4.5",
-                              style: TextStyle(
-                                color: Color(0xFFFB0000),
-                                fontWeight: FontWeight.bold,
-                                fontFamily: kFontFamily,
-                              ),
-                              maxFontSize: 12,
-                              minFontSize: 6,
-                              overflow: TextOverflow.clip,
-                            ),
-                            SvgPicture.asset("assets/pointed-star.svg")
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: width * 0.03,
-                  ),
-                  const AutoSizeText(
-                    "234,45  students",
-                    style: TextStyle(
-                      fontFamily: kFontFamily,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxFontSize: 12,
-                    minFontSize: 6,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(
-                    width: width * 0.05,
-                  ),
-                  const AutoSizeText(
-                    "8 Course",
-                    style: TextStyle(
-                      fontFamily: kFontFamily,
-                      fontWeight: FontWeight.w300,
-                    ),
-                    maxFontSize: 12,
-                    minFontSize: 8,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
@@ -2114,23 +1767,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               SizedBox(
                 height: height * 0.01,
               ),
-              const AutoSizeText(
-                "Dr. Jose Porilla",
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontFamily: kFontFamily,
+              Container(
+                width: width * .35,
+                height: height * .025,
+                child: const AutoSizeText(
+                  "Dr. Jose Porilla",
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontFamily: kFontFamily,
+                  ),
+                  maxFontSize: 12,
+                  minFontSize: 8,
                 ),
-                maxFontSize: 12,
-                minFontSize: 8,
               ),
-              const AutoSizeText(
-                "Data Science",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontFamily: kFontFamily,
+              Container(
+                width: width * .3,
+                height: height * .02,
+                child: const AutoSizeText(
+                  "Data Science",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontFamily: kFontFamily,
+                  ),
+                  maxFontSize: 12,
+                  minFontSize: 8,
                 ),
-                maxFontSize: 12,
-                minFontSize: 8,
               ),
               SizedBox(
                 height: height * 0.01,
@@ -2138,50 +1799,62 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               Row(
                 children: [
                   SizedBox(width: width * 0.16),
-                  const AutoSizeText(
-                    "4.5",
-                    style: TextStyle(
-                      color: Color(0xFFFB0000),
-                      fontWeight: FontWeight.bold,
-                      fontFamily: kFontFamily,
+                  Container(
+                    width: width * .1,
+                    height: height * .023,
+                    child: const AutoSizeText(
+                      "4.5",
+                      style: TextStyle(
+                        color: Color(0xFFFB0000),
+                        fontWeight: FontWeight.bold,
+                        fontFamily: kFontFamily,
+                      ),
+                      maxFontSize: 12,
+                      minFontSize: 8,
+                      overflow: TextOverflow.clip,
                     ),
-                    maxFontSize: 12,
-                    minFontSize: 8,
-                    overflow: TextOverflow.clip,
                   ),
                   SvgPicture.asset("assets/pointed-star.svg")
                 ],
               ),
               SizedBox(
-                width: width * 0.42,
-                height: height * 0.0269,
+                width: width * 0.45,
+                height: height * 0.03,
                 child: Row(
                   children: [
                     SizedBox(
                       width: width * 0.011,
                     ),
-                    const AutoSizeText(
-                      "55,000 sp",
-                      style: TextStyle(
-                          fontFamily: kFontFamily,
-                          fontWeight: FontWeight.bold),
-                      maxFontSize: 12,
-                      maxLines: 1,
-                      minFontSize: 8,
-                      overflow: TextOverflow.clip,
+                    Container(
+                      width: width * .15,
+                      height: height * .025,
+                      child: const AutoSizeText(
+                        "55,000 sp",
+                        style: TextStyle(
+                            fontFamily: kFontFamily,
+                            fontWeight: FontWeight.bold),
+                        maxFontSize: 12,
+                        maxLines: 1,
+                        minFontSize: 8,
+                        overflow: TextOverflow.clip,
+                      ),
                     ),
                     SizedBox(
                       width: width * 0.05,
                     ),
-                    const AutoSizeText(
-                      "(123,154)",
-                      style: TextStyle(
-                        fontFamily: kFontFamily,
+                    Container(
+                      width: width * .2,
+                      height: height * .025,
+                      child: const AutoSizeText(
+                        "(123,154)",
+                        style: TextStyle(
+                          fontFamily: kFontFamily,
+                        ),
+                        maxFontSize: 12,
+                        maxLines: 1,
+                        minFontSize: 8,
+                        overflow: TextOverflow.clip,
                       ),
-                      maxFontSize: 12,
-                      maxLines: 1,
-                      minFontSize: 8,
-                      overflow: TextOverflow.clip,
                     ),
                   ],
                 ),
@@ -2233,142 +1906,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               SizedBox(
                 height: height * 0.01,
               ),
-              const AutoSizeText(
-                "Dr. Jose Porilla",
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontFamily: kFontFamily,
-                ),
-                maxFontSize: 12,
-                minFontSize: 8,
-              ),
-              const AutoSizeText(
-                "Data Science",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontFamily: kFontFamily,
-                ),
-                maxFontSize: 12,
-                minFontSize: 8,
-              ),
-              SizedBox(
-                height: height * 0.01,
-              ),
-              Row(
-                children: [
-                  SizedBox(width: width * 0.16),
-                  const AutoSizeText(
-                    "4.5",
-                    style: TextStyle(
-                      color: Color(0xFFFB0000),
-                      fontWeight: FontWeight.bold,
-                      fontFamily: kFontFamily,
-                    ),
-                    maxFontSize: 12,
-                    minFontSize: 8,
-                    overflow: TextOverflow.clip,
-                  ),
-                  SvgPicture.asset("assets/pointed-star.svg")
-                ],
-              ),
-              SizedBox(
-                width: width * 0.42,
-                height: height * 0.0269,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: width * 0.011,
-                    ),
-                    const AutoSizeText(
-                      "55,000 sp",
-                      style: TextStyle(
-                          fontFamily: kFontFamily,
-                          fontWeight: FontWeight.bold),
-                      maxFontSize: 12,
-                      maxLines: 1,
-                      minFontSize: 8,
-                      overflow: TextOverflow.clip,
-                    ),
-                    SizedBox(
-                      width: width * 0.05,
-                    ),
-                    const AutoSizeText(
-                      "(123,154)",
-                      style: TextStyle(
-                        fontFamily: kFontFamily,
-                      ),
-                      maxFontSize: 12,
-                      maxLines: 1,
-                      minFontSize: 8,
-                      overflow: TextOverflow.clip,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                const CoursePage(
-                  videoImage:
-                  "assets/bamdad-norouzian-dxedAj3puxY-unsplash.png",
-                  tag: 'coursePic',
-                )),
-          );
-        },
-        child: Container(
-          margin: EdgeInsets.only(
-              right: width * 0.023,
-              bottom: height * 0.015,
-              left: width * 0.021),
-          height: height * 0.23,
-          width: width * 0.43,
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(color: Colors.blueGrey, blurRadius: 7),
-          ]),
-          child: Column(
-            children: <Widget>[
               Container(
-                decoration: const BoxDecoration(
-                  color: Colors.grey,
+                width: width * .35,
+                height: height * .025,
+                child: const AutoSizeText(
+                  "Dr. Jose Porilla",
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontFamily: kFontFamily,
+                  ),
+                  maxFontSize: 12,
+                  minFontSize: 8,
                 ),
-                height: height * 0.11,
-                width: width * 0.43,
-                child: Hero(
-                    tag: 'coursePic',
-                    child: Image.asset(
-                      "assets/bamdad-norouzian-dxedAj3puxY-unsplash.png",
-                      filterQuality: FilterQuality.high,
-                      fit: BoxFit.fill,
-                      isAntiAlias: true,
-                    )),
               ),
-              SizedBox(
-                height: height * 0.01,
-              ),
-              const AutoSizeText(
-                "Dr. Jose Porilla",
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontFamily: kFontFamily,
+              Container(
+                width: width * .3,
+                height: height * .02,
+                child: const AutoSizeText(
+                  "Data Science",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontFamily: kFontFamily,
+                  ),
+                  maxFontSize: 12,
+                  minFontSize: 8,
                 ),
-                maxFontSize: 12,
-                minFontSize: 8,
-              ),
-              const AutoSizeText(
-                "Data Science",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontFamily: kFontFamily,
-                ),
-                maxFontSize: 12,
-                minFontSize: 8,
               ),
               SizedBox(
                 height: height * 0.01,
@@ -2376,50 +1938,62 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               Row(
                 children: [
                   SizedBox(width: width * 0.16),
-                  const AutoSizeText(
-                    "4.5",
-                    style: TextStyle(
-                      color: Color(0xFFFB0000),
-                      fontWeight: FontWeight.bold,
-                      fontFamily: kFontFamily,
+                  Container(
+                    width: width * .1,
+                    height: height * .023,
+                    child: const AutoSizeText(
+                      "4.5",
+                      style: TextStyle(
+                        color: Color(0xFFFB0000),
+                        fontWeight: FontWeight.bold,
+                        fontFamily: kFontFamily,
+                      ),
+                      maxFontSize: 12,
+                      minFontSize: 8,
+                      overflow: TextOverflow.clip,
                     ),
-                    maxFontSize: 12,
-                    minFontSize: 8,
-                    overflow: TextOverflow.clip,
                   ),
                   SvgPicture.asset("assets/pointed-star.svg")
                 ],
               ),
               SizedBox(
-                width: width * 0.42,
-                height: height * 0.0269,
+                width: width * 0.45,
+                height: height * 0.03,
                 child: Row(
                   children: [
                     SizedBox(
                       width: width * 0.011,
                     ),
-                    const AutoSizeText(
-                      "55,000 sp",
-                      style: TextStyle(
-                          fontFamily: kFontFamily,
-                          fontWeight: FontWeight.bold),
-                      maxFontSize: 12,
-                      maxLines: 1,
-                      minFontSize: 8,
-                      overflow: TextOverflow.clip,
+                    Container(
+                      width: width * .15,
+                      height: height * .025,
+                      child: const AutoSizeText(
+                        "55,000 sp",
+                        style: TextStyle(
+                            fontFamily: kFontFamily,
+                            fontWeight: FontWeight.bold),
+                        maxFontSize: 12,
+                        maxLines: 1,
+                        minFontSize: 8,
+                        overflow: TextOverflow.clip,
+                      ),
                     ),
                     SizedBox(
                       width: width * 0.05,
                     ),
-                    const AutoSizeText(
-                      "(123,154)",
-                      style: TextStyle(
-                        fontFamily: kFontFamily,
+                    Container(
+                      width: width * .2,
+                      height: height * .025,
+                      child: const AutoSizeText(
+                        "(123,154)",
+                        style: TextStyle(
+                          fontFamily: kFontFamily,
+                        ),
+                        maxFontSize: 12,
+                        maxLines: 1,
+                        minFontSize: 8,
+                        overflow: TextOverflow.clip,
                       ),
-                      maxFontSize: 12,
-                      maxLines: 1,
-                      minFontSize: 8,
-                      overflow: TextOverflow.clip,
                     ),
                   ],
                 ),

@@ -12,6 +12,7 @@ class NewPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context)?.size.width??double.nan;
     final height = MediaQuery.of(context)?.size.height??double.nan;
+    late Map<String , dynamic> _response;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
