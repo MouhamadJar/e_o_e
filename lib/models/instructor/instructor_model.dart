@@ -1,7 +1,9 @@
+import 'dart:ffi';
+
 import 'package:e_o_e/models/auth/login_models.dart';
 
 class Instructor {
-  late int id,
+  late Double id,
       total_students,
       total_balance,
       total_rate,
@@ -54,7 +56,7 @@ class Instructor {
 }
 
 class Certificate {
-  late int id;
+  late Double id;
   late String certificate_description, certificate_date, certificate_file;
 
   Certificate.fromJson({
@@ -69,7 +71,7 @@ class Certificate {
 
 class Rating {
   late String rating_id, rating_content, created_at;
-  late int rating_value;
+  late Double rating_value;
   late Instructor instructor;
 
   Rating.fromJson({

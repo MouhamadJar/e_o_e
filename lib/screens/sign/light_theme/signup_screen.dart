@@ -415,6 +415,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                             color: Colors.green,
                                           );
                                           Cache.saveCache(key: 'token', value: true);
+                                          token = value.data['token'];
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(

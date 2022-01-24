@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
       (value) => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) =>widget.token == false ?  HomePage() : HomeScreen(),
+          builder: (context) => HomePage() ,
         ),
       ),
     );

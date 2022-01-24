@@ -110,7 +110,10 @@ Color kPrimaryColor = Color(0xFF085CB1);
 
 ThemeData theme = ThemeData();
 
-
+void printFullText(String text){
+  final pattern = RegExp('.{1,800}');
+  pattern.allMatches(text).forEach((match) => print(match.group(0)));
+}
 
 //
 // final height = MediaQuery.of(context)?.size.height ?? double.nan;
@@ -225,3 +228,5 @@ class unCheckedBox extends StatelessWidget {
 }
 
 const String kLorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod";
+
+String token = '';

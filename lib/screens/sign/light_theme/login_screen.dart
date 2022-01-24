@@ -263,24 +263,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                   (value) {
                                     setState(
                                       () {
-                                        print(value.data);
-                                        _response = value.data;
                                         if (value.statusCode == 200) {
                                           messageToast(
                                               msg: "Login success",
                                               color: Colors.green);
-                                          print(
-                                            value.data['token'],
-                                          );
                                           Cache.saveCache(
                                             key: 'token',
                                             value: true,
                                           );
+                                          token = value.data['token'];
                                           Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  HomeScreen(token: value.data['token'],),
+                                                  HomeScreen(),
                                             ),
                                           );
                                         } else {
