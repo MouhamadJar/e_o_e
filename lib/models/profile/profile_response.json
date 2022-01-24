@@ -1,0 +1,45 @@
+{
+  "id": 7,
+  "user": {
+    "username": "mouhamad",
+    "email": "mhdmhdmouhamad123@gmail.com",
+    "first_name": "mouhamad",
+    "last_name": "Jar",
+    "id": 7,
+    "date_joined": "2022-01-22T11:46:12.590380Z"
+  },
+  "favourite_category": {
+    "category_id": "6bfc0a7f-55ea-47cb-9b8a-7710810b77a1",
+    "category_name": "Android development",
+    "category_image": "/static/images/Screenshot_6_lzfWhUp.png",
+    "category_description": "Andoid native & Kotlin",
+    "students_count": 0,
+    "parent_category": "bfa737c5-8440-4547-9fe4-d4de5b4164b6"
+  },
+  "certificates": [
+    {
+      "id": 1,
+      "certificate_description": "Flutter developer",
+      "certificate_date": "2022-01-23T11:25:24Z",
+      "certificate_file": "/static/files/Screenshot_1_-_Copy.png"
+    }
+  ],
+  "availaibe_for_meetings": [],
+  "bio": "Bio",
+  "total_students": 1,
+  "total_balance": 10000,
+  "total_rate": 5.0,
+  "badges": "Best-Selling Instructor",
+  "profile_image": "/static/images/Screenshot_7_jdlBZQy.png",
+  "age": 21,
+  "education": "Flutter Developer",
+  "facebook_link": "facebookLink",
+  "job_role": "Application developer",
+  "courses_count": 1,
+  "phone_number": "0992577623",
+  "website_role": "instructor",
+  "my_tests_as_students": [],
+  "my_tests_as_instructor": [
+    1
+  ]
+}

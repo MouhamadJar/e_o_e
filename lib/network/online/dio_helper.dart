@@ -14,7 +14,7 @@ class DioHelper {
 
   static Future<Response> postData({
     required String url,
-    required Map<String , dynamic> data,
+    required Map<String, dynamic> data,
   }) async {
     return await dio.post(
       url,
@@ -30,4 +30,17 @@ class DioHelper {
     );
   }
 
+  static Future<Response> getProfile({
+    required String url,
+    required String token,
+  }) async {
+    return await dio.get(
+      url,
+      options: Options(
+        headers: {
+          "Authorization": token,
+        },
+      ),
+    );
+  }
 }

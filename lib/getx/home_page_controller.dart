@@ -1,3 +1,4 @@
+import 'package:e_o_e/getx/data_controller.dart';
 import 'package:get/get.dart';
 
 class ExamController extends GetxController{
@@ -5,3 +6,9 @@ class ExamController extends GetxController{
   void Purchased () => isPurchase++;
 }
 
+class DataBinding extends Bindings  {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => DataController());
+  }
+}

@@ -1,11 +1,11 @@
 class LoginModel {
   late String message, token;
-  late login_instructor _instructor;
+  late login_instructor instructor;
 
   LoginModel.fromJson({required Map<String, dynamic> json}) {
     message = json['message'];
     token = json['token'];
-    _instructor = login_instructor.fromJson(json: json);
+    instructor = login_instructor.fromJson(json: json);
   }
 }
 

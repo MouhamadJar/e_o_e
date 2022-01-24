@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:e_o_e/network/online/end_points.dart';
 import 'package:http/http.dart' as http;
 
 const String baseURL = "http://37.44.247.50:8001";
@@ -85,6 +86,19 @@ Future<http.Response> RestPassword({
     },
   );
   return response;
+}
+
+Future<Map<String , dynamic>> getProfile({
+  required String token,
+}) async {
+  String url = baseURL + GETPROFILE;
+  http.Response response = await http.get(
+    Uri.parse(url),
+    headers: {
+      "Authorization": token,
+    },
+  );
+  return json.decode(response.body);
 }
 
 Future<http.Response> cartItem({
@@ -173,12 +187,12 @@ Future<http.Response> getAllCategories() async {
   return response;
 }
 
-Future<http.Response> getCoursesByRating() async {
+Future<dynamic> getCoursesByRating() async {
   String url = '$baseURL/course_by_top_rating/';
   http.Response response = await http.get(
     Uri.parse(url),
   );
-  return response;
+  return json.decode(response.body);
 }
 
 Future<http.Response> getCoursesBySellingTime() async {
