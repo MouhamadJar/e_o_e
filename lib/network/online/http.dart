@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:e_o_e/network/online/end_points.dart';
 import 'package:http/http.dart' as http;
 
-const String baseURL = "http://37.44.247.50:8001";
+ const String baseURL = "http://37.44.247.50:8001";
 
 Future<http.Response> login({
   required String username,
@@ -195,23 +195,23 @@ Future<dynamic> getCoursesByRating() async {
   return json.decode(response.body);
 }
 
-Future<http.Response> getCoursesBySellingTime() async {
+Future<dynamic> getCoursesBySellingTime() async {
   String url = '$baseURL/mobile_courses_by_selling_times/';
   http.Response response = await http.get(
     Uri.parse(url),
   );
-  return response;
+  return jsonDecode(response.body);
 }
 
-Future<http.Response> getInstructorsByRating() async {
+Future<dynamic> getInstructorsByRating() async {
   String url = '$baseURL/instructors_by_rating/';
   http.Response response = await http.get(
     Uri.parse(url),
   );
-  return response;
+  return jsonDecode(response.body);
 }
 
-Future<http.Response> getMyCourses({
+Future<dynamic> getMyCourses({
   required String token,
 }) async {
   String url = '$baseURL/my_learnings/';
@@ -221,17 +221,17 @@ Future<http.Response> getMyCourses({
       "Authorization": token,
     },
   );
-  return response;
+  return jsonDecode(response.body);
 }
 
-Future<http.Response> getCoursesInformation({
+Future<dynamic> getCoursesInformation({
   required String id,
 }) async {
   String url = '$baseURL/course_details/$id/';
   http.Response response = await http.get(
     Uri.parse(url),
   );
-  return response;
+  return jsonDecode(response.body);
 }
 
 Future<http.Response> getCoursesRating({
@@ -244,22 +244,22 @@ Future<http.Response> getCoursesRating({
   return response;
 }
 
-Future<http.Response> getNewestCourse() async {
+Future<Map<String , dynamic>> getNewestCourse() async {
   String url = '$baseURL/last_course/';
   http.Response response = await http.get(
     Uri.parse(url),
   );
-  return response;
+  return jsonDecode(response.body);
 }
 
-Future<http.Response> search({
+Future<dynamic> search({
   required String data,
 }) async {
   String url = '$baseURL/search_courses/$data';
   http.Response response = await http.get(
     Uri.parse(url),
   );
-  return response;
+  return jsonDecode(response.body);
 }
 
 Future<http.Response> myWallet({
@@ -343,14 +343,14 @@ Future<http.Response> getCompanies() async {
   return response;
 }
 
-Future<http.Response> getInstructorProfile({
-  required String id,
+Future<Map<String , dynamic>> getInstructorProfile({
+  required int id,
 }) async {
   String url = '$baseURL/instructor_profile/$id/';
   http.Response response = await http.get(
     Uri.parse(url),
   );
-  return response;
+  return jsonDecode(response.body);
 }
 
 Future<http.Response> updateProfile({

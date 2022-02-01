@@ -308,12 +308,7 @@ class _OverViewState extends State<OverView> {
                           onTap: () {
                             setState(() {
                               Navigator.pop(context);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => XDProfile(),
-                                ),
-                              );
+                              Get.snackbar('', 'coming soon...');
                             });
                           },
                           child: Container(

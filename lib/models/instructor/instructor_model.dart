@@ -38,20 +38,12 @@ class Instructor {
     phone_number = json['phone_number'];
     website_role = json['website_role'];
     user = USERMODEL.fromJson(json: json);
-    for (int i = 0; i < json['certificates'].length; i++) {
-      certificate.add(
-        Certificate.fromJson(
-          json: json['certificates'][i],
-        ),
-      );
-    }
-    for (int i = 0; i < json['ratings'].length; i++) {
-      ratings.add(
-        Rating.fromJson(
-          json: json['ratings'][i],
-        ),
-      );
-    }
+    json['certificates'].forEach((element) {
+      certificate.add(element);
+    });
+    json['certificates'].forEach((element) {
+      ratings.add(element);
+    });
   }
 }
 

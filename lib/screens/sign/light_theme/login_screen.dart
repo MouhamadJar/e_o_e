@@ -8,12 +8,14 @@ import 'package:e_o_e/screens/sign/light_theme/rest_password.dart';
 import 'package:e_o_e/screens/sign/light_theme/signup_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import '../../../constants.dart';
-import '../../home_screen.dart';
+import '../../home/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -236,18 +238,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: width * 0.2865, top: height * 0.07),
-                      child: ConditionalBuilder(
-                        condition: !isLoading,
-                        fallback: (BuildContext context) {
-                          return Container(
-                              margin: EdgeInsets.only(left: width * 0.15),
-                              child: CircularProgressIndicator.adaptive());
-                        },
-                        builder: (BuildContext context) {
-                          return InkWell(
+                    ConditionalBuilder(
+                      condition: !isLoading,
+                      fallback: (BuildContext context) {
+                        return Padding(
+                          padding:  EdgeInsets.only(top: height * 0.07),
+                          child: myLoader(),
+                        );
+                      },
+                      builder: (BuildContext context) {
+                        return Padding(
+                          padding: EdgeInsets.only(
+                              left: width * 0.2865, top: height * 0.07),
+                          child: InkWell(
                             onTap: () async {
                               print(userNameController.text);
                               setState(
@@ -267,18 +270,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                           messageToast(
                                               msg: "Login success",
                                               color: Colors.green);
-                                          Cache.saveCache(
-                                            key: 'token',
-                                            value: true,
+                                          GetStorage().write(
+                                            'token',
+                                            value.data['token'],
                                           );
                                           token = value.data['token'];
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  HomeScreen(),
-                                            ),
-                                          );
+                                          navigateAndFinish(
+                                              context, HomeScreen());
                                         } else {
                                           setState(
                                             () {
@@ -295,7 +293,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ).catchError((error) {
                                   setState(
                                     () {
-                                      print(error.toString());
+                                      print('Error is : \n' + error.toString());
                                       isLoading = false;
                                       messageToast(
                                           msg: 'Pleas Pass Valid Credentials',
@@ -312,9 +310,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               placeholderBuilder: (_) =>
                                   const CircularProgressIndicator(),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

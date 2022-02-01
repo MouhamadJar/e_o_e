@@ -4,6 +4,7 @@ import 'package:e_o_e/student/student.dart';
 import 'package:e_o_e/student/xd_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import '../constants.dart';
 import 'about_us.dart';
 import 'main_setting.dart';
@@ -247,12 +248,7 @@ class _XDCategories1State extends State<XDCategories1> {
                       onTap: () {
                         setState(() {
                           Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => XDProfile(),
-                            ),
-                          );
+                          Get.snackbar('', 'coming soon...');
                         });
                       },
                       child: Container(

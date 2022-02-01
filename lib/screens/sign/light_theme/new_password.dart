@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants.dart';
-import '../../home_screen.dart';
+import '../../home/home_screen.dart';
 
 class NewPasswordScreen extends StatelessWidget {
   const NewPasswordScreen({Key? key}) : super(key: key);

@@ -8,8 +8,9 @@ import 'package:e_o_e/network/online/http.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_storage/get_storage.dart';
 import '../../../constants.dart';
-import '../../home_screen.dart';
+import '../../home/home_screen.dart';
 import 'login_screen.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -386,9 +387,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       child: ConditionalBuilder(
                         condition: !isLoading,
                         fallback: (BuildContext context) {
-                          return Container(
-                              margin: EdgeInsets.only(left: width * 0.15),
-                              child: CircularProgressIndicator.adaptive());
+                          return myLoader();
                         },
                         builder: (BuildContext context) {
                           return InkWell(
@@ -414,15 +413,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                             msg: "Registering success",
                                             color: Colors.green,
                                           );
-                                          Cache.saveCache(key: 'token', value: true);
-                                          token = value.data['token'];
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  HomeScreen(),
-                                            ),
+                                          GetStorage().write(
+                                            'token',
+                                            value.data['token'],
                                           );
+                                          token = value.data['token'];
+                                          navigateAndFinish(context, HomeScreen());
                                         } else if (value.statusCode == 400) {
                                           setState(
                                             () {
@@ -449,7 +445,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                     },
                                   );
                                 });
-                              }else{isLoading = false;}
+                              } else {
+                                isLoading = false;
+                              }
                             },
                             child: SvgPicture.asset(
                               "assets/Group 1350.svg",
