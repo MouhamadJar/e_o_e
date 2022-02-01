@@ -309,12 +309,7 @@ class _XDInstructorCoursesState extends State<XDInstructorCourses> with TickerPr
                         onTap: () {
                           setState(() {
                             Navigator.pop(context);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => XDProfile(),
-                              ),
-                            );
+                            Get.snackbar('', 'coming soon...');
                           });
                         },
                         child: Container(
@@ -512,7 +507,7 @@ class _XDInstructorCoursesState extends State<XDInstructorCourses> with TickerPr
                             builder: (context) => const CoursePage(
                               videoImage:
                               "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
-                              tag : 'tag',
+                              tag : 'tag', id: '',
                             ),
                           ),
                         );
@@ -526,6 +521,7 @@ class _XDInstructorCoursesState extends State<XDInstructorCourses> with TickerPr
                                 tag : 'w',
                                 videoImage:
                                 "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
+                                  id: '1',
                               ),
                             ),
                           );

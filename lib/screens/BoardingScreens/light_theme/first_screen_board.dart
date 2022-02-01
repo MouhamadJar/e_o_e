@@ -7,14 +7,54 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../constants.dart';
 
-class FirstBoardingScreen extends StatelessWidget {
+class FirstBoardingScreen extends StatefulWidget {
   const FirstBoardingScreen({Key? key}) : super(key: key);
+
+  @override
+  State<FirstBoardingScreen> createState() => _FirstBoardingScreenState();
+}
+
+class _FirstBoardingScreenState extends State<FirstBoardingScreen> {
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            backgroundColor: kPrimaryColor,
+            elevation: 11,
+            title: const Text(
+              'Are you sure?',
+              style: TextStyle(color: Colors.white),
+            ),
+            content: const Text(
+              'Do you want to exit an App',
+              style: TextStyle(color: Colors.white),
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text(
+                  'No',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: const Text(
+                  'Yes',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context)?.size.width ?? double.nan;
     final height = MediaQuery.of(context)?.size.height ?? double.nan;
-
+   var pageController = PageController();
     Size size = MediaQuery.of(context).size;
     final controller = PageController(
       initialPage: 0,
@@ -232,8 +272,8 @@ class FirstBoardingScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.only(left: width * 0.09, top: height * 0.1),
+                      padding: EdgeInsets.only(
+                          left: width * 0.09, top: height * 0.1),
                       child: Image.asset("assets/6461.jpg"),
                     ),
                     SizedBox(
@@ -244,16 +284,21 @@ class FirstBoardingScreen extends StatelessWidget {
                       width: width * 0.5,
                       padding: EdgeInsets.only(left: width * 0.02),
                       margin:
-                          EdgeInsets.only(left: width * 0.2, top: height * 0.04),
-                      child: const Center(
-                        child: AutoSizeText(
-                          "Don't have an account ?",
-                          style: TextStyle(
-                            fontFamily: kFontFamily,
+                          EdgeInsets.only(top: height * 0.04, left: width * .0),
+                      child: Center(
+                        child: Container(
+                          height: height * 0.03,
+                          width: width * 0.35,
+                          color: Colors.white,
+                          child: const AutoSizeText(
+                            "Don't have an account ?",
+                            style: TextStyle(
+                              fontFamily: kFontFamily,
+                            ),
+                            maxFontSize: 18,
+                            maxLines: 1,
+                            minFontSize: 8,
                           ),
-                          maxFontSize: 18,
-                          maxLines: 1,
-                          minFontSize: 8,
                         ),
                       ),
                     ),
@@ -359,6 +404,6 @@ class FirstBoardingScreen extends StatelessWidget {
       ],
     );
 
-    return pageView;
+    return WillPopScope(onWillPop: _onWillPop, child: pageView);
   }
 }

@@ -109,16 +109,10 @@ class _WalletState extends State<Wallet> {
                           onTap: () {
                             setState(() {
                               Navigator.pop(context);
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => XDProfile(),
-                                ),
-                              );
+                              Get.snackbar('', 'coming soon...');
                             });
                           },
                           child: Container(
-
                             height: MediaQuery.of(context).size.height * 0.091,
                             width: MediaQuery.of(context).size.width,
                             child: Row(
@@ -246,12 +240,7 @@ class _WalletState extends State<Wallet> {
                           onTap: () {
                             setState(() {
                               Navigator.pop(context);
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>  XDProfile(),
-                                ),
-                              );
+                              Get.snackbar('', 'coming soon...');
                             });
                           },
                           child: Container(

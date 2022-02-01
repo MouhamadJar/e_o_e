@@ -1,9 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../constants.dart';
-
 class ReviewerInfo{
   late String reviewerImg,reviewerName,reviewerComment;
 
@@ -61,7 +59,7 @@ class ReviewCard extends StatelessWidget {
             ),
           ]
       ),
-      height: height*0.4,
+      height: height*0.3,
       width: double.infinity,
       child: LayoutBuilder(
           builder: (context,size) {
@@ -73,7 +71,7 @@ class ReviewCard extends StatelessWidget {
                     Padding(
                       padding:  EdgeInsets.all( size.maxWidth*.03),
                       child: CircleAvatar(
-                        backgroundImage: AssetImage( reviewerImg),
+                        backgroundImage: NetworkImage( reviewerImg),
                         maxRadius: size.maxWidth*.13,
                         minRadius: size.maxWidth*.075,
                       ),
@@ -98,7 +96,7 @@ class ReviewCard extends StatelessWidget {
                     padding: EdgeInsets.all(size.maxWidth*.03),
                     //color: Colors.grey,
                     width: size.maxWidth,
-                    height : size.maxHeight*.33,
+                    height : size.maxHeight*.23,
                     child: AutoSizeText(
                       reviewerComment,
                       style:const TextStyle(
@@ -120,7 +118,7 @@ class ReviewCard extends StatelessWidget {
                         margin: EdgeInsets.all(size.maxWidth*.03),
                         //color: Colors.grey,
                         width: size.maxWidth*.65,
-                        height : size.maxHeight*.19,
+                        height : size.maxHeight*.17,
                         child:const Center(
                           child:  AutoSizeText(
                             "was this review is helpful ?",

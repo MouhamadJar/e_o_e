@@ -9,6 +9,7 @@ import 'package:e_o_e/student/student.dart';
 import 'package:e_o_e/student/xd_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import '../constants.dart';
 import 'favorite.dart';
 
@@ -250,12 +251,7 @@ class _XDShoppingCart1State extends State<XDShoppingCart1> {
                       onTap: () {
                         setState(() {
                           Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => XDProfile(),
-                            ),
-                          );
+                          Get.snackbar('', 'coming soon...');
                         });
                       },
                       child: Container(
@@ -432,6 +428,244 @@ class _XDShoppingCart1State extends State<XDShoppingCart1> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const CoursePage(
+                    id: '1',
+                    tag : 'z',
+                    videoImage:
+                    "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              height: height*0.12,
+              width: width*0.8,
+              decoration: const BoxDecoration(
+                color: Color(0xFFe9ebfd),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                //  border: Border.all(color: Colors.black.withOpacity(0.2),),
+              ),
+              margin:  EdgeInsets.only(left: width*0.03, top: 10),
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right : width*0.03),
+                    height: height*0.15,
+                    width: width*0.23,
+                    //color: Colors.grey,
+                    child: Hero(
+                      tag : 'z',
+                      child: Image.asset(
+                        "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",filterQuality: FilterQuality.high,isAntiAlias: true,),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top : height*0.01),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: height*0.025,
+                          width: width*0.29,
+                          //color: Colors.grey,
+                          child: const AutoSizeText(
+                            "Name of course",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontFamily: kFontFamily
+                            ),
+                            maxFontSize: 16,
+                            minFontSize: 10,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Container(
+                          height: height*0.025,
+                          width: width*0.22,
+                          //color: Colors.blue,
+                          child: const AutoSizeText(
+                            "By Teacher",
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontFamily: kFontFamily),
+                            maxFontSize: 14,
+                            minFontSize: 8,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        SizedBox(
+                          height: height*0.005,
+                        ),
+                        Container(
+                          height: height*0.023,
+                          width: width*0.20,
+                          //color: Colors.blue,
+                          child: const AutoSizeText(
+                            "Best saller",
+                            style: TextStyle(
+                                color: Color(0xFFF67D20),
+                                fontFamily: kFontFamily),
+                            maxFontSize: 14,
+                            minFontSize: 8,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        SizedBox(
+                          height: height*0.005,
+                        ),
+                        Row(
+                          children:  [
+                            Container(
+                              height: height*0.021,
+                              width: width*0.19,
+                              //color: Colors.blue,
+                              child: const AutoSizeText(
+                                "55,000 sp",
+                                style: TextStyle(
+                                    fontFamily: kFontFamily,
+                                    fontWeight: FontWeight.bold),
+                                maxFontSize: 14,
+                                minFontSize: 8,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            SizedBox(
+                              width: width*0.011,
+                            ),
+                            Container(
+                              height: height*0.021,
+                              width: width*0.15,
+                              //  color: Colors.blue,
+                              child: const AutoSizeText(
+                                "(123,154)",
+                                style: TextStyle(
+                                  fontFamily: kFontFamily,
+                                ),
+                                maxFontSize: 12,
+                                minFontSize: 7,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(height : height*0.05),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          //   const SizedBox(width: 10,),
+                          const Text(
+                            "4.5",
+                            style: TextStyle(
+                                color: Color(0xFFFB0000),
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SvgPicture.asset("assets/pointed-star.svg")
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            margin:  EdgeInsets.only(top: height*0.008,left: width*0.03),
+            width: width*0.92,
+            height: height*0.05,
+            child: Row(
+              children: <Widget>[
+                const Spacer(),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow:const [
+                      BoxShadow(
+                        color:  Color(0xff0e564e),
+                        blurRadius: 4,
+                      ),
+                    ],
+                    border: Border.all(
+                        color: const Color(0xff0e564e)
+                            .withOpacity(0.75),
+                        width: 3),
+                  ),
+                  height: height*0.05,
+                  width: width*0.1,
+                  child: InkWell(
+                    onTap: () {},
+                    child: SvgPicture.asset("assets/plus (2).svg"),
+                  ),
+                ),
+                SizedBox(
+                  width: width*0.05,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow:const [
+                      BoxShadow(
+                        color:  Color(0xffCE0505),
+                        blurRadius: 4,
+                      ),
+                    ],
+                    border: Border.all(
+                        color: const Color(0xffCE0505)
+                            .withOpacity(0.75),
+                        width: 3),
+                  ),
+                  height: height*0.05,
+                  width: width*0.1,
+                  child: InkWell(
+                    onTap: () {},
+                    child: SvgPicture.asset("assets/removing.svg"),
+                  ),
+                ),
+                SizedBox(
+                  width: width*0.05,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow:const [
+                      BoxShadow(
+                        color:  Color(0xffF67D20),
+                        blurRadius: 4,
+                      ),
+                    ],
+                    border: Border.all(
+                        color: const Color(0xffF67D20)
+                            .withOpacity(0.75),
+                        width: 3),
+                  ),
+                  height: height*0.05,
+                  width: width*0.1,
+                  child: InkWell(
+                    onTap: () {},
+                    child: SvgPicture.asset("assets/buy (1).svg"),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      SizedBox(
+        height: height*0.003,
+      ),
+      Column(
+        children: [
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CoursePage(
+                    id: '1',
                     tag : 'z',
                     videoImage:
                     "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
@@ -669,6 +903,7 @@ class _XDShoppingCart1State extends State<XDShoppingCart1> {
                 MaterialPageRoute(
                   builder: (context) => const CoursePage(
                     tag : 'z',
+                    id: '1',
                     videoImage:
                     "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
                   ),
@@ -904,6 +1139,7 @@ class _XDShoppingCart1State extends State<XDShoppingCart1> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const CoursePage(
+                    id: '1',
                     tag : 'z',
                     videoImage:
                     "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
@@ -1141,6 +1377,7 @@ class _XDShoppingCart1State extends State<XDShoppingCart1> {
                 MaterialPageRoute(
                   builder: (context) => const CoursePage(
                     tag : 'z',
+                    id: '1',
                     videoImage:
                     "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
                   ),
@@ -1376,6 +1613,244 @@ class _XDShoppingCart1State extends State<XDShoppingCart1> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const CoursePage(
+                    id: '1',
+                    tag : 'z',
+                    videoImage:
+                    "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              height: height*0.12,
+              width: width*0.8,
+              decoration: const BoxDecoration(
+                color: Color(0xFFe9ebfd),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                //  border: Border.all(color: Colors.black.withOpacity(0.2),),
+              ),
+              margin:  EdgeInsets.only(left: width*0.03, top: 10),
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right : width*0.03),
+                    height: height*0.15,
+                    width: width*0.23,
+                    //color: Colors.grey,
+                    child: Hero(
+                      tag : 'z',
+                      child: Image.asset(
+                        "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",filterQuality: FilterQuality.high,isAntiAlias: true,),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top : height*0.01),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: height*0.025,
+                          width: width*0.29,
+                          //color: Colors.grey,
+                          child: const AutoSizeText(
+                            "Name of course",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontFamily: kFontFamily
+                            ),
+                            maxFontSize: 16,
+                            minFontSize: 10,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Container(
+                          height: height*0.025,
+                          width: width*0.22,
+                          //color: Colors.blue,
+                          child: const AutoSizeText(
+                            "By Teacher",
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontFamily: kFontFamily),
+                            maxFontSize: 14,
+                            minFontSize: 8,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        SizedBox(
+                          height: height*0.005,
+                        ),
+                        Container(
+                          height: height*0.023,
+                          width: width*0.20,
+                          //color: Colors.blue,
+                          child: const AutoSizeText(
+                            "Best saller",
+                            style: TextStyle(
+                                color: Color(0xFFF67D20),
+                                fontFamily: kFontFamily),
+                            maxFontSize: 14,
+                            minFontSize: 8,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        SizedBox(
+                          height: height*0.005,
+                        ),
+                        Row(
+                          children:  [
+                            Container(
+                              height: height*0.021,
+                              width: width*0.19,
+                              //color: Colors.blue,
+                              child: const AutoSizeText(
+                                "55,000 sp",
+                                style: TextStyle(
+                                    fontFamily: kFontFamily,
+                                    fontWeight: FontWeight.bold),
+                                maxFontSize: 14,
+                                minFontSize: 8,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            SizedBox(
+                              width: width*0.011,
+                            ),
+                            Container(
+                              height: height*0.021,
+                              width: width*0.15,
+                              //  color: Colors.blue,
+                              child: const AutoSizeText(
+                                "(123,154)",
+                                style: TextStyle(
+                                  fontFamily: kFontFamily,
+                                ),
+                                maxFontSize: 12,
+                                minFontSize: 7,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(height : height*0.05),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          //   const SizedBox(width: 10,),
+                          const Text(
+                            "4.5",
+                            style: TextStyle(
+                                color: Color(0xFFFB0000),
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SvgPicture.asset("assets/pointed-star.svg")
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            margin:  EdgeInsets.only(top: height*0.008,left: width*0.03),
+            width: width*0.92,
+            height: height*0.05,
+            child: Row(
+              children: <Widget>[
+                const Spacer(),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow:const [
+                      BoxShadow(
+                        color:  Color(0xff0e564e),
+                        blurRadius: 4,
+                      ),
+                    ],
+                    border: Border.all(
+                        color: const Color(0xff0e564e)
+                            .withOpacity(0.75),
+                        width: 3),
+                  ),
+                  height: height*0.05,
+                  width: width*0.1,
+                  child: InkWell(
+                    onTap: () {},
+                    child: SvgPicture.asset("assets/plus (2).svg"),
+                  ),
+                ),
+                SizedBox(
+                  width: width*0.05,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow:const [
+                      BoxShadow(
+                        color:  Color(0xffCE0505),
+                        blurRadius: 4,
+                      ),
+                    ],
+                    border: Border.all(
+                        color: const Color(0xffCE0505)
+                            .withOpacity(0.75),
+                        width: 3),
+                  ),
+                  height: height*0.05,
+                  width: width*0.1,
+                  child: InkWell(
+                    onTap: () {},
+                    child: SvgPicture.asset("assets/removing.svg"),
+                  ),
+                ),
+                SizedBox(
+                  width: width*0.05,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow:const [
+                      BoxShadow(
+                        color:  Color(0xffF67D20),
+                        blurRadius: 4,
+                      ),
+                    ],
+                    border: Border.all(
+                        color: const Color(0xffF67D20)
+                            .withOpacity(0.75),
+                        width: 3),
+                  ),
+                  height: height*0.05,
+                  width: width*0.1,
+                  child: InkWell(
+                    onTap: () {},
+                    child: SvgPicture.asset("assets/buy (1).svg"),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      SizedBox(
+        height: height*0.003,
+      ),
+      Column(
+        children: [
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CoursePage(
+                    id: '1',
                     tag : 'z',
                     videoImage:
                     "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
@@ -1613,6 +2088,7 @@ class _XDShoppingCart1State extends State<XDShoppingCart1> {
                 MaterialPageRoute(
                   builder: (context) => const CoursePage(
                     tag : 'z',
+                    id: '1',
                     videoImage:
                     "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
                   ),
@@ -1849,478 +2325,7 @@ class _XDShoppingCart1State extends State<XDShoppingCart1> {
                 MaterialPageRoute(
                   builder: (context) => const CoursePage(
                     tag : 'z',
-                    videoImage:
-                    "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              height: height*0.12,
-              width: width*0.8,
-              decoration: const BoxDecoration(
-                color: Color(0xFFe9ebfd),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                //  border: Border.all(color: Colors.black.withOpacity(0.2),),
-              ),
-              margin:  EdgeInsets.only(left: width*0.03, top: 10),
-              child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(right : width*0.03),
-                    height: height*0.15,
-                    width: width*0.23,
-                    //color: Colors.grey,
-                    child: Hero(
-                      tag : 'z',
-                      child: Image.asset(
-                        "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",filterQuality: FilterQuality.high,isAntiAlias: true,),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top : height*0.01),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: height*0.025,
-                          width: width*0.29,
-                          //color: Colors.grey,
-                          child: const AutoSizeText(
-                            "Name of course",
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontFamily: kFontFamily
-                            ),
-                            maxFontSize: 16,
-                            minFontSize: 10,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Container(
-                          height: height*0.025,
-                          width: width*0.22,
-                          //color: Colors.blue,
-                          child: const AutoSizeText(
-                            "By Teacher",
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontFamily: kFontFamily),
-                            maxFontSize: 14,
-                            minFontSize: 8,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        SizedBox(
-                          height: height*0.005,
-                        ),
-                        Container(
-                          height: height*0.023,
-                          width: width*0.20,
-                          //color: Colors.blue,
-                          child: const AutoSizeText(
-                            "Best saller",
-                            style: TextStyle(
-                                color: Color(0xFFF67D20),
-                                fontFamily: kFontFamily),
-                            maxFontSize: 14,
-                            minFontSize: 8,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        SizedBox(
-                          height: height*0.005,
-                        ),
-                        Row(
-                          children:  [
-                            Container(
-                              height: height*0.021,
-                              width: width*0.19,
-                              //color: Colors.blue,
-                              child: const AutoSizeText(
-                                "55,000 sp",
-                                style: TextStyle(
-                                    fontFamily: kFontFamily,
-                                    fontWeight: FontWeight.bold),
-                                maxFontSize: 14,
-                                minFontSize: 8,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            SizedBox(
-                              width: width*0.011,
-                            ),
-                            Container(
-                              height: height*0.021,
-                              width: width*0.15,
-                              //  color: Colors.blue,
-                              child: const AutoSizeText(
-                                "(123,154)",
-                                style: TextStyle(
-                                  fontFamily: kFontFamily,
-                                ),
-                                maxFontSize: 12,
-                                minFontSize: 7,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      SizedBox(height : height*0.05),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          //   const SizedBox(width: 10,),
-                          const Text(
-                            "4.5",
-                            style: TextStyle(
-                                color: Color(0xFFFB0000),
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SvgPicture.asset("assets/pointed-star.svg")
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            margin:  EdgeInsets.only(top: height*0.008,left: width*0.03),
-            width: width*0.92,
-            height: height*0.05,
-            child: Row(
-              children: <Widget>[
-                const Spacer(),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow:const [
-                      BoxShadow(
-                        color:  Color(0xff0e564e),
-                        blurRadius: 4,
-                      ),
-                    ],
-                    border: Border.all(
-                        color: const Color(0xff0e564e)
-                            .withOpacity(0.75),
-                        width: 3),
-                  ),
-                  height: height*0.05,
-                  width: width*0.1,
-                  child: InkWell(
-                    onTap: () {},
-                    child: SvgPicture.asset("assets/plus (2).svg"),
-                  ),
-                ),
-                SizedBox(
-                  width: width*0.05,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow:const [
-                      BoxShadow(
-                        color:  Color(0xffCE0505),
-                        blurRadius: 4,
-                      ),
-                    ],
-                    border: Border.all(
-                        color: const Color(0xffCE0505)
-                            .withOpacity(0.75),
-                        width: 3),
-                  ),
-                  height: height*0.05,
-                  width: width*0.1,
-                  child: InkWell(
-                    onTap: () {},
-                    child: SvgPicture.asset("assets/removing.svg"),
-                  ),
-                ),
-                SizedBox(
-                  width: width*0.05,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow:const [
-                      BoxShadow(
-                        color:  Color(0xffF67D20),
-                        blurRadius: 4,
-                      ),
-                    ],
-                    border: Border.all(
-                        color: const Color(0xffF67D20)
-                            .withOpacity(0.75),
-                        width: 3),
-                  ),
-                  height: height*0.05,
-                  width: width*0.1,
-                  child: InkWell(
-                    onTap: () {},
-                    child: SvgPicture.asset("assets/buy (1).svg"),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      SizedBox(
-        height: height*0.003,
-      ),
-      Column(
-        children: [
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const CoursePage(
-                    tag : 'z',
-                    videoImage:
-                    "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              height: height*0.12,
-              width: width*0.8,
-              decoration: const BoxDecoration(
-                color: Color(0xFFe9ebfd),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                //  border: Border.all(color: Colors.black.withOpacity(0.2),),
-              ),
-              margin:  EdgeInsets.only(left: width*0.03, top: 10),
-              child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(right : width*0.03),
-                    height: height*0.15,
-                    width: width*0.23,
-                    //color: Colors.grey,
-                    child: Hero(
-                      tag : 'z',
-                      child: Image.asset(
-                        "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",filterQuality: FilterQuality.high,isAntiAlias: true,),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top : height*0.01),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: height*0.025,
-                          width: width*0.29,
-                          //color: Colors.grey,
-                          child: const AutoSizeText(
-                            "Name of course",
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontFamily: kFontFamily
-                            ),
-                            maxFontSize: 16,
-                            minFontSize: 10,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Container(
-                          height: height*0.025,
-                          width: width*0.22,
-                          //color: Colors.blue,
-                          child: const AutoSizeText(
-                            "By Teacher",
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontFamily: kFontFamily),
-                            maxFontSize: 14,
-                            minFontSize: 8,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        SizedBox(
-                          height: height*0.005,
-                        ),
-                        Container(
-                          height: height*0.023,
-                          width: width*0.20,
-                          //color: Colors.blue,
-                          child: const AutoSizeText(
-                            "Best saller",
-                            style: TextStyle(
-                                color: Color(0xFFF67D20),
-                                fontFamily: kFontFamily),
-                            maxFontSize: 14,
-                            minFontSize: 8,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        SizedBox(
-                          height: height*0.005,
-                        ),
-                        Row(
-                          children:  [
-                            Container(
-                              height: height*0.021,
-                              width: width*0.19,
-                              //color: Colors.blue,
-                              child: const AutoSizeText(
-                                "55,000 sp",
-                                style: TextStyle(
-                                    fontFamily: kFontFamily,
-                                    fontWeight: FontWeight.bold),
-                                maxFontSize: 14,
-                                minFontSize: 8,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            SizedBox(
-                              width: width*0.011,
-                            ),
-                            Container(
-                              height: height*0.021,
-                              width: width*0.15,
-                              //  color: Colors.blue,
-                              child: const AutoSizeText(
-                                "(123,154)",
-                                style: TextStyle(
-                                  fontFamily: kFontFamily,
-                                ),
-                                maxFontSize: 12,
-                                minFontSize: 7,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      SizedBox(height : height*0.05),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          //   const SizedBox(width: 10,),
-                          const Text(
-                            "4.5",
-                            style: TextStyle(
-                                color: Color(0xFFFB0000),
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SvgPicture.asset("assets/pointed-star.svg")
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            margin:  EdgeInsets.only(top: height*0.008,left: width*0.03),
-            width: width*0.92,
-            height: height*0.05,
-            child: Row(
-              children: <Widget>[
-                const Spacer(),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow:const [
-                      BoxShadow(
-                        color:  Color(0xff0e564e),
-                        blurRadius: 4,
-                      ),
-                    ],
-                    border: Border.all(
-                        color: const Color(0xff0e564e)
-                            .withOpacity(0.75),
-                        width: 3),
-                  ),
-                  height: height*0.05,
-                  width: width*0.1,
-                  child: InkWell(
-                    onTap: () {},
-                    child: SvgPicture.asset("assets/plus (2).svg"),
-                  ),
-                ),
-                SizedBox(
-                  width: width*0.05,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow:const [
-                      BoxShadow(
-                        color:  Color(0xffCE0505),
-                        blurRadius: 4,
-                      ),
-                    ],
-                    border: Border.all(
-                        color: const Color(0xffCE0505)
-                            .withOpacity(0.75),
-                        width: 3),
-                  ),
-                  height: height*0.05,
-                  width: width*0.1,
-                  child: InkWell(
-                    onTap: () {},
-                    child: SvgPicture.asset("assets/removing.svg"),
-                  ),
-                ),
-                SizedBox(
-                  width: width*0.05,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow:const [
-                      BoxShadow(
-                        color:  Color(0xffF67D20),
-                        blurRadius: 4,
-                      ),
-                    ],
-                    border: Border.all(
-                        color: const Color(0xffF67D20)
-                            .withOpacity(0.75),
-                        width: 3),
-                  ),
-                  height: height*0.05,
-                  width: width*0.1,
-                  child: InkWell(
-                    onTap: () {},
-                    child: SvgPicture.asset("assets/buy (1).svg"),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      SizedBox(
-        height: height*0.003,
-      ),
-      Column(
-        children: [
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const CoursePage(
-                    tag : 'z',
+                    id: '1',
                     videoImage:
                     "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
                   ),

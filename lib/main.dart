@@ -1,49 +1,46 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:e_o_e/network/online/dio_helper.dart';
 import 'package:e_o_e/screens/BoardingScreens/light_theme/first_screen_board.dart';
-import 'package:e_o_e/screens/home_screen.dart';
+import 'package:e_o_e/screens/home/home_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get.dart';
-
+import 'package:get_storage/get_storage.dart';
+import 'constants.dart';
 import 'network/local/cache.dart';
 
 void main()  async{
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
-  await Cache.init();
-  bool? token = Cache.getCache(key: 'token');
+  await GetStorage.init();
+  token =  GetStorage().read('token') ?? 'noToken';
   if (kDebugMode) {
     print(token);
   }
   runApp(
-    MyApp(
-      token: token,
-    ),
+    const MyApp(),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required this.token}) : super(key: key);
-  final bool? token;
+  const MyApp({Key? key,}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return const GetMaterialApp(
       builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       title: 'EOE',
-      home: SplashScreen(
-        token: token,
-      ),
+      home: SplashScreen(),
     );
   }
 }
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key,required this.token }) : super(key: key);
-  final bool? token;
+  const SplashScreen({Key? key,}) : super(key: key);
+
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -52,6 +49,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+
     Future.delayed(
       const Duration(seconds: 1, milliseconds: 500),
     ).then(
@@ -84,8 +82,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: FirstBoardingScreen(),
+
+    return  Scaffold(
+      body: token == 'noToken' ?  FirstBoardingScreen():
+          HomeScreen(),
     );
   }
 }

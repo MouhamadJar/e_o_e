@@ -45,6 +45,9 @@ dependencies:
   shared_preferences:
   fluttertoast:
   conditional_builder_null_safety:
+  get_storage:
+  smooth_page_indicator:
+  flutter_spinkit:
 
 dev_dependencies:
   flutter_test:

@@ -1,40 +1,87 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:e_o_e/component/components.dart';
+import 'package:e_o_e/models/profile/profile_model.dart';
+import 'package:e_o_e/network/local/cache.dart';
 import 'package:e_o_e/network/online/end_points.dart';
 import 'package:e_o_e/network/online/http.dart';
-import 'package:e_o_e/screens/about_us.dart';
-import 'package:e_o_e/screens/main_setting.dart';
 import 'package:e_o_e/screens/rooms.dart';
 import 'package:e_o_e/screens/sign/light_theme/login_screen.dart';
-import 'package:e_o_e/screens/teacher/students_tests.dart';
+import 'package:e_o_e/screens/teacher/home_teacher.dart';
+import 'package:e_o_e/screens/teacher/over_view.dart';
 import 'package:e_o_e/screens/teacher/teacher.dart';
+import 'package:e_o_e/screens/teacher/xd_instructor_courses.dart';
 import 'package:e_o_e/screens/walet.dart';
 import 'package:e_o_e/screens/xd_categories1.dart';
+import 'package:e_o_e/student/favorite.dart';
+import 'package:e_o_e/student/student.dart';
 import 'package:e_o_e/student/xd_profile.dart';
 import 'package:e_o_e/student/xd_shopping_cart1.dart';
+import 'package:e_o_e/student/xd_student_course.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_storage/get_storage.dart';
-import '../constants.dart';
-import 'favorite.dart';
-
-class StudentPage extends StatefulWidget {
-  const StudentPage({Key? key}) : super(key: key);
+import '../../constants.dart';
+import '../about_us.dart';
+import '../main_setting.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import '../notification.dart';
+import 'home.dart';
+class HomeScreen extends StatefulWidget {
+  HomeScreen();
 
   @override
-  State<StudentPage> createState() => _StudentPageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _StudentPageState extends State<StudentPage> {
+class _HomeScreenState extends State<HomeScreen> {
+  int index = 0;
   late Future<Map<String, dynamic>> profileData;
+  @override
+  void initState() {
+    Get.snackbar("Welcome back! ", " Let's do more today  ",
+        snackPosition: SnackPosition.TOP,
+        forwardAnimationCurve: Curves.easeOut,
+        reverseAnimationCurve: Curves.easeIn);
+    profileData = getProfile(token: token);
+  }
 
   @override
   Widget build(BuildContext context) {
-    profileData = getProfile(token: token);
+    final screens = [
+      HomePage(),
+      XDStudentCourse(),
+      HomeTeacher(),
+      NotificationScreen()
+    ]; //
     final width = MediaQuery.of(context)?.size.width ?? double.nan;
     final height = MediaQuery.of(context)?.size.height ?? double.nan;
+    final items = <Widget>[
+      Padding(
+        padding: EdgeInsets.all(width * 0.02),
+        child: const Icon(
+          Icons.home_outlined,
+          size: 30,
+          color: Colors.white,
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.all(width * 0.02),
+        child: SvgPicture.asset("assets/reading-book (2).svg"),
+      ),
+      Padding(
+        padding: EdgeInsets.all(width * 0.02),
+        child: SvgPicture.asset("assets/teacher (1).svg"),
+      ),
+      Padding(
+        padding: EdgeInsets.all(width * 0.02),
+        child: SvgPicture.asset("assets/notification (4).svg"),
+      ),
+    ];
     Drawer myDrawer = Drawer(
       child: FutureBuilder(
         future: profileData,
@@ -59,7 +106,8 @@ class _StudentPageState extends State<StudentPage> {
                             children: [
                               CircleAvatar(
                                 radius: width * .11,
-                                backgroundImage: NetworkImage(BASEURL + snapshot.data['profile_image']),
+                                backgroundImage: NetworkImage(snapshot.data!['profile_image'].toString()=='null' ? DEFAULTIMAGE
+                                    :BASEURL + snapshot.data['profile_image']),
                               ),
                               SizedBox(width: width * .01),
                               Column(
@@ -421,8 +469,8 @@ class _StudentPageState extends State<StudentPage> {
                                   setState(() {
                                     Navigator.pop(context);
                                     GetStorage().write(
-                                      'token',
-                                      'noToken',
+                                       'token',
+                                       'noToken',
                                     );
                                     navigateAndFinish(context, LoginScreen());
                                   });
@@ -471,259 +519,244 @@ class _StudentPageState extends State<StudentPage> {
               ),
             );
           }
-          return  Center(child: SpinKitRotatingCircle(
-            color: kPrimaryColor,
-            size: 50.0,
-          ),);
+          return const Center(child: CircularProgressIndicator());
         },),
     );
-    return FutureBuilder(
-      future: profileData,
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.hasError) {
-          return Center(child: Text(snapshot.error.toString()));
-        }
-        if(snapshot.hasData){
-          return Scaffold(
-            drawer: myDrawer,
-            appBar:AppBar(
-              backgroundColor: Colors.white,
-              title: Row(
-                children: [
-                  SizedBox(
-                    width: width * 0.01,
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset("assets/add-to-cart (4).svg"),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => XDShoppingCart1(),
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    width: width * 0.06,
-                  ),
-                  Image.asset("assets/Group 1107.png"),
-                  SizedBox(width: width * 0.09),
-                  InkWell(
-                    child: SvgPicture.asset("assets/favorite (2).svg"),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FavoriteCourses(),
-                        ),
-                      );
-                    },
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => XDCategories1()),
-                      );
-                    },
-                    icon: SvgPicture.asset("assets/category (3).svg"),
-                  ),
-                ],
-              ),
-              leading: Builder(
-                  builder: (context) {
-                    return IconButton(
-                      onPressed: () {
-                        Scaffold.of(context).openDrawer();
-                      },
-                      icon: SvgPicture.asset("assets/list (2).svg"),
-                    );
-                  }
-              ),
+    final appBar = <AppBar>[
+      AppBar(
+        backgroundColor: Colors.white,
+        title: Row(
+          children: [
+            SizedBox(
+              width: width * 0.01,
             ),
-            body: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(width * 0.03),
-                  child: Row(
-                    children: [
-                       CircleAvatar(
-                        radius: 42,
-                        backgroundImage: NetworkImage(snapshot.data['profile_image'].toString()=='null' ? DEFAULTIMAGE : BASEURL + snapshot.data['profile_image']),
-                        backgroundColor: Colors.white,
-                      ),
-                      SizedBox(
-                        width: width * 0.04,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: height * 0.04,
-                            width: width * 0.25,
-                            //color: Colors.grey,
-                            child:  AutoSizeText(
-                              snapshot.data['user']['username'],
-                              style:const TextStyle(
-                                fontFamily: kFontFamily,
-                                fontSize: 2200,
-                              ),
-                              maxFontSize: 24,
-                              minFontSize: 12,
-                              maxLines: 1,
-                            ),
-                          ),
-                          SizedBox(
-                            height: height * 0.01,
-                          ),
-                          Container(
-                            height: height * 0.04,
-                            width: width * 0.37,
-                            //color: Colors.grey,
-                            child:  AutoSizeText(
-                              snapshot.data['user']['email'],
-                              style:const TextStyle(
-                                fontFamily: kFontFamily,
-                                fontSize: 2200,
-                              ),
-                              maxFontSize: 24,
-                              minFontSize: 12,
-                              maxLines: 1,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+            IconButton(
+              icon: SvgPicture.asset("assets/add-to-cart (4).svg"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => XDShoppingCart1(),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: height * 0.1),
-                  color: Color(0xFF084B97),
-                  width: width,
-                  height: height * 0.3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Get.to(XDProfile(profileData: snapshot.data,));
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(
-                                  left: width * 0.03, top: height * 0.02),
-                              width: width * 0.45,
-                              height: height * 0.23,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFFF8324),
-                                borderRadius: BorderRadius.circular(9.0),
-                              ),
-                              child: LayoutBuilder(builder: (context, constrains) {
-                                return Column(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          top: constrains.maxHeight * .1),
-                                      height: constrains.maxHeight * .5,
-                                      width: constrains.maxWidth * 0.9,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(15),
-                                          image: const DecorationImage(
-                                            image: AssetImage("assets/4445.png"),
-                                          )),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          top: constrains.maxHeight * .1),
-                                      height: constrains.maxHeight * .2,
-                                      width: constrains.maxWidth * 0.75,
-                                      //color : Colors.grey,
-                                      child: const AutoSizeText(
-                                        "Go to profile page",
-                                        style: TextStyle(
-                                          fontFamily: kFontFamily,
-                                          color: Colors.white,
-                                          fontSize: 2000,
-                                        ),
-                                        maxLines: 1,
-                                        maxFontSize: 24,
-                                        minFontSize: 12,
-                                      ),
-                                    )
-                                  ],
-                                );
-                              }),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Get.to(StudentsTests());
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(
-                                  left: width * 0.03, top: height * 0.02),
-                              width: width * 0.45,
-                              height: height * 0.23,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF707070),
-                                borderRadius: BorderRadius.circular(9.0),
-                              ),
-                              child: LayoutBuilder(builder: (context, constrains) {
-                                return Column(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          top: constrains.maxHeight * .1),
-                                      height: constrains.maxHeight * .5,
-                                      width: constrains.maxWidth * 0.9,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(15),
-                                          image: const DecorationImage(
-                                            image: AssetImage("assets/31719.png"),
-                                          )),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          top: constrains.maxHeight * .1),
-                                      height: constrains.maxHeight * .2,
-                                      width: constrains.maxWidth * 0.75,
-                                      //color : Colors.grey,
-                                      child: const AutoSizeText(
-                                        "Study programme",
-                                        style: TextStyle(
-                                          fontFamily: kFontFamily,
-                                          color: Colors.white,
-                                          fontSize: 2000,
-                                        ),
-                                        maxLines: 1,
-                                        maxFontSize: 24,
-                                        minFontSize: 12,
-                                      ),
-                                    )
-                                  ],
-                                );
-                              }),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                );
+              },
             ),
+            SizedBox(
+              width: width * 0.06,
+            ),
+            Image.asset("assets/Group 1107.png"),
+            SizedBox(width: width * 0.09),
+            InkWell(
+              child: SvgPicture.asset("assets/favorite (2).svg"),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FavoriteCourses(),
+                  ),
+                );
+              },
+            ),
+            const Spacer(),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => XDCategories1()),
+                );
+              },
+              icon: SvgPicture.asset("assets/category (3).svg"),
+            ),
+          ],
+        ),
+        leading: Builder(builder: (context) {
+          return IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: SvgPicture.asset("assets/list (2).svg"),
           );
-        }
-        return const Scaffold(
-          body:  Center(child: CircularProgressIndicator(
-          )
+        }),
+      ),
+      AppBar(
+        backgroundColor: Colors.white,
+        title: Row(
+          children: [
+            SizedBox(
+              width: width * 0.01,
+            ),
+            IconButton(
+              icon: SvgPicture.asset("assets/add-to-cart (4).svg"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => XDShoppingCart1(),
+                  ),
+                );
+              },
+            ),
+            SizedBox(
+              width: width * 0.06,
+            ),
+            Image.asset("assets/Group 1107.png"),
+            SizedBox(width: width * 0.09),
+            InkWell(
+              child: SvgPicture.asset("assets/favorite (2).svg"),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FavoriteCourses(),
+                  ),
+                );
+              },
+            ),
+            const Spacer(),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => XDCategories1()),
+                );
+              },
+              icon: SvgPicture.asset("assets/category (3).svg"),
+            ),
+          ],
+        ),
+        leading: Builder(builder: (context) {
+          return IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: SvgPicture.asset("assets/list (2).svg"),
+          );
+        }),
+      ),
+      AppBar(
+        backgroundColor: Colors.white,
+        title: Row(
+          children: [
+            SizedBox(
+              width: width * 0.033,
+            ),
+            GestureDetector(
+              onTap: () {
+                Get.to(XDInstructorCourses());
+              },
+              child: SvgPicture.asset("assets/online-course (4).svg"),
+            ),
+            SizedBox(
+              width: width * 0.09,
+            ),
+            Image.asset("assets/Group 1107.png"),
+            SizedBox(width: width * 0.13),
+            GestureDetector(
+              onTap: () {
+                Get.to(
+                  OverView(),
+                );
+              },
+              child: SvgPicture.asset("assets/file (3).svg"),
+            ),
+            const Spacer(),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => XDCategories1()),
+                );
+              },
+              icon: SvgPicture.asset("assets/category (3).svg"),
+            ),
+          ],
+        ),
+        leading: Builder(builder: (context) {
+          return IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: SvgPicture.asset("assets/list (2).svg"),
+          );
+        }),
+      ),
+      AppBar(
+        backgroundColor: Colors.white,
+        title: Row(
+          children: [
+            SizedBox(
+              width: width * 0.01,
+            ),
+            IconButton(
+              icon: SvgPicture.asset("assets/add-to-cart (4).svg"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => XDShoppingCart1(),
+                  ),
+                );
+              },
+            ),
+            SizedBox(
+              width: width * 0.06,
+            ),
+            Image.asset("assets/Group 1107.png"),
+            SizedBox(width: width * 0.09),
+            InkWell(
+              child: SvgPicture.asset("assets/favorite (2).svg"),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FavoriteCourses(),
+                  ),
+                );
+              },
+            ),
+            const Spacer(),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => XDCategories1()),
+                );
+              },
+              icon: SvgPicture.asset("assets/category (3).svg"),
+            ),
+          ],
+        ),
+        leading: Builder(builder: (context) {
+          return IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: SvgPicture.asset("assets/list (2).svg"),
+          );
+        }),
+      ),
+    ];
+    return SafeArea(
+      child: Scaffold(
+        extendBody: true,
+        drawer: myDrawer,
+        appBar: appBar[index],
+        body: screens[index],
+        bottomNavigationBar: CurvedNavigationBar(
+          animationDuration: const Duration(milliseconds: 450),
+          items: items,
+          index: index,
+          height: 50,
+          onTap: (index) => setState(
+            () {
+              this.index = index;
+            },
           ),
-        );
-      },
+          backgroundColor: Colors.transparent,
+          color: kPrimaryColor,
+        ),
+      ),
     );
   }
 }
+

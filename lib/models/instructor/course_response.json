@@ -1,33 +1,136 @@
 {
-  "course_id": "667bf221-6185-4047-943c-315fe67c77f2",
-  "course_name": "ewfsdfiwerugh",
-  "course_instructor": {
-    "user": {
-      "username": "hhulhlu",
-      "first_name": "grewerhwe",
-      "last_name": "efwrhwwqerh",
-      "id": 4
+  "in_wishlist": false,
+  "in_cart": false,
+  "in_my_learning": false,
+  "course": {
+    "course_id": "9fb7bfb4-37af-494e-aad0-279f3569b67f",
+    "course_parent_category": [
+      {
+        "parent_category_id": "bfa737c5-8440-4547-9fe4-d4de5b4164b6",
+        "parent_category_name": "Mobile Development",
+        "parent_category_image": "/static/images/Screenshot_3.png",
+        "parent_category_description": "Android and IOS application development",
+        "students_count": 0
+      }
+    ],
+    "course_category": [
+      {
+        "category_id": "6bfc0a7f-55ea-47cb-9b8a-7710810b77a1",
+        "category_name": "Android development",
+        "category_image": "/static/images/Screenshot_6_lzfWhUp.png",
+        "category_description": "Andoid native & Kotlin",
+        "students_count": 0,
+        "parent_category": "bfa737c5-8440-4547-9fe4-d4de5b4164b6"
+      }
+    ],
+    "course_sections": [
+      {
+        "section_id": "f50256ba-4b9d-4df9-a9bb-e888468ed224",
+        "section_videos": [
+          {
+            "video_id": "112b0507-bc96-4903-8afb-6ad32d0c4a16",
+            "video_title": "title",
+            "video_duration": 10.0
+          }
+        ],
+        "section_name": "s name",
+        "section_article": "article"
+      },
+      {
+        "section_id": "d9ec1d37-c09d-4e30-9009-1d86f2bf4d67",
+        "section_videos": [
+          {
+            "video_id": "7a7f18b9-7c04-4d61-a4dd-7a96b748d6ec",
+            "video_title": "EZ",
+            "video_duration": 50.0
+          }
+        ],
+        "section_name": "section1",
+        "section_article": "section article"
+      },
+      {
+        "section_id": "8f7f68ee-f31d-4198-83e4-134335494a0f",
+        "section_videos": [
+          {
+            "video_id": "3dd890e6-4f43-4066-a8ef-fe9312e4423f",
+            "video_title": "kjweenfie",
+            "video_duration": 129.0
+          },
+          {
+            "video_id": "7a7f18b9-7c04-4d61-a4dd-7a96b748d6ec",
+            "video_title": "EZ",
+            "video_duration": 50.0
+          },
+          {
+            "video_id": "7f81d406-0ed5-41db-8f6c-bdec88f6e5b5",
+            "video_title": "ioaeefn",
+            "video_duration": 14.0
+          },
+          {
+            "video_id": "f94a2ac6-d49b-4325-96e7-432f9a9210d0",
+            "video_title": "title",
+            "video_duration": 60.0
+          }
+        ],
+        "section_name": "name",
+        "section_article": "sdvvdsvd"
+      }
+    ],
+    "course_instructor": {
+      "user": {
+        "username": "mouhamad",
+        "first_name": "mouhamad",
+        "last_name": "Jar",
+        "id": 7
+      },
+      "profile_image": "/static/images/Screenshot_7_jdlBZQy.png",
+      "id": 7,
+      "job_role": "Application developer",
+      "bio": "Bio",
+      "total_students": 1,
+      "total_balance": 10000,
+      "total_rate": 5.0,
+      "courses_count": 1
     },
-    "profile_image": "/static/images/about-logo_42a28Hw.jpg",
-    "id": 4,
-    "job_role": "",
-    "bio": "aasddsafdsfd",
-    "total_students": 0,
-    "total_balance": 0,
-    "total_rate": 0,
-    "courses_count": 0
-  },
-  "course_level": "Beginner",
-  "course_description": "jhqjwiehjweqfgywqjkefbu",
-  "course_rate": 3.4,
-  "course_price": 99,
-  "is_free": false,
-  "currency": "NONE",
-  "course_videos_count": 1,
-  "course_duration": 74,
-  "badges": "Best Selling",
-  "course_subtitle": "ifuwehnfioweuifh",
-  "course_image": "/static/images/index.jpg",
-  "course_students": 0,
-  "course_language": "English"
+    "course_learning_goals": [
+      {
+        "id": 1,
+        "learning_goal": "goal"
+      },
+      {
+        "id": 2,
+        "learning_goal": "goal"
+      }
+    ],
+    "course_requirements": [
+      {
+        "id": 1,
+        "course_requirement": "require1 to learn kabab"
+      }
+    ],
+    "course_coupons": [],
+    "course_name": "m course",
+    "course_subtitle": "course subtitle",
+    "course_description": "sdvdsdvdvsvds",
+    "course_rate": 0.0,
+    "course_review_count": 0,
+    "course_students": 0,
+    "created_at": "2022-01-23",
+    "updated_at": "2022-01-23",
+    "is_free": false,
+    "course_price": 23000,
+    "currency": "USD",
+    "badges": "Best Selling",
+    "course_level": "Expert",
+    "course_image": "/static/images/Screenshot_1_-_Copy_H3zdPoV.png",
+    "course_promotional_video": "/static/images/Screenshot_3_wvngkHQ.png",
+    "course_message": "message",
+    "course_language": "English",
+    "course_videos_count": 1,
+    "course_duration": 60,
+    "course_selling_times": 0,
+    "course_tests_price": 25000,
+    "course_topic": "19a9bff0-33b9-4d6f-81e9-9e0e51633968",
+    "course_test": 1
+  }
 }
