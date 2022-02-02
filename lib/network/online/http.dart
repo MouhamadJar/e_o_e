@@ -140,7 +140,7 @@ Future<http.Response> removeFromCart({
   return response;
 }
 
-Future<http.Response> favouriteItem({
+Future<dynamic> favouriteItem({
   required String token,
 }) async {
   String url = '$baseURL/manage_wishlist/';
@@ -150,7 +150,7 @@ Future<http.Response> favouriteItem({
       "Authorization": token,
     },
   );
-  return response;
+  return jsonDecode(response.body);
 }
 
 Future<http.Response> addToFavourite({

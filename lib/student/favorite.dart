@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_o_e/component/components.dart';
+import 'package:e_o_e/network/online/end_points.dart';
+import 'package:e_o_e/network/online/http.dart';
 import 'package:e_o_e/screens/about_us.dart';
 import 'package:e_o_e/screens/course_page.dart';
 import 'package:e_o_e/screens/main_setting.dart';
@@ -9,6 +11,7 @@ import 'package:e_o_e/screens/xd_categories1.dart';
 import 'package:e_o_e/student/student.dart';
 import 'package:e_o_e/student/xd_profile.dart';
 import 'package:e_o_e/student/xd_shopping_cart1.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -26,6 +29,7 @@ class FavoriteCourses extends StatefulWidget {
 class _FavoriteCoursesState extends State<FavoriteCourses> {
   @override
   Widget build(BuildContext context) {
+    Future<dynamic> myFavorite = favouriteItem(token: token);
     final width = MediaQuery.of(context)?.size.width ?? double.nan;
     final height = MediaQuery.of(context)?.size.height ?? double.nan;
     Drawer myDrawer = Drawer(
@@ -390,7 +394,6 @@ class _FavoriteCoursesState extends State<FavoriteCourses> {
       ),
     );
     List<Widget> favorite = [
-      FavoriteItem(height: height, width: width),
       SizedBox(
         height: height * 0.21,
       ),
@@ -447,66 +450,75 @@ class _FavoriteCoursesState extends State<FavoriteCourses> {
             );
           }),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.only(top: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    const Spacer(),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: width * 0.05),
-                      height: height * 0.05,
-                      width: width * 0.6,
-                      child: TextField(
-                        onChanged: (value) {},
-                        decoration: const InputDecoration(
-                            icon: Icon(Icons.search),
-                            hintText: "Search for your course",
-                            hintStyle: TextStyle(
-                              fontSize: 13,
-                              fontFamily: kFontFamily,
-                              color: Colors.grey,
-                            ),
-                            filled: true,
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(3.0)),
-                            )),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: height * 0.019,
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: width * 0.011),
-                  padding: EdgeInsets.only(
-                    top: height * 0.015,
-                  ),
+        body: FutureBuilder(
+          future: myFavorite,
+          builder: (context, snapshot) {
+            dynamic items = snapshot.data;
+            if (snapshot.hasError) {
+              return Center(child: Text(snapshot.error.toString()));
+            }
+            if (snapshot.hasData) {
+              return SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.only(top: 20),
                   height: height,
                   width: width,
-//                    color: Colors.grey,
-                  child: Center(
-                    child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: favorite.length,
-                      itemBuilder: (context, index) => favorite[index],
-                    ),
+                  child: ListView.separated(
+                    itemBuilder: (BuildContext context, int index) {
+                      if (items.isEmpty) {
+                        return Container(
+                          height: height * .85,
+                          width: width,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: const [
+                                    Icon(
+                                      CupertinoIcons.smiley_fill,
+                                      color: Colors.yellow,
+                                      size: 50,
+                                    ),
+                                    Text("Nothing in favorite"),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      } else {
+                        return FavoriteItem(
+                          height: height,
+                          width: width,
+                          coursePrice: items[index]['course']['course_price'].toString(),
+                          courseBadget: items[index]['course']['badges'].toString(),
+                          courseStudents: items[index]['course']['course_students'].toString(),
+                          courseName: items[index]['course']['course_name'],
+                          courseImage:BASEURL + items[index]['course']['course_image'],
+                          id: items[index]['course']['course_id'],
+                          courseInstructor: items[index]['course']['course_instructor']['user']['username'],
+                          courseRating: items[index]['course']['course_rate'].toString(),);
+                      }
+                    },
+                    itemCount: items.length == 0 ? 1 : items.length,
+                    separatorBuilder: (BuildContext context, int index) {
+                      return Divider(
+                        thickness: height * .001,
+                        height: height * .03,
+                        indent: width * .05,
+                        endIndent: width * .05,
+                        color: kPrimaryColor,
+                      );
+                    },
                   ),
                 ),
-              ],
-            ),
-          ),
+              );
+            }
+            return myLoader();
+          },
         ),
       ),
     );
   }
 }
-
-
