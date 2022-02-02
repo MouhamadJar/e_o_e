@@ -946,9 +946,7 @@ class Article extends StatelessWidget {
         ),
         Container(
           margin: EdgeInsets.only(
-              right: width * 0.05,
-              left: width * 0.05,
-              bottom: height * 0.03),
+              right: width * 0.05, left: width * 0.05, bottom: height * 0.03),
           padding: EdgeInsets.only(left: width * 0.02),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(
@@ -966,13 +964,7 @@ class Article extends StatelessWidget {
           height: height * 0.25,
           width: width * 0.9,
           child: const AutoSizeText(
-            kLorem +
-                kLorem +
-                kLorem +
-                kLorem +
-                kLorem +
-                kLorem +
-                kLorem,
+            kLorem + kLorem + kLorem + kLorem + kLorem + kLorem + kLorem,
             minFontSize: 14,
             maxFontSize: 24,
             style: TextStyle(
@@ -991,10 +983,19 @@ class FavoriteItem extends StatelessWidget {
     Key? key,
     required this.height,
     required this.width,
+    required this.id,
+    required this.courseImage,
+    required this.courseName,
+    required this.courseInstructor,
+    required this.courseBadget,
+    required this.coursePrice,
+    required this.courseStudents,
+    required this.courseRating,
   }) : super(key: key);
 
   final double height;
   final double width;
+  final String id , courseBadget,courseImage,courseName,courseInstructor,coursePrice,courseStudents,courseRating;
 
   @override
   Widget build(BuildContext context) {
@@ -1007,11 +1008,10 @@ class FavoriteItem extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const CoursePage(
-                      id: '1',
+                    builder: (context) =>  CoursePage(
+                      id: id,
                       tag: 'z',
-                      videoImage:
-                      "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
+                      videoImage: courseImage,
                     ),
                   ),
                 );
@@ -1036,8 +1036,8 @@ class FavoriteItem extends StatelessWidget {
                       //color: Colors.grey,
                       child: Hero(
                         tag: 'z',
-                        child: Image.asset(
-                          "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
+                        child: Image.network(
+                          courseImage,
                           filterQuality: FilterQuality.high,
                           isAntiAlias: true,
                         ),
@@ -1047,29 +1047,27 @@ class FavoriteItem extends StatelessWidget {
                       margin: EdgeInsets.only(top: height * 0.01),
                       child: Column(
                         children: [
-                          Container(
+                          SizedBox(
                             height: height * 0.025,
                             width: width * 0.29,
                             //color: Colors.grey,
-                            child: const AutoSizeText(
-                              "Name of course",
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontFamily: kFontFamily),
+                            child:  AutoSizeText(
+                              courseName,
+                              style:const TextStyle(
+                                  color: Colors.blue, fontFamily: kFontFamily),
                               maxFontSize: 16,
                               minFontSize: 10,
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: height * 0.025,
                             width: width * 0.22,
                             //color: Colors.blue,
-                            child: const AutoSizeText(
-                              "By Teacher",
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontFamily: kFontFamily),
+                            child:  AutoSizeText(
+                              "By $courseInstructor",
+                              style:const TextStyle(
+                                  color: Colors.grey, fontFamily: kFontFamily),
                               maxFontSize: 14,
                               minFontSize: 8,
                               overflow: TextOverflow.ellipsis,
@@ -1078,13 +1076,13 @@ class FavoriteItem extends StatelessWidget {
                           SizedBox(
                             height: height * 0.005,
                           ),
-                          Container(
+                          SizedBox(
                             height: height * 0.023,
                             width: width * 0.20,
                             //color: Colors.blue,
-                            child: const AutoSizeText(
-                              "Best saller",
-                              style: TextStyle(
+                            child:  AutoSizeText(
+                              courseBadget,
+                              style:const TextStyle(
                                   color: Color(0xFFF67D20),
                                   fontFamily: kFontFamily),
                               maxFontSize: 14,
@@ -1097,13 +1095,13 @@ class FavoriteItem extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              Container(
+                              SizedBox(
                                 height: height * 0.021,
                                 width: width * 0.19,
                                 //color: Colors.blue,
-                                child: const AutoSizeText(
-                                  "55,000 sp",
-                                  style: TextStyle(
+                                child:  AutoSizeText(
+                                  "$coursePrice sp",
+                                  style:const TextStyle(
                                       fontFamily: kFontFamily,
                                       fontWeight: FontWeight.bold),
                                   maxFontSize: 14,
@@ -1114,13 +1112,13 @@ class FavoriteItem extends StatelessWidget {
                               SizedBox(
                                 width: width * 0.011,
                               ),
-                              Container(
+                              SizedBox(
                                 height: height * 0.021,
                                 width: width * 0.15,
                                 //  color: Colors.blue,
-                                child: const AutoSizeText(
-                                  "(123,154)",
-                                  style: TextStyle(
+                                child:  AutoSizeText(
+                                  "($courseStudents)",
+                                  style:const TextStyle(
                                     fontFamily: kFontFamily,
                                   ),
                                   maxFontSize: 12,
@@ -1140,9 +1138,9 @@ class FavoriteItem extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             //   const SizedBox(width: 10,),
-                            const Text(
-                              "4.5",
-                              style: TextStyle(
+                             Text(
+                              courseRating,
+                              style:const TextStyle(
                                   color: Color(0xFFFB0000),
                                   fontWeight: FontWeight.bold),
                             ),
@@ -1156,8 +1154,7 @@ class FavoriteItem extends StatelessWidget {
               ),
             ),
             Container(
-              margin:
-              EdgeInsets.only(top: height * 0.008, left: width * 0.03),
+              margin: EdgeInsets.only(top: height * 0.008, left: width * 0.03),
               width: width * 0.92,
               height: height * 0.05,
               child: Row(
@@ -1236,9 +1233,9 @@ class FavoriteItem extends StatelessWidget {
         ),
         Positioned(
             top: 0,
-            right: width * 0.06,
+            right: width * 0.09,
             child:
-            SvgPicture.asset("assets/heart-simple-shape-silhouette.svg")),
+                SvgPicture.asset("assets/heart-simple-shape-silhouette.svg")),
       ],
     );
   }

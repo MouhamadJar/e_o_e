@@ -1,4 +1,4 @@
-const String BASEURL = "http://37.44.247.50:8001";
+const BASEURL = "http://37.44.247.50:8001";
 const LOGIN = '/login_instructor/';
 const SIGNUP = '/register_instructor/';
 const RESTPASSWORD = '/reset_password/';
