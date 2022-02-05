@@ -14,7 +14,6 @@ import '../rooms.dart';
 import '../xd_categories1.dart';
 import 'models/models.dart';
 
-
 class OverView extends StatefulWidget {
   const OverView({Key? key}) : super(key: key);
 
@@ -25,15 +24,34 @@ class OverView extends StatefulWidget {
 class _OverViewState extends State<OverView> {
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context)?.size.width??double.nan;
-    final height = MediaQuery.of(context)?.size.height??double.nan;
+    final width = MediaQuery.of(context)?.size.width ?? double.nan;
+    final height = MediaQuery.of(context)?.size.height ?? double.nan;
 
-
-    List<ReviewerInfo> reviews =[
-      ReviewerInfo(reviewerImg: "assets/person.png", reviewerName: "Name of Reviewer", reviewerComment:  "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",),
-      ReviewerInfo(reviewerImg: "assets/person.png", reviewerName: "Name of Reviewer", reviewerComment:  "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",),
-      ReviewerInfo(reviewerImg: "assets/person.png", reviewerName: "Name of Reviewer", reviewerComment:  "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",),
-      ReviewerInfo(reviewerImg: "assets/person.png", reviewerName: "Name of Reviewer", reviewerComment:  "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",),
+    List<ReviewerInfo> reviews = [
+      ReviewerInfo(
+        reviewerImg: "assets/person.png",
+        reviewerName: "Name of Reviewer",
+        reviewerComment:
+            "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",
+      ),
+      ReviewerInfo(
+        reviewerImg: "assets/person.png",
+        reviewerName: "Name of Reviewer",
+        reviewerComment:
+            "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",
+      ),
+      ReviewerInfo(
+        reviewerImg: "assets/person.png",
+        reviewerName: "Name of Reviewer",
+        reviewerComment:
+            "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",
+      ),
+      ReviewerInfo(
+        reviewerImg: "assets/person.png",
+        reviewerName: "Name of Reviewer",
+        reviewerComment:
+            "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",
+      ),
     ];
 
     return SafeArea(
@@ -46,7 +64,9 @@ class _OverViewState extends State<OverView> {
                 width: width * 0.033,
               ),
               GestureDetector(
-                onTap : (){Get.off(XDInstructorCourses());},
+                onTap: () {
+                  Get.off(XDInstructorCourses());
+                },
                 child: SvgPicture.asset("assets/online-course (4).svg"),
               ),
               SizedBox(
@@ -55,11 +75,19 @@ class _OverViewState extends State<OverView> {
               Image.asset("assets/Group 1107.png"),
               SizedBox(width: width * 0.13),
               GestureDetector(
-                onTap: (){Get.off(OverView(),);},
+                onTap: () {
+                  Get.off(
+                    OverView(),
+                  );
+                },
                 child: CircleAvatar(
                     backgroundColor: kPrimaryColor,
                     radius: 20,
-                    child: Center(child: SvgPicture.asset("assets/file (2).svg",height: 19,))),
+                    child: Center(
+                        child: SvgPicture.asset(
+                      "assets/file (2).svg",
+                      height: 19,
+                    ))),
               ),
               const Spacer(),
               IconButton(
@@ -73,16 +101,14 @@ class _OverViewState extends State<OverView> {
               ),
             ],
           ),
-          leading: Builder(
-              builder: (context) {
-                return IconButton(
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                  icon: SvgPicture.asset("assets/list (2).svg"),
-                );
-              }
-          ),
+          leading: Builder(builder: (context) {
+            return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: SvgPicture.asset("assets/list (2).svg"),
+            );
+          }),
         ),
         drawer: Drawer(
           child: SafeArea(
@@ -169,7 +195,7 @@ class _OverViewState extends State<OverView> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>const TeacherPage(),
+                                  builder: (context) => const TeacherPage(),
                                 ),
                               );
                             });
@@ -184,7 +210,8 @@ class _OverViewState extends State<OverView> {
                                 InkWell(
                                   child: Container(
                                     height: 25,
-                                    width: MediaQuery.of(context).size.width * 0.75,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.75,
                                     child: Row(
                                       children: [
                                         SvgPicture.asset(
@@ -232,7 +259,8 @@ class _OverViewState extends State<OverView> {
                                 InkWell(
                                   child: Container(
                                     height: 25,
-                                    width: MediaQuery.of(context).size.width * 0.75,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.75,
                                     child: Row(
                                       children: [
                                         SvgPicture.asset(
@@ -278,7 +306,8 @@ class _OverViewState extends State<OverView> {
                                   width: 10,
                                 ),
                                 Container(
-                                  width: MediaQuery.of(context).size.width * 0.75,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.75,
                                   height: 25,
                                   child: Row(
                                     children: [
@@ -320,7 +349,8 @@ class _OverViewState extends State<OverView> {
                                 ),
                                 Container(
                                   height: 25,
-                                  width: MediaQuery.of(context).size.width * 0.75,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.75,
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
@@ -365,7 +395,8 @@ class _OverViewState extends State<OverView> {
                                   width: 10,
                                 ),
                                 Container(
-                                  width: MediaQuery.of(context).size.width * 0.75,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.75,
                                   height: 25,
                                   child: Row(
                                     children: [
@@ -411,7 +442,8 @@ class _OverViewState extends State<OverView> {
                                   width: 10,
                                 ),
                                 Container(
-                                  width: MediaQuery.of(context).size.width * 0.75,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.75,
                                   height: 25,
                                   child: Row(
                                     children: [
@@ -447,37 +479,40 @@ class _OverViewState extends State<OverView> {
         ),
         body: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment:CrossAxisAlignment.start ,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Container(
-                 margin: EdgeInsets.all(width*0.03),
-                 height: height*0.04,
-                 width: width*0.3,
+              Container(
+                margin: EdgeInsets.all(width * 0.03),
+                height: height * 0.04,
+                width: width * 0.3,
 //             color: Colors.grey,
-                 child: AutoSizeText(
-                    "OverView".toUpperCase(),
-                  style:const TextStyle(
+                child: AutoSizeText(
+                  "OverView".toUpperCase(),
+                  style: const TextStyle(
                     color: Color(0xFFF67D20),
                     fontSize: 202020,
                     fontFamily: kFontFamily,
                   ),
-                    maxFontSize: 20,
+                  maxFontSize: 20,
                   maxLines: 1,
                   minFontSize: 12,
-                    ),
-               ),
-               Padding(
-                 padding:  EdgeInsets.only(left:width*0.02),
-                 child: Row(
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: width * 0.02),
+                child: Row(
                   children: [
                     Row(
                       children: [
-                        SvgPicture.asset("assets/dollar.svg",height: height*0.033,),
+                        SvgPicture.asset(
+                          "assets/dollar.svg",
+                          height: height * 0.033,
+                        ),
                         Container(
-                          height: height*0.04,
-                          width: width*0.3,
+                          height: height * 0.04,
+                          width: width * 0.3,
 //             color: Colors.grey,
-                          child:const Center(
+                          child: const Center(
                             child: AutoSizeText(
                               "Total Income",
                               style: TextStyle(
@@ -498,13 +533,12 @@ class _OverViewState extends State<OverView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          height: height*0.03,
-                          width: width*0.5,
+                          height: height * 0.03,
+                          width: width * 0.5,
 //                      color: Colors.grey,
-                          child:const AutoSizeText(
+                          child: const AutoSizeText(
                             "Your Total Income Is 500.000 Sp ,",
                             style: TextStyle(
-
                               color: Color(0xFF9504B3),
                               fontSize: 202020,
                               fontFamily: kFontFamily,
@@ -515,10 +549,10 @@ class _OverViewState extends State<OverView> {
                           ),
                         ),
                         Container(
-                          height: height*0.03,
-                          width: width*0.49,
+                          height: height * 0.03,
+                          width: width * 0.49,
 //                      color: Colors.grey,
-                          child:const AutoSizeText(
+                          child: const AutoSizeText(
                             "The Plateform Has 100.000 Sp .",
                             style: TextStyle(
                               color: Color(0xFF9504B3),
@@ -531,13 +565,12 @@ class _OverViewState extends State<OverView> {
                           ),
                         ),
                         Container(
-                          height: height*0.03,
-                          width: width*0.5,
+                          height: height * 0.03,
+                          width: width * 0.5,
 //                      color: Colors.grey,
-                          child:const AutoSizeText(
+                          child: const AutoSizeText(
                             "So Your Final Income 400.000 Sp. ",
                             style: TextStyle(
-
                               color: Color(0xFF9504B3),
                               fontSize: 202020,
                               fontFamily: kFontFamily,
@@ -550,281 +583,289 @@ class _OverViewState extends State<OverView> {
                       ],
                     ),
                   ],
+                ),
               ),
-               ),
-               Container(
-                 width: width,
-                 height: height*0.4,
-                 margin: EdgeInsets.all(width*0.02),
-                 decoration:const BoxDecoration(
-                   color: Colors.white,
-                   boxShadow: [
-                     BoxShadow(
-                      color: Colors.grey,
-                       blurRadius: 11,
-                     )
-                   ]
-                 ),
-                 child: LayoutBuilder(
-                   builder: (context,size) {
-                     return Column(
-                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                       children: [
-                         Container(
-                          padding:  EdgeInsets.only(left:width*0.5),
-                          child: Row(
-                            children: [
-                               SizedBox(
-                                height:height*0.06,
-                                width: width*0.2,
-                                child:const Center(child:  AutoSizeText("select time")),
+              Container(
+                width: width,
+                height: height * 0.4,
+                margin: EdgeInsets.all(width * 0.02),
+                decoration:
+                    const BoxDecoration(color: Colors.white, boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 11,
+                  )
+                ]),
+                child: LayoutBuilder(builder: (context, size) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(left: width * 0.5),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              height: height * 0.06,
+                              width: width * 0.2,
+                              child: const Center(
+                                  child: AutoSizeText("select time")),
+                            ),
+                            DropdownButton<String>(
+                              //isExpanded: true,
+                              style: const TextStyle(
+                                fontFamily: kFontFamily,
+                                color: Colors.black,
                               ),
-                              DropdownButton<String>(
-                                //isExpanded: true,
-                                style:const TextStyle(
-                                  fontFamily: kFontFamily,
-                                  color: Colors.black,
+                              items: const [
+                                DropdownMenuItem(
+                                  child: Text('All times'),
+                                  value: 'All times',
                                 ),
-                                items:const [
-                                  DropdownMenuItem(child: Text('All times') , value:'All times',  ),
-                                  DropdownMenuItem(child: Text('Last month'), value:'Last month',),
-                                  DropdownMenuItem(child: Text('Last week') , value:'Last week',  ),
-                                  DropdownMenuItem(child: Text('Today')     , value:'Today',),
-                                ],
-                                onChanged: (value){setState(() {                                 }
-                                  );//setState
-                                },
-                              ),
-                            ],
+                                DropdownMenuItem(
+                                  child: Text('Last month'),
+                                  value: 'Last month',
+                                ),
+                                DropdownMenuItem(
+                                  child: Text('Last week'),
+                                  value: 'Last week',
+                                ),
+                                DropdownMenuItem(
+                                  child: Text('Today'),
+                                  value: 'Today',
+                                ),
+                              ],
+                              onChanged: (value) {
+                                setState(() {}); //setState
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.blueGrey,
+                                    blurRadius: 2,
+                                  )
+                                ]),
+                            height: size.maxHeight * 0.3,
+                            width: size.maxWidth * 0.45,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: size.maxHeight * 0.25,
+                                  width: size.maxWidth * 0.2,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/bamdad-norouzian-dxedAj3puxY-unsplash.png"),
+                                    fit: BoxFit.fill,
+                                  )),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: const [
+                                      AutoSizeText(
+                                        "course name",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        maxFontSize: 20,
+                                        minFontSize: 8,
+                                      ),
+                                      AutoSizeText(
+                                        "50,000 sp",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        maxFontSize: 20,
+                                        minFontSize: 8,
+                                      ),
+                                    ],
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
+                          Container(
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.blueGrey,
+                                    blurRadius: 2,
+                                  )
+                                ]),
+                            height: size.maxHeight * 0.3,
+                            width: size.maxWidth * 0.45,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: size.maxHeight * 0.25,
+                                  width: size.maxWidth * 0.2,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/bamdad-norouzian-dxedAj3puxY-unsplash.png"),
+                                    fit: BoxFit.fill,
+                                  )),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: const [
+                                      AutoSizeText(
+                                        "course name",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        maxFontSize: 20,
+                                        minFontSize: 8,
+                                      ),
+                                      AutoSizeText(
+                                        "50,000 sp",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        maxFontSize: 20,
+                                        minFontSize: 8,
+                                      ),
+                                    ],
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.blueGrey,
+                                    blurRadius: 2,
+                                  )
+                                ]),
+                            height: size.maxHeight * 0.3,
+                            width: size.maxWidth * 0.45,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: size.maxHeight * 0.25,
+                                  width: size.maxWidth * 0.2,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/bamdad-norouzian-dxedAj3puxY-unsplash.png"),
+                                    fit: BoxFit.fill,
+                                  )),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: const [
+                                      AutoSizeText(
+                                        "course name",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        maxFontSize: 20,
+                                        minFontSize: 8,
+                                      ),
+                                      AutoSizeText(
+                                        "50,000 sp",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        maxFontSize: 20,
+                                        minFontSize: 8,
+                                      ),
+                                    ],
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Container(
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.blueGrey,
+                                    blurRadius: 2,
+                                  )
+                                ]),
+                            height: size.maxHeight * 0.3,
+                            width: size.maxWidth * 0.45,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: size.maxHeight * 0.25,
+                                  width: size.maxWidth * 0.2,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/bamdad-norouzian-dxedAj3puxY-unsplash.png"),
+                                    fit: BoxFit.fill,
+                                  )),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: const [
+                                      AutoSizeText(
+                                        "course name",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        maxFontSize: 20,
+                                        minFontSize: 8,
+                                      ),
+                                      AutoSizeText(
+                                        "50,000 sp",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        maxFontSize: 20,
+                                        minFontSize: 8,
+                                      ),
+                                    ],
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  );
+                }),
               ),
-                         Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                           children: [
-                             Container(
-                               decoration:const BoxDecoration(
-                                 color: Colors.white,
-                                   boxShadow: [
-                                     BoxShadow(
-                                       color: Colors.blueGrey,
-                                       blurRadius: 2,
-                                     )
-                                   ]
-                               ),
-                               height: size.maxHeight*0.3,
-                               width: size.maxWidth*0.45,
-                               child: Row(
-                                 children: [
-                                   Container(
-                                     height: size.maxHeight*0.25,
-                                     width: size.maxWidth*0.2,
-                                     decoration:const BoxDecoration(
-                                       image: DecorationImage(
-                                         image: AssetImage("assets/bamdad-norouzian-dxedAj3puxY-unsplash.png"),
-                                         fit: BoxFit.fill,
-                                       )
-                                     ),
-                                   ),
-                                   Padding(
-                                     padding: const EdgeInsets.all(8.0),
-                                     child: Column(
-
-                                       children:const [
-                                            AutoSizeText(
-                                              "course name",
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              maxFontSize: 20,
-                                              minFontSize: 8,
-                                            ),
-                                            AutoSizeText(
-                                              "50,000 sp",
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              maxFontSize: 20,
-                                              minFontSize: 8,
-                                            ),
-                                       ],
-                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                     ),
-                                   )
-                                 ],
-                               ),
-                             ),
-                             Container(
-                               decoration:const BoxDecoration(
-                                 color: Colors.white,
-                                   boxShadow: [
-                                     BoxShadow(
-                                       color: Colors.blueGrey,
-                                       blurRadius: 2,
-                                     )
-                                   ]
-                               ),
-                               height: size.maxHeight*0.3,
-                               width: size.maxWidth*0.45,
-                               child: Row(
-                                 children: [
-                                   Container(
-                                     height: size.maxHeight*0.25,
-                                     width: size.maxWidth*0.2,
-                                     decoration:const BoxDecoration(
-                                       image: DecorationImage(
-                                         image: AssetImage("assets/bamdad-norouzian-dxedAj3puxY-unsplash.png"),
-                                         fit: BoxFit.fill,
-                                       )
-                                     ),
-                                   ),
-                                   Padding(
-                                     padding: const EdgeInsets.all(8.0),
-                                     child: Column(
-
-                                       children:const [
-                                            AutoSizeText(
-                                              "course name",
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              maxFontSize: 20,
-                                              minFontSize: 8,
-                                            ),
-                                            AutoSizeText(
-                                              "50,000 sp",
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              maxFontSize: 20,
-                                              minFontSize: 8,
-                                            ),
-                                       ],
-                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                     ),
-                                   )
-                                 ],
-                               ),
-                             ),
-                           ],
-                         ),
-                         Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                           children: [
-                             Container(
-                               decoration:const BoxDecoration(
-                                 color: Colors.white,
-                                   boxShadow: [
-                                     BoxShadow(
-                                       color: Colors.blueGrey,
-                                       blurRadius: 2,
-                                     )
-                                   ]
-                               ),
-                               height: size.maxHeight*0.3,
-                               width: size.maxWidth*0.45,
-                               child: Row(
-                                 children: [
-                                   Container(
-                                     height: size.maxHeight*0.25,
-                                     width: size.maxWidth*0.2,
-                                     decoration:const BoxDecoration(
-                                       image: DecorationImage(
-                                         image: AssetImage("assets/bamdad-norouzian-dxedAj3puxY-unsplash.png"),
-                                         fit: BoxFit.fill,
-                                       )
-                                     ),
-                                   ),
-                                   Padding(
-                                     padding: const EdgeInsets.all(8.0),
-                                     child: Column(
-
-                                       children:const [
-                                            AutoSizeText(
-                                              "course name",
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              maxFontSize: 20,
-                                              minFontSize: 8,
-                                            ),
-                                            AutoSizeText(
-                                              "50,000 sp",
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              maxFontSize: 20,
-                                              minFontSize: 8,
-                                            ),
-                                       ],
-                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                     ),
-                                   )
-                                 ],
-                               ),
-                             ),
-                             Container(
-                               decoration:const BoxDecoration(
-                                 color: Colors.white,
-                                   boxShadow: [
-                                     BoxShadow(
-                                       color: Colors.blueGrey,
-                                       blurRadius: 2,
-                                     )
-                                   ]
-                               ),
-                               height: size.maxHeight*0.3,
-                               width: size.maxWidth*0.45,
-                               child: Row(
-                                 children: [
-                                   Container(
-                                     height: size.maxHeight*0.25,
-                                     width: size.maxWidth*0.2,
-                                     decoration:const BoxDecoration(
-                                       image: DecorationImage(
-                                         image: AssetImage("assets/bamdad-norouzian-dxedAj3puxY-unsplash.png"),
-                                         fit: BoxFit.fill,
-                                       )
-                                     ),
-                                   ),
-                                   Padding(
-                                     padding: const EdgeInsets.all(8.0),
-                                     child: Column(
-
-                                       children:const [
-                                            AutoSizeText(
-                                              "course name",
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              maxFontSize: 20,
-                                              minFontSize: 8,
-                                            ),
-                                            AutoSizeText(
-                                              "50,000 sp",
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              maxFontSize: 20,
-                                              minFontSize: 8,
-                                            ),
-                                       ],
-                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                     ),
-                                   )
-                                 ],
-                               ),
-                             ),
-                           ],
-                         ),
-                       ],
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                     );
-                   }
-                 ),
-               ),
-               Padding(
-                padding:  EdgeInsets.all(width*0.03),
+              Padding(
+                padding: EdgeInsets.all(width * 0.03),
                 child: Row(
                   children: [
-                    SvgPicture.asset("assets/checklist (1).svg",height: height*0.033,),
+                    SvgPicture.asset(
+                      "assets/checklist (1).svg",
+                      height: height * 0.033,
+                    ),
                     Container(
-                      height: height*0.04,
-                      width: width*0.33,
+                      height: height * 0.04,
+                      width: width * 0.33,
 //             color: Colors.grey,
-                      child:const Center(
-                        child:  AutoSizeText(
+                      child: const Center(
+                        child: AutoSizeText(
                           "Total Enrollment",
                           style: TextStyle(
                             color: Colors.black,
@@ -840,213 +881,224 @@ class _OverViewState extends State<OverView> {
                   ],
                 ),
               ),
-               Container(
+              Container(
                 width: width,
-                height: height*0.45,
-                margin: EdgeInsets.all(width*0.02),
-                decoration:const BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 11,
-                      )
-                    ]
-                ),
-                child: LayoutBuilder(
-                    builder: (context,size) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            padding:  EdgeInsets.only(left:width*0.5),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  height:height*0.06,
-                                  width: width*0.2,
-                                  child:const Center(child:  AutoSizeText("select time")),
+                height: height * 0.45,
+                margin: EdgeInsets.all(width * 0.02),
+                decoration:
+                    const BoxDecoration(color: Colors.white, boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 11,
+                  )
+                ]),
+                child: LayoutBuilder(builder: (context, size) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(left: width * 0.5),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              height: height * 0.06,
+                              width: width * 0.2,
+                              child: const Center(
+                                  child: AutoSizeText("select time")),
+                            ),
+                            DropdownButton<String>(
+                              //isExpanded: true,
+                              style: const TextStyle(
+                                fontFamily: kFontFamily,
+                                color: Colors.black,
+                              ),
+                              items: const [
+                                DropdownMenuItem(
+                                  child: Text('All times'),
+                                  value: 'All times',
                                 ),
-                                DropdownButton<String>(
-                                  //isExpanded: true,
-                                  style:const TextStyle(
-                                    fontFamily: kFontFamily,
-                                    color: Colors.black,
-                                  ),
-                                  items:const [
-                                    DropdownMenuItem(child: Text('All times') , value:'All times',  ),
-                                    DropdownMenuItem(child: Text('Last month'), value:'Last month',),
-                                    DropdownMenuItem(child: Text('Last week') , value:'Last week',  ),
-                                    DropdownMenuItem(child: Text('Today')     , value:'Today',),
-                                  ],
-                                  onChanged: (value){setState(() { }
-                                  );//setState
-                                  },
+                                DropdownMenuItem(
+                                  child: Text('Last month'),
+                                  value: 'Last month',
+                                ),
+                                DropdownMenuItem(
+                                  child: Text('Last week'),
+                                  value: 'Last week',
+                                ),
+                                DropdownMenuItem(
+                                  child: Text('Today'),
+                                  value: 'Today',
                                 ),
                               ],
+                              onChanged: (value) {
+                                setState(() {}); //setState
+                              },
                             ),
-                          ),//dropdown
-                          Container(
-                            decoration:const BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.blueGrey,
-                                    blurRadius: 2,
-                                  )
-                                ]
+                          ],
+                        ),
+                      ), //dropdown
+                      Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.blueGrey,
+                                blurRadius: 2,
+                              )
+                            ]),
+                        height: size.maxHeight * 0.3,
+                        width: size.maxWidth * 0.85,
+                        child: Row(
+                          children: [
+                            Container(
+                              height: size.maxHeight * 0.25,
+                              width: size.maxWidth * 0.2,
+                              decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                image: AssetImage("assets/person.png"),
+                                fit: BoxFit.fill,
+                              )),
                             ),
-                            height: size.maxHeight*0.3,
-                            width: size.maxWidth*0.85,
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: size.maxHeight*0.25,
-                                  width: size.maxWidth*0.2,
-                                  decoration:const BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage("assets/person.png"),
-                                        fit: BoxFit.fill,
-                                      )
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: const [
+                                  AutoSizeText(
+                                    "Name of Student",
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    maxFontSize: 20,
+                                    minFontSize: 8,
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children:const [
-                                      AutoSizeText(
-                                        "Name of Student",
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        maxFontSize: 20,
-                                        minFontSize: 8,
-                                      ),
-                                      AutoSizeText(
-                                        "Development",
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        maxFontSize: 20,
-                                        minFontSize: 8,
-                                      ),
-                                    ],
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  AutoSizeText(
+                                    "Development",
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    maxFontSize: 20,
+                                    minFontSize: 8,
                                   ),
-                                ),
-                                const Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children:const [
-                                      AutoSizeText(
-                                        "Name of course",
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        maxFontSize: 20,
-                                        minFontSize: 8,
-                                      ),
-                                      AutoSizeText(
-                                        "50,000 sp",
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        maxFontSize: 20,
-                                        minFontSize: 8,
-                                      ),
-                                    ],
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  ),
-                                ),
-                              ],
+                                ],
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                              ),
                             ),
-                          ),
-                          Container(
-                            decoration:const BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.blueGrey,
-                                    blurRadius: 2,
-                                  )
-                                ]
+                            const Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: const [
+                                  AutoSizeText(
+                                    "Name of course",
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    maxFontSize: 20,
+                                    minFontSize: 8,
+                                  ),
+                                  AutoSizeText(
+                                    "50,000 sp",
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    maxFontSize: 20,
+                                    minFontSize: 8,
+                                  ),
+                                ],
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                              ),
                             ),
-                            height: size.maxHeight*0.3,
-                            width: size.maxWidth*0.85,
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: size.maxHeight*0.25,
-                                  width: size.maxWidth*0.2,
-                                  decoration:const BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage("assets/person.png"),
-                                        fit: BoxFit.fill,
-                                      )
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children:const [
-                                      AutoSizeText(
-                                        "Name of Student",
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        maxFontSize: 20,
-                                        minFontSize: 8,
-                                      ),
-                                      AutoSizeText(
-                                        "Development",
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        maxFontSize: 20,
-                                        minFontSize: 8,
-                                      ),
-                                    ],
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  ),
-                                ),
-                                const Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children:const [
-                                      AutoSizeText(
-                                        "Name of course",
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        maxFontSize: 20,
-                                        minFontSize: 8,
-                                      ),
-                                      AutoSizeText(
-                                        "50,000 sp",
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        maxFontSize: 20,
-                                        minFontSize: 8,
-                                      ),
-                                    ],
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  ),
-                                ),
-                              ],
+                          ],
+                        ),
+                      ),
+                      Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.blueGrey,
+                                blurRadius: 2,
+                              )
+                            ]),
+                        height: size.maxHeight * 0.3,
+                        width: size.maxWidth * 0.85,
+                        child: Row(
+                          children: [
+                            Container(
+                              height: size.maxHeight * 0.25,
+                              width: size.maxWidth * 0.2,
+                              decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                image: AssetImage("assets/person.png"),
+                                fit: BoxFit.fill,
+                              )),
                             ),
-                          ),
-
-                        ],
-                      );
-                    }
-                ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: const [
+                                  AutoSizeText(
+                                    "Name of Student",
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    maxFontSize: 20,
+                                    minFontSize: 8,
+                                  ),
+                                  AutoSizeText(
+                                    "Development",
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    maxFontSize: 20,
+                                    minFontSize: 8,
+                                  ),
+                                ],
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                              ),
+                            ),
+                            const Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: const [
+                                  AutoSizeText(
+                                    "Name of course",
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    maxFontSize: 20,
+                                    minFontSize: 8,
+                                  ),
+                                  AutoSizeText(
+                                    "50,000 sp",
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    maxFontSize: 20,
+                                    minFontSize: 8,
+                                  ),
+                                ],
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                }),
               ),
-               Padding(
-                padding:  EdgeInsets.all(width*0.03),
+              Padding(
+                padding: EdgeInsets.all(width * 0.03),
                 child: Row(
                   children: [
-                    SvgPicture.asset("assets/feedback.svg",height: height*0.033,),
+                    SvgPicture.asset(
+                      "assets/feedback.svg",
+                      height: height * 0.033,
+                    ),
                     Container(
-                      height: height*0.04,
-                      width: width*0.33,
+                      height: height * 0.04,
+                      width: width * 0.33,
 //             color: Colors.grey,
-                      child:const Center(
-                        child:  AutoSizeText(
+                      child: const Center(
+                        child: AutoSizeText(
                           "Reviews",
                           style: TextStyle(
                             color: Colors.black,
@@ -1063,23 +1115,29 @@ class _OverViewState extends State<OverView> {
                 ),
               ),
               ReviewCard(
+                onDisLike: (){},
+                onLike: (){},
                 width: width,
                 height: height,
-                reviewerName:reviews[0].reviewerName ,
+                reviewerName: reviews[0].reviewerName,
                 reviewerComment: reviews[0].reviewerComment,
                 reviewerImg: reviews[0].reviewerImg,
               ),
               ReviewCard(
+                onDisLike: (){},
+                onLike: (){},
                 width: width,
                 height: height,
-                reviewerName:reviews[0].reviewerName ,
+                reviewerName: reviews[0].reviewerName,
                 reviewerComment: reviews[0].reviewerComment,
                 reviewerImg: reviews[0].reviewerImg,
               ),
               ReviewCard(
+                onDisLike: (){},
+                onLike: (){},
                 width: width,
                 height: height,
-                reviewerName:reviews[0].reviewerName ,
+                reviewerName: reviews[0].reviewerName,
                 reviewerComment: reviews[0].reviewerComment,
                 reviewerImg: reviews[0].reviewerImg,
               ),
@@ -1102,4 +1160,3 @@ class _OverViewState extends State<OverView> {
     );
   }
 }
-

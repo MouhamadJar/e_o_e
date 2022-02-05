@@ -1,0 +1,40 @@
+{
+  "cart_item": {
+    "cart_item_id": "08743dea-3436-4234-99b5-69e0ed189397",
+    "quantity": 1,
+    "course": {
+      "course_id": "ce982d1a-3012-4c65-b305-660b1b7ce536",
+      "course_name": "test",
+      "course_instructor": {
+        "user": {
+          "username": "abn",
+          "first_name": "m",
+          "last_name": "m",
+          "id": 3
+        },
+        "profile_image": null,
+        "id": 3,
+        "job_role": "",
+        "bio": "",
+        "total_students": 0,
+        "total_balance": 0,
+        "total_rate": 0.0,
+        "courses_count": 0
+      },
+      "course_level": "Intermediate",
+      "course_description": "test",
+      "course_rate": 3.0,
+      "course_price": 2000,
+      "is_free": false,
+      "currency": "USD",
+      "course_videos_count": 0,
+      "course_duration": 0,
+      "badges": "Best Selling",
+      "course_subtitle": "test",
+      "course_image": "/static/images/Screenshot_6_-_Copy.png",
+      "course_students": 20,
+      "course_language": "English"
+    }
+  },
+  "in_wishlist": false
+}

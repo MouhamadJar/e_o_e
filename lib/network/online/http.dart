@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:e_o_e/constants.dart';
 import 'package:e_o_e/network/online/end_points.dart';
 import 'package:http/http.dart' as http;
 
- const String baseURL = "http://37.44.247.50:8001";
+const String baseURL = "http://37.44.247.50:8001";
 
 Future<http.Response> login({
   required String username,
@@ -88,7 +89,7 @@ Future<http.Response> RestPassword({
   return response;
 }
 
-Future<Map<String , dynamic>> getProfile({
+Future<Map<String, dynamic>> getProfile({
   required String token,
 }) async {
   String url = baseURL + GETPROFILE;
@@ -101,9 +102,7 @@ Future<Map<String , dynamic>> getProfile({
   return json.decode(response.body);
 }
 
-Future<http.Response> cartItem({
-  required String token,
-}) async {
+Future<dynamic> cartItem() async {
   String url = '$baseURL/cart_manager/';
   http.Response response = await http.get(
     Uri.parse(url),
@@ -111,7 +110,7 @@ Future<http.Response> cartItem({
       "Authorization": token,
     },
   );
-  return response;
+  return jsonDecode(response.body);
 }
 
 Future<http.Response> addToCart({
@@ -244,7 +243,7 @@ Future<http.Response> getCoursesRating({
   return response;
 }
 
-Future<Map<String , dynamic>> getNewestCourse() async {
+Future<Map<String, dynamic>> getNewestCourse() async {
   String url = '$baseURL/last_course/';
   http.Response response = await http.get(
     Uri.parse(url),
@@ -343,7 +342,7 @@ Future<http.Response> getCompanies() async {
   return response;
 }
 
-Future<Map<String , dynamic>> getInstructorProfile({
+Future<Map<String, dynamic>> getInstructorProfile({
   required int id,
 }) async {
   String url = '$baseURL/instructor_profile/$id/';
@@ -386,4 +385,42 @@ Future<http.Response> updateProfile({
     },
   );
   return _response;
+}
+
+Future<dynamic> like({
+  required String ratingId,
+}) async {
+  String url = BASEURL + LIKE_DISLKIKE;
+  http.Response response = await http.post(Uri.parse(url), body: {
+    'rating_id': ratingId,
+    'is_like': true,
+  });
+  return jsonDecode(response.body);
+}
+
+Future<dynamic> disLike({
+  required String ratingId,
+}) async {
+  String url = BASEURL + LIKE_DISLKIKE;
+  http.Response response = await http.post(Uri.parse(url), body: {
+    'rating_id': ratingId,
+    'is_like': false,
+  });
+  return jsonDecode(response.body);
+}
+
+Future<dynamic> getNotifications() async {
+  String url = BASEURL + NOTIFICATION;
+  http.Response response = await http.get(Uri.parse(url), headers: {
+    'Authorization': token,
+  });
+  return jsonDecode(response.body);
+}
+
+Future<dynamic> deleteAccount() async {
+  String url = BASEURL + DELETE_ACCOUNT;
+  http.Response response = await http.delete(Uri.parse(url), headers: {
+    'Authorization': token,
+  });
+  return jsonDecode(response.body);
 }

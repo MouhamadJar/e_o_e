@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_o_e/component/components.dart';
 import 'package:e_o_e/screens/rooms.dart';
 import 'package:e_o_e/screens/teacher/models/models.dart';
 import 'package:e_o_e/student/xd_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../constants.dart';
 import 'about_us.dart';
@@ -18,13 +22,13 @@ class Wallet extends StatefulWidget {
 }
 
 class _WalletState extends State<Wallet> {
+
+  bool selected = false;
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context)?.size.width ?? double.nan;
     final height = MediaQuery.of(context)?.size.height ?? double.nan;
-
-
-
+    XFile image;
     return SafeArea(
       child: Scaffold(
         drawer: Drawer(
@@ -123,7 +127,8 @@ class _WalletState extends State<Wallet> {
                                 InkWell(
                                   child: Container(
                                     height: 25,
-                                    width: MediaQuery.of(context).size.width * 0.75,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.75,
                                     child: Row(
                                       children: [
                                         SvgPicture.asset(
@@ -171,7 +176,8 @@ class _WalletState extends State<Wallet> {
                                 InkWell(
                                   child: Container(
                                     height: 25,
-                                    width: MediaQuery.of(context).size.width * 0.75,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.75,
                                     child: Row(
                                       children: [
                                         SvgPicture.asset(
@@ -210,7 +216,8 @@ class _WalletState extends State<Wallet> {
                                   width: 10,
                                 ),
                                 Container(
-                                  width: MediaQuery.of(context).size.width * 0.75,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.75,
                                   height: 25,
                                   child: Row(
                                     children: [
@@ -252,7 +259,8 @@ class _WalletState extends State<Wallet> {
                                 ),
                                 Container(
                                   height: 25,
-                                  width: MediaQuery.of(context).size.width * 0.75,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.75,
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
@@ -297,7 +305,8 @@ class _WalletState extends State<Wallet> {
                                   width: 10,
                                 ),
                                 Container(
-                                  width: MediaQuery.of(context).size.width * 0.75,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.75,
                                   height: 25,
                                   child: Row(
                                     children: [
@@ -343,7 +352,8 @@ class _WalletState extends State<Wallet> {
                                   width: 10,
                                 ),
                                 Container(
-                                  width: MediaQuery.of(context).size.width * 0.75,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.75,
                                   height: 25,
                                   child: Row(
                                     children: [
@@ -386,25 +396,26 @@ class _WalletState extends State<Wallet> {
                 Row(
                   children: [
                     GestureDetector(
-                      onTap: () {Navigator.pop(context);},
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                       child: SvgPicture.asset(
                         "assets/back (1).svg",
                         width: width * 0.07,
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: width*0.3),
-                      width: width*0.2,
+                      margin: EdgeInsets.only(left: width * 0.3),
+                      width: width * 0.2,
                       //color: Colors.grey,
-                      height: height*0.05,
-                      child:const Center(
-                        child:  AutoSizeText(
-                            "Wallet",
+                      height: height * 0.05,
+                      child: const Center(
+                        child: AutoSizeText(
+                          "Wallet",
                           style: TextStyle(
-                            color: Color(0xFF085CB1),
-                            fontSize: 2020,
-                            fontFamily: kFontFamily
-                          ),
+                              color: Color(0xFF085CB1),
+                              fontSize: 2020,
+                              fontFamily: kFontFamily),
                           maxLines: 1,
                           maxFontSize: 24,
                           minFontSize: 16,
@@ -414,10 +425,10 @@ class _WalletState extends State<Wallet> {
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.all(width*.03),
+                  margin: EdgeInsets.all(width * .03),
                   //color: Colors.grey,
-                  height: height*.2,
-                  width: width*.9,
+                  height: height * .2,
+                  width: width * .9,
                   child: Center(
                     child: Image.asset(
                       "assets/folder (2).png",
@@ -430,14 +441,15 @@ class _WalletState extends State<Wallet> {
                   //child: ,
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: width*0.3,bottom: height*.04),
+                  margin:
+                      EdgeInsets.only(left: width * 0.3, bottom: height * .04),
                   decoration: BoxDecoration(
-                    color :const Color(0xFFCA5B5B),
+                    color: const Color(0xFFCA5B5B),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  height: height*.06,
-                  width: width*.35,
-                  child:const Center(
+                  height: height * .06,
+                  width: width * .35,
+                  child: const Center(
                     child: AutoSizeText(
                       "0.00",
                       style: TextStyle(
@@ -454,8 +466,8 @@ class _WalletState extends State<Wallet> {
                 Row(
                   children: [
                     Container(
-                      width: width*.45,
-                      height: height*.05,
+                      width: width * .45,
+                      height: height * .05,
                       //color: Colors.grey,
                       child: const Center(
                         child: AutoSizeText(
@@ -471,10 +483,10 @@ class _WalletState extends State<Wallet> {
                       ),
                     ),
                     Container(
-                      width: width-width*.52,
-                      height: height*.05,
-                      child:  TextField(
-                        decoration:const InputDecoration(
+                      width: width - width * .52,
+                      height: height * .05,
+                      child: TextField(
+                        decoration: const InputDecoration(
                           labelText: "your region",
                           labelStyle: TextStyle(
                             color: Colors.grey,
@@ -494,18 +506,17 @@ class _WalletState extends State<Wallet> {
                           filled: true,
                           fillColor: Colors.white,
                         ),
-                        onChanged: (value){},
+                        onChanged: (value) {},
                       ),
                     ),
-
                   ],
                 ),
                 Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: height*0.04),
-                      width: width*.45,
-                      height: height*.05,
+                      margin: EdgeInsets.only(top: height * 0.04),
+                      width: width * .45,
+                      height: height * .05,
                       //color: Colors.grey,
                       child: const Center(
                         child: AutoSizeText(
@@ -521,11 +532,11 @@ class _WalletState extends State<Wallet> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: height*0.04),
-                      width: width-width*.52,
-                      height: height*.05,
-                      child:  TextField(
-                        decoration:const InputDecoration(
+                      margin: EdgeInsets.only(top: height * 0.04),
+                      width: width - width * .52,
+                      height: height * .05,
+                      child: TextField(
+                        decoration: const InputDecoration(
                           labelText: "transfer number",
                           labelStyle: TextStyle(
                             color: Colors.grey,
@@ -545,21 +556,21 @@ class _WalletState extends State<Wallet> {
                           filled: true,
                           fillColor: Colors.white,
                         ),
-                        onChanged: (value){},
+                        onChanged: (value) {},
                       ),
                     ),
-
                   ],
                 ),
                 Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: height*0.04),
-                      padding: EdgeInsets.only(top: height*0.01,left: width*.35 ),
-                      width: width*.45,
-                      height: height*.05,
+                      margin: EdgeInsets.only(top: height * 0.04),
+                      padding: EdgeInsets.only(
+                          top: height * 0.01, left: width * .35),
+                      width: width * .45,
+                      height: height * .05,
                       //color: Colors.grey,
-                      child:const AutoSizeText(
+                      child: const AutoSizeText(
                         "to : ",
                         style: TextStyle(
                           fontFamily: kFontFamily,
@@ -571,11 +582,11 @@ class _WalletState extends State<Wallet> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: height*0.04),
-                      width: width-width*.52,
-                      height: height*.05,
-                      child:  TextField(
-                        decoration:const InputDecoration(
+                      margin: EdgeInsets.only(top: height * 0.04),
+                      width: width - width * .52,
+                      height: height * .05,
+                      child: TextField(
+                        decoration: const InputDecoration(
                           labelText: "receiver number",
                           labelStyle: TextStyle(
                             color: Colors.grey,
@@ -595,19 +606,18 @@ class _WalletState extends State<Wallet> {
                           filled: true,
                           fillColor: Colors.white,
                         ),
-                        onChanged: (value){},
+                        onChanged: (value) {},
                       ),
                     ),
-
                   ],
                 ),
                 Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: height*.04),
+                      margin: EdgeInsets.only(top: height * .04),
                       //color: Colors.grey,
-                      height: height*.05,
-                      width: width*0.4,
+                      height: height * .05,
+                      width: width * 0.4,
                       child: const Center(
                         child: AutoSizeText(
                           "Add the check photo : ",
@@ -616,7 +626,7 @@ class _WalletState extends State<Wallet> {
                           maxLines: 1,
                           style: TextStyle(
                             fontFamily: kFontFamily,
-                            fontSize: 2020 ,
+                            fontSize: 2020,
                           ),
                         ),
                       ),
@@ -629,23 +639,33 @@ class _WalletState extends State<Wallet> {
                     //     color: Colors.grey,
                     //     borderRadius: BorderRadius.circular(25.0),
                     //   ),
-                    //     child: _checkImage == null ?const Center(child:  Text("add your check photo"),):Image.file(_checkImage),
+                    //     child: selected ?const Center(child:  Text("add your check photo"),):Image.file(image),
                     // ),
                     GestureDetector(
-                      onTap: () async{//picImage;
+                      onTap: () async {
+                        image = (await ImagePicker().pickImage(source: ImageSource.gallery).then((value) {
+                          setState(() {
+                            selected = true;
+                            image = value!;
+                            messageToast(msg: '${image.name} is uploaded', color: Colors.green);
+                          });
+                        }).catchError((onError){
+                          messageToast(msg: onError.toString(), color: Colors.red);
+                        }))!;
                       },
                       child: Container(
-                        margin: EdgeInsets.only(top: height*.02,left: width*.03),
-                        height: height*0.1,
-                        width: width*.17,
+                        margin: EdgeInsets.only(
+                            top: height * .02, left: width * .03),
+                        height: height * 0.1,
+                        width: width * .17,
                         decoration: BoxDecoration(
                           color: const Color(0xFF707070).withOpacity(0.55),
                           borderRadius: BorderRadius.circular(9.0),
                         ),
-                        child:  Center(
+                        child: Center(
                           child: Icon(
-                              Icons.add,
-                              size: width*.13,
+                            Icons.add,
+                            size: width * .13,
                             color: Colors.black54,
                           ),
                         ),
@@ -654,33 +674,34 @@ class _WalletState extends State<Wallet> {
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: width*.35,top: height*.02),
-                    //color: Colors.grey,
-                    height: height*.0350,
-                    width: width*.6,
-                    child: Row(
-                      children: [
-                        new Check(),
-                        Container(
-                          height: height*.035,
-                          width: width*.45,
-                          //color: Colors.red,
-                          child:const Center(
-                            child:  AutoSizeText(
-                              "Do you want to cut off your wallet",
-                              style:TextStyle(
-                                fontFamily: kFontFamily,
-                                fontSize: 2021,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              maxLines: 1,
-                              maxFontSize: 18,
-                              minFontSize: 12,
+                  margin: EdgeInsets.only(left: width * .35, top: height * .02),
+                  //color: Colors.grey,
+                  height: height * .0350,
+                  width: width * .6,
+                  child: Row(
+                    children: [
+                      new Check(),
+                      Container(
+                        height: height * .035,
+                        width: width * .45,
+                        //color: Colors.red,
+                        child: const Center(
+                          child: AutoSizeText(
+                            "Do you want to cut off your wallet",
+                            style: TextStyle(
+                              fontFamily: kFontFamily,
+                              fontSize: 2021,
+                              fontWeight: FontWeight.bold,
                             ),
+                            maxLines: 1,
+                            maxFontSize: 18,
+                            minFontSize: 12,
                           ),
                         ),
-                      ],
-                    ),),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -689,4 +710,3 @@ class _WalletState extends State<Wallet> {
     );
   }
 }
-

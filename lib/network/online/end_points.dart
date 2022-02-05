@@ -5,3 +5,6 @@ const RESTPASSWORD = '/reset_password/';
 const SUGGESTEDCOURSES = '/course_by_top_rating/';
 const GETPROFILE = '/profile/';
 const DEFAULTIMAGE = 'https://cdn5.vectorstock.com/i/thumb-large/45/79/male-avatar-profile-picture-silhouette-light-vector-4684579.jpg';
+const LIKE_DISLKIKE = '/liking_management/';
+const NOTIFICATION = '/notifications_manager/';
+const DELETE_ACCOUNT = '/close_account/';

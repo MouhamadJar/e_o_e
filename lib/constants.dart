@@ -230,3 +230,7 @@ class unCheckedBox extends StatelessWidget {
 const String kLorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod";
 
 String token = '';
+String likeImage = 'assets/like (1).svg';
+String likedImage = 'assets/liked.svg';
+String disLikedImage = 'assets/disliked.svg';
+String disLikeImage = 'assets/dislike.svg';
