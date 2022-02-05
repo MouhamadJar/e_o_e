@@ -258,11 +258,11 @@ class _TeacherProfileState extends State<TeacherProfile> {
                                             videoImage: BASEURL +
                                                 course[index]['course_image']
                                                     .toString(),
-                                            courseInstructor: course[index]
+                                            courseName: course[index]
                                                         ['course_instructor']
                                                     ['user']['username']
                                                 .toString(),
-                                            courseInstructorEducation: course[
+                                            courseInstructor: course[
                                                             index]
                                                         ['course_instructor']
                                                     ['job_role']
@@ -317,6 +317,14 @@ class _TeacherProfileState extends State<TeacherProfile> {
                                         child: Text("No reviews"));
                                   } else {
                                     return ReviewCard(
+                                        onDisLike: (){
+                                          disLike(ratingId: reviews[index]
+                                          ['rating_id']);
+                                        },
+                                        onLike: (){
+                                          like(ratingId: reviews[index]
+                                          ['rating_id']);
+                                        },
                                         width: width,
                                         reviewerImg: BASEURL +
                                             reviews[index]['instructor']

@@ -720,8 +720,8 @@ class MyCourse extends StatelessWidget {
     required this.height,
     required this.width,
     required this.videoImage,
+    required this.courseName,
     required this.courseInstructor,
-    required this.courseInstructorEducation,
     required this.courseBadges,
     required this.coursePrice,
     required this.courseRating,
@@ -731,8 +731,8 @@ class MyCourse extends StatelessWidget {
   final double height;
   final double width;
   final String videoImage;
+  final String courseName;
   final String courseInstructor;
-  final String courseInstructorEducation;
   final String courseBadges;
   final String coursePrice;
   final String courseRating;
@@ -795,7 +795,7 @@ class MyCourse extends StatelessWidget {
                     height: height * 0.04,
                     width: width * .3,
                     child: AutoSizeText(
-                      courseInstructor,
+                      courseName,
                       style: const TextStyle(
                         color: Colors.blue,
                         fontFamily: kFontFamily,
@@ -809,7 +809,7 @@ class MyCourse extends StatelessWidget {
                     height: height * 0.04,
                     width: width * .3,
                     child: AutoSizeText(
-                      courseInstructorEducation,
+                      courseInstructor,
                       style: const TextStyle(
                           color: Colors.grey, fontFamily: kFontFamily),
                       maxFontSize: 16,
@@ -995,7 +995,14 @@ class FavoriteItem extends StatelessWidget {
 
   final double height;
   final double width;
-  final String id , courseBadget,courseImage,courseName,courseInstructor,coursePrice,courseStudents,courseRating;
+  final String id,
+      courseBadget,
+      courseImage,
+      courseName,
+      courseInstructor,
+      coursePrice,
+      courseStudents,
+      courseRating;
 
   @override
   Widget build(BuildContext context) {
@@ -1008,7 +1015,7 @@ class FavoriteItem extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>  CoursePage(
+                    builder: (context) => CoursePage(
                       id: id,
                       tag: 'z',
                       videoImage: courseImage,
@@ -1051,9 +1058,9 @@ class FavoriteItem extends StatelessWidget {
                             height: height * 0.025,
                             width: width * 0.29,
                             //color: Colors.grey,
-                            child:  AutoSizeText(
+                            child: AutoSizeText(
                               courseName,
-                              style:const TextStyle(
+                              style: const TextStyle(
                                   color: Colors.blue, fontFamily: kFontFamily),
                               maxFontSize: 16,
                               minFontSize: 10,
@@ -1064,9 +1071,9 @@ class FavoriteItem extends StatelessWidget {
                             height: height * 0.025,
                             width: width * 0.22,
                             //color: Colors.blue,
-                            child:  AutoSizeText(
+                            child: AutoSizeText(
                               "By $courseInstructor",
-                              style:const TextStyle(
+                              style: const TextStyle(
                                   color: Colors.grey, fontFamily: kFontFamily),
                               maxFontSize: 14,
                               minFontSize: 8,
@@ -1080,9 +1087,9 @@ class FavoriteItem extends StatelessWidget {
                             height: height * 0.023,
                             width: width * 0.20,
                             //color: Colors.blue,
-                            child:  AutoSizeText(
+                            child: AutoSizeText(
                               courseBadget,
-                              style:const TextStyle(
+                              style: const TextStyle(
                                   color: Color(0xFFF67D20),
                                   fontFamily: kFontFamily),
                               maxFontSize: 14,
@@ -1099,9 +1106,9 @@ class FavoriteItem extends StatelessWidget {
                                 height: height * 0.021,
                                 width: width * 0.19,
                                 //color: Colors.blue,
-                                child:  AutoSizeText(
+                                child: AutoSizeText(
                                   "$coursePrice sp",
-                                  style:const TextStyle(
+                                  style: const TextStyle(
                                       fontFamily: kFontFamily,
                                       fontWeight: FontWeight.bold),
                                   maxFontSize: 14,
@@ -1116,9 +1123,9 @@ class FavoriteItem extends StatelessWidget {
                                 height: height * 0.021,
                                 width: width * 0.15,
                                 //  color: Colors.blue,
-                                child:  AutoSizeText(
+                                child: AutoSizeText(
                                   "($courseStudents)",
-                                  style:const TextStyle(
+                                  style: const TextStyle(
                                     fontFamily: kFontFamily,
                                   ),
                                   maxFontSize: 12,
@@ -1138,9 +1145,9 @@ class FavoriteItem extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             //   const SizedBox(width: 10,),
-                             Text(
+                            Text(
                               courseRating,
-                              style:const TextStyle(
+                              style: const TextStyle(
                                   color: Color(0xFFFB0000),
                                   fontWeight: FontWeight.bold),
                             ),
@@ -1236,6 +1243,260 @@ class FavoriteItem extends StatelessWidget {
             right: width * 0.09,
             child:
                 SvgPicture.asset("assets/heart-simple-shape-silhouette.svg")),
+      ],
+    );
+  }
+}
+
+class MyCartItem extends StatelessWidget {
+  const MyCartItem({
+    Key? key,
+    required this.height,
+    required this.width,
+    required this.courseID,
+    required this.courseName,
+    required this.courseImage,
+    required this.courseInstructorName,
+    required this.courseBadges,
+    required this.coursePrice,
+    required this.courseStudents,
+    required this.courseRate,
+  }) : super(key: key);
+
+  final double height;
+  final double width;
+  final String courseID,courseImage,courseName,courseInstructorName,courseBadges,coursePrice,courseStudents,courseRate;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>  CoursePage(
+                  id: courseID,
+                  tag: 'z',
+                  videoImage: courseImage,
+                ),
+              ),
+            );
+          },
+          child: Container(
+            height: height * 0.12,
+            width: width * 0.8,
+            decoration: const BoxDecoration(
+              color: Color(0xFFe9ebfd),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+              //  border: Border.all(color: Colors.black.withOpacity(0.2),),
+            ),
+            margin: EdgeInsets.only(left: width * 0.03, top: 10),
+            child: Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(right: width * 0.03),
+                  height: height * 0.15,
+                  width: width * 0.23,
+                  //color: Colors.grey,
+                  child: Hero(
+                    tag: 'z',
+                    child: Image.network(
+                      courseImage,
+                      filterQuality: FilterQuality.high,
+                      isAntiAlias: true,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: height * 0.01),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: height * 0.025,
+                        width: width * 0.29,
+                        //color: Colors.grey,
+                        child:  AutoSizeText(
+                          courseName,
+                          style:const TextStyle(
+                              color: Colors.blue, fontFamily: kFontFamily),
+                          maxFontSize: 16,
+                          minFontSize: 10,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Container(
+                        height: height * 0.025,
+                        width: width * 0.22,
+                        //color: Colors.blue,
+                        child:  AutoSizeText(
+                          courseInstructorName,
+                          style:const TextStyle(
+                              color: Colors.grey, fontFamily: kFontFamily),
+                          maxFontSize: 14,
+                          minFontSize: 8,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.005,
+                      ),
+                      Container(
+                        height: height * 0.023,
+                        width: width * 0.20,
+                        //color: Colors.blue,
+                        child:  AutoSizeText(
+                          courseBadges,
+                          style:const TextStyle(
+                              color: Color(0xFFF67D20),
+                              fontFamily: kFontFamily),
+                          maxFontSize: 14,
+                          minFontSize: 8,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.005,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            height: height * 0.021,
+                            width: width * 0.19,
+                            //color: Colors.blue,
+                            child:  AutoSizeText(
+                              coursePrice,
+                              style:const TextStyle(
+                                  fontFamily: kFontFamily,
+                                  fontWeight: FontWeight.bold),
+                              maxFontSize: 14,
+                              minFontSize: 8,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          SizedBox(
+                            width: width * 0.011,
+                          ),
+                          Container(
+                            height: height * 0.021,
+                            width: width * 0.15,
+                            //  color: Colors.blue,
+                            child:  AutoSizeText(
+                              "($courseStudents)",
+                              style:const TextStyle(
+                                fontFamily: kFontFamily,
+                              ),
+                              maxFontSize: 12,
+                              minFontSize: 7,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Column(
+                  children: [
+                    SizedBox(height: height * 0.05),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        //   const SizedBox(width: 10,),
+                         Text(
+                           courseRate,
+                          style:const TextStyle(
+                              color: Color(0xFFFB0000),
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SvgPicture.asset("assets/pointed-star.svg")
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: height * 0.008, left: width * 0.03),
+          width: width * 0.92,
+          height: height * 0.05,
+          child: Row(
+            children: <Widget>[
+              const Spacer(),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0xff0e564e),
+                      blurRadius: 4,
+                    ),
+                  ],
+                  border: Border.all(
+                      color: const Color(0xff0e564e).withOpacity(0.75),
+                      width: 3),
+                ),
+                height: height * 0.05,
+                width: width * 0.1,
+                child: InkWell(
+                  onTap: () {},
+                  child: SvgPicture.asset("assets/plus (2).svg"),
+                ),
+              ),
+              SizedBox(
+                width: width * 0.05,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0xffCE0505),
+                      blurRadius: 4,
+                    ),
+                  ],
+                  border: Border.all(
+                      color: const Color(0xffCE0505).withOpacity(0.75),
+                      width: 3),
+                ),
+                height: height * 0.05,
+                width: width * 0.1,
+                child: InkWell(
+                  onTap: () {},
+                  child: SvgPicture.asset("assets/removing.svg"),
+                ),
+              ),
+              SizedBox(
+                width: width * 0.05,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0xffF67D20),
+                      blurRadius: 4,
+                    ),
+                  ],
+                  border: Border.all(
+                      color: const Color(0xffF67D20).withOpacity(0.75),
+                      width: 3),
+                ),
+                height: height * 0.05,
+                width: width * 0.1,
+                child: InkWell(
+                  onTap: () {},
+                  child: SvgPicture.asset("assets/buy (1).svg"),
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

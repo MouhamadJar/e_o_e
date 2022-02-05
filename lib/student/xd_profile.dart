@@ -889,9 +889,9 @@ class _XDProfileState extends State<XDProfile> {
                                           videoImage: BASEURL +
                                               course[index]['course_image']
                                                   .toString(),
-                                          courseInstructor: course[index]['course_instructor']['user']['username']
+                                          courseName: course[index]['course_instructor']['user']['username']
                                               .toString(),
-                                          courseInstructorEducation:
+                                          courseInstructor:
                                           course[index]['course_instructor']['job_role']
                                               .toString(),
                                           courseBadges: course[index]['badges']

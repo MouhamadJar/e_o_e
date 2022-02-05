@@ -46,9 +46,9 @@ class SearchResult extends StatelessWidget {
                           height: height,
                           width: width,
                           videoImage: BASEURL + data[index]['course_image'],
-                          courseInstructor: data[index]['course_instructor']
+                          courseName: data[index]['course_instructor']
                               ['user']['username'],
-                          courseInstructorEducation: data[index]
+                          courseInstructor: data[index]
                               ['course_instructor']['job_role'],
                           courseBadges: data[index]['badges'],
                           coursePrice: data[index]['course_price'].toString(),

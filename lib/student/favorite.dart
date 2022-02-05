@@ -453,11 +453,11 @@ class _FavoriteCoursesState extends State<FavoriteCourses> {
         body: FutureBuilder(
           future: myFavorite,
           builder: (context, snapshot) {
-            dynamic items = snapshot.data;
             if (snapshot.hasError) {
               return Center(child: Text(snapshot.error.toString()));
             }
             if (snapshot.hasData) {
+              dynamic items = snapshot.data;
               return SingleChildScrollView(
                 child: Container(
                   padding: const EdgeInsets.only(top: 20),
@@ -491,14 +491,22 @@ class _FavoriteCoursesState extends State<FavoriteCourses> {
                         return FavoriteItem(
                           height: height,
                           width: width,
-                          coursePrice: items[index]['course']['course_price'].toString(),
-                          courseBadget: items[index]['course']['badges'].toString(),
-                          courseStudents: items[index]['course']['course_students'].toString(),
+                          coursePrice:
+                              items[index]['course']['course_price'].toString(),
+                          courseBadget:
+                              items[index]['course']['badges'].toString(),
+                          courseStudents: items[index]['course']
+                                  ['course_students']
+                              .toString(),
                           courseName: items[index]['course']['course_name'],
-                          courseImage:BASEURL + items[index]['course']['course_image'],
+                          courseImage:
+                              BASEURL + items[index]['course']['course_image'],
                           id: items[index]['course']['course_id'],
-                          courseInstructor: items[index]['course']['course_instructor']['user']['username'],
-                          courseRating: items[index]['course']['course_rate'].toString(),);
+                          courseInstructor: items[index]['course']
+                              ['course_instructor']['user']['username'],
+                          courseRating:
+                              items[index]['course']['course_rate'].toString(),
+                        );
                       }
                     },
                     itemCount: items.length == 0 ? 1 : items.length,
