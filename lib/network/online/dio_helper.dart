@@ -1,4 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:e_o_e/network/online/end_points.dart';
+
+import '../../constants.dart';
 
 class DioHelper {
   static late Dio dio;
@@ -29,6 +32,35 @@ class DioHelper {
   }) async {
     return await dio.get(
       url,
+    );
+  }
+
+  static Future<Response> addMoney({
+    required Map<String, dynamic> formData,
+    query,
+  }) async {
+    return await dio.post(
+      ADD_MONEY,
+      data: FormData.fromMap(formData),
+      options: Options(
+        headers: {
+          'Authorization' : token,
+        }
+      ),
+    );
+  }
+
+  static Future<Response> uploadPhoto({
+    required Map<String, dynamic> formData,
+  }) async {
+    return await dio.put(
+      UPLOADIMAGE,
+      data: FormData.fromMap(formData),
+      options: Options(
+          headers: {
+            'Authorization' : token,
+          }
+      ),
     );
   }
 }

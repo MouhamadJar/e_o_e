@@ -52,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final screens = [
       HomePage(),
       XDStudentCourse(),
@@ -106,7 +107,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               CircleAvatar(
                                 radius: width * .11,
-                                backgroundImage: NetworkImage(snapshot.data!['profile_image'].toString()=='null' ? DEFAULTIMAGE
+                                backgroundImage: NetworkImage(snapshot.data!['profile_image']
+                                    .toString() ==
+                                        'null'
+                                    ? DEFAULTIMAGE
                                     :BASEURL + snapshot.data['profile_image']),
                               ),
                               SizedBox(width: width * .01),

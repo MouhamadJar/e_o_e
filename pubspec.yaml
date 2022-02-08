@@ -48,6 +48,7 @@ dependencies:
   get_storage:
   smooth_page_indicator:
   flutter_spinkit:
+  awesome_dropdown:
 
 dev_dependencies:
   flutter_test:

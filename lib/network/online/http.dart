@@ -178,12 +178,12 @@ Future<http.Response> removeFromFavourite({
   return response;
 }
 
-Future<http.Response> getAllCategories() async {
+Future<dynamic> getAllCategories() async {
   String url = '$baseURL/pcats_and_cats';
   http.Response response = await http.get(
     Uri.parse(url),
   );
-  return response;
+  return jsonDecode(response.body);
 }
 
 Future<dynamic> getCoursesByRating() async {
@@ -334,12 +334,12 @@ Future<http.Response> cutFromWallet({
   return response;
 }
 
-Future<http.Response> getCompanies() async {
+Future<dynamic> getCompanies() async {
   String url = '$baseURL/all_p_comps/';
   http.Response response = await http.get(
     Uri.parse(url),
   );
-  return response;
+  return jsonDecode(response.body);
 }
 
 Future<Map<String, dynamic>> getInstructorProfile({
@@ -353,12 +353,9 @@ Future<Map<String, dynamic>> getInstructorProfile({
 }
 
 Future<http.Response> updateProfile({
-  required String token,
   required String first_name,
   required String last_name,
-  required String username,
   required String email,
-  required String number,
   required String password,
   required String newPassword,
   required String age,
@@ -366,8 +363,8 @@ Future<http.Response> updateProfile({
   required String favourite_category_id,
   required String job_role,
 }) async {
-  String url = '$baseURL/register_instructor/';
-  http.Response _response = await http.post(
+  String url = '$BASEURL/update_account/';
+  http.Response _response = await http.put(
     Uri.parse(url),
     headers: {
       "Authorization": token,
@@ -422,5 +419,52 @@ Future<dynamic> deleteAccount() async {
   http.Response response = await http.delete(Uri.parse(url), headers: {
     'Authorization': token,
   });
+  return jsonDecode(response.body);
+}
+
+Future<dynamic> cutOffSyriatellCash({
+  required String moneyAmount,
+  required String number,
+}) async {
+  String url = BASEURL + SYRIATELL;
+  http.Response response = await http.put(
+      Uri.parse(url),
+      headers: {
+    'Authorization': token,
+  },
+    body: {
+      "transaction_choice":"cut_off_money",
+      "money_to_cut" : moneyAmount,
+      "region" : "Damascus",
+      "number": number,
+    }
+  );
+  return jsonDecode(response.body);
+}
+
+Future<dynamic> cutOffCompany({
+  required String moneyAmount,
+  required String number,
+  required String fullName,
+  required String region,
+  required String companyId,
+  required String branchId,
+}) async {
+  String url = BASEURL + SYRIATELL;
+  http.Response response = await http.put(
+      Uri.parse(url),
+      headers: {
+        'Authorization': token,
+      },
+      body: {
+        "transaction_choice":"cut_off_money",
+        "money_to_cut" : moneyAmount,
+        "region" : region,
+        "number": number,
+        "full_name" : fullName,
+        "payment_company_id" : companyId,
+        "branch_id" : branchId,
+      }
+  );
   return jsonDecode(response.body);
 }

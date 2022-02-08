@@ -59,7 +59,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   var searchKey = GlobalKey<FormState>();
 
   Future<bool> _onWillPop() async {
-    return (await showDialog(
+    return (
+        await showDialog(
           context: context,
           builder: (context) => AlertDialog(
             backgroundColor: kPrimaryColor,
@@ -113,6 +114,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    getAllCategories().then((value)
+    {
+      categories.clear();
+      categoriesIds.clear();
+      List<dynamic> data= value['data'];
+    // print('datasdadsadad\n'+data[0].toString());
+      for (var category in data) {
+            category['categories'].forEach(
+                    (miniCategory){
+                  categories.add(miniCategory['category_name']);
+                  categoriesIds.assign(miniCategory['category_name'], miniCategory['category_id']);
+                  print('datasdadsadad\n');
+                  print(categoriesIds[miniCategory['category_name']]);
+                }
+            );
+          }
+    });
     Future<Map<String, dynamic>> profileData = getProfile(token: token);
     final width = MediaQuery.of(context).size.width ?? double.nan;
     final height = MediaQuery.of(context).size.height ?? double.nan;
@@ -320,7 +338,7 @@ learn without limits with us """,
                                               rating: data[index]['course_rate']
                                                   .toString(),
                                               videoImage: BASEURL +
-                                                  data[index]['course_image'],
+                                                  data[index]['course_image'].toString(),
                                               total_students: data[index]
                                                   ['course_students'],
                                               id: data[index]
@@ -674,19 +692,19 @@ learn without limits with us """,
                                                       ['course_instructor']
                                                   ['user']['username'],
                                               videoImage: BASEURL +
-                                                  data[index]['course_image'],
+                                                  data[index]['course_image'].toString(),
                                               courseRating: data[index]
                                                       ['course_rate']
                                                   .toString(),
                                               courseInstructorEducation:
                                                   data[index]
                                                           ['course_instructor']
-                                                      ['job_role'],
+                                                      ['job_role'].toString(),
                                               courseStudents: data[index]
                                                       ['course_students']
                                                   .toString(),
                                               id: data[index]
-                                              ['course_id'],
+                                              ['course_id'].toString(),
                                             );
                                           }),
                                     ),

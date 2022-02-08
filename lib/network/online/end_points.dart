@@ -8,3 +8,6 @@ const DEFAULTIMAGE = 'https://cdn5.vectorstock.com/i/thumb-large/45/79/male-avat
 const LIKE_DISLKIKE = '/liking_management/';
 const NOTIFICATION = '/notifications_manager/';
 const DELETE_ACCOUNT = '/close_account/';
+const ADD_MONEY = '/wallet_manager/';
+const SYRIATELL = '/wallet_manager/';
+const UPLOADIMAGE = '/update_profile_image/';

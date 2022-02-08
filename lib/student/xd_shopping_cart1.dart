@@ -528,14 +528,32 @@ class _XDShoppingCart1State extends State<XDShoppingCart1> {
                         return MyCartItem(
                           height: height,
                           width: width,
-                          coursePrice:items[index]['cart_item']['course']["course_price"].toString(),
-                          courseName: items[index]['cart_item']['course']['course_name'].toString(),
-                          courseStudents: items[index]['cart_item']['course']['course_students'].toString(),
-                          courseID: items[index]['cart_item']['course']['course_id'].toString().toString(),
-                          courseBadges: items[index]['cart_item']['course']['badges'].toString().toString(),
-                          courseRate: items[index]['cart_item']['course']['course_rate'].toString().toString(),
-                          courseImage: BASEURL + items[index]['cart_item']['course_image'].toString().toString(),
-                          courseInstructorName: items[index]['cart_item']['course']['course_instructor']['user']['username'].toString().toString(),
+                          coursePrice: items[index]['cart_item']['course']
+                                  ["course_price"]
+                              .toString(),
+                          courseName: items[index]['cart_item']['course']
+                                  ['course_name']
+                              .toString(),
+                          courseStudents: items[index]['cart_item']['course']
+                                  ['course_students']
+                              .toString(),
+                          courseID: items[index]['cart_item']['course']
+                                  ['course_id']
+                              .toString(),
+                          courseBadges: items[index]['cart_item']['course']
+                                  ['badges']
+                              .toString(),
+                          courseRate: items[index]['cart_item']['course']
+                                  ['course_rate']
+                              .toString(),
+                          courseImage: BASEURL +
+                              items[index]['cart_item']['course']
+                                      ['course_image']
+                                  .toString(),
+                          courseInstructorName: items[index]['cart_item']
+                                      ['course']['course_instructor']['user']
+                                  ['username']
+                              .toString(),
                         );
                       }
                     },

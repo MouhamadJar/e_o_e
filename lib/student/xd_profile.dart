@@ -37,15 +37,9 @@ class _XDProfileState extends State<XDProfile> {
   @override
   Widget build(BuildContext context) {
     Future<dynamic> courses =
-    getInstructorProfile(id: widget.profileData['id']);
-    final width = MediaQuery
-        .of(context)
-        ?.size
-        .width ?? double.nan;
-    final height = MediaQuery
-        .of(context)
-        ?.size
-        .height ?? double.nan;
+        getInstructorProfile(id: widget.profileData['id']);
+    final width = MediaQuery.of(context)?.size.width ?? double.nan;
+    final height = MediaQuery.of(context)?.size.height ?? double.nan;
     Drawer myDrawer = Drawer(
       child: FutureBuilder(
         future: courses,
@@ -63,10 +57,7 @@ class _XDProfileState extends State<XDProfile> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * .65,
+                          width: MediaQuery.of(context).size.width * .65,
                           decoration: const BoxDecoration(
                             color: Color(0xff085cb1),
                           ),
@@ -74,8 +65,9 @@ class _XDProfileState extends State<XDProfile> {
                             children: [
                               CircleAvatar(
                                 radius: width * .11,
-                                backgroundImage: NetworkImage(BASEURL + snapshot
-                                    .data['instructor']['profile_image']),
+                                backgroundImage: NetworkImage(BASEURL +
+                                    snapshot.data['instructor']
+                                        ['profile_image']),
                               ),
                               SizedBox(width: width * .01),
                               Column(
@@ -84,8 +76,8 @@ class _XDProfileState extends State<XDProfile> {
                                     height: 32,
                                   ),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment
-                                        .start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(width: width * .01),
                                       Row(
@@ -105,8 +97,8 @@ class _XDProfileState extends State<XDProfile> {
                                         ],
                                       ),
                                       Text(
-                                        snapshot
-                                            .data['instructor']['user']['username'],
+                                        snapshot.data['instructor']['user']
+                                            ['username'],
                                         style: const TextStyle(
                                           fontFamily: kFontFamily,
                                           color: Colors.white,
@@ -118,8 +110,8 @@ class _XDProfileState extends State<XDProfile> {
                                         width: width * .4,
                                         height: height * .03,
                                         child: AutoSizeText(
-                                          snapshot
-                                              .data['instructor']['user']['email'],
+                                          snapshot.data['instructor']['user']
+                                              ['email'],
                                           style: const TextStyle(
                                             color: Colors.white,
                                             fontFamily: kFontFamily,
@@ -140,10 +132,7 @@ class _XDProfileState extends State<XDProfile> {
                           ),
                         ),
                         Container(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * .65,
+                          width: MediaQuery.of(context).size.width * .65,
                           child: Column(
                             children: [
                               const SizedBox(height: 10),
@@ -154,17 +143,15 @@ class _XDProfileState extends State<XDProfile> {
                                 endIndent: 25,
                               ),
                               SizedBox(
-                                height: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.04,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.04,
                               ),
                               InkWell(
                                 onTap: () {
                                   setState(() {
                                     Navigator.pop(context);
-                                    if (snapshot
-                                        .data['instructor']['website_role'] ==
+                                    if (snapshot.data['instructor']
+                                            ['website_role'] ==
                                         "instructor") {
                                       Navigator.push(
                                         context,
@@ -183,20 +170,17 @@ class _XDProfileState extends State<XDProfile> {
                                   });
                                 },
                                 child: Container(
-                                  height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.091,
+                                  height: MediaQuery.of(context).size.height *
+                                      0.091,
                                   child: Row(
                                     children: [
                                       const SizedBox(
                                         width: 10,
                                       ),
                                       Container(
-                                        width: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .width * .55,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                .55,
                                         height: 25,
                                         child: Row(
                                           children: [
@@ -235,10 +219,8 @@ class _XDProfileState extends State<XDProfile> {
                                   });
                                 },
                                 child: Container(
-                                  height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.11,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.11,
                                   child: Row(
                                     children: [
                                       const SizedBox(
@@ -247,10 +229,10 @@ class _XDProfileState extends State<XDProfile> {
                                       InkWell(
                                         child: Container(
                                           height: 25,
-                                          width: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .width * .55,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              .55,
                                           child: Row(
                                             children: [
                                               SvgPicture.asset(
@@ -289,20 +271,17 @@ class _XDProfileState extends State<XDProfile> {
                                   });
                                 },
                                 child: Container(
-                                  height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.11,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.11,
                                   child: Row(
                                     children: [
                                       const SizedBox(
                                         width: 10,
                                       ),
                                       Container(
-                                        width: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .width * .55,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                .55,
                                         height: 25,
                                         child: Row(
                                           children: [
@@ -336,10 +315,8 @@ class _XDProfileState extends State<XDProfile> {
                                   });
                                 },
                                 child: Container(
-                                  height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.11,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.11,
                                   child: Row(
                                     children: [
                                       const SizedBox(
@@ -347,10 +324,9 @@ class _XDProfileState extends State<XDProfile> {
                                       ),
                                       Container(
                                         height: 25,
-                                        width: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .width * .55,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                .55,
                                         child: Row(
                                           children: [
                                             SvgPicture.asset(
@@ -388,20 +364,17 @@ class _XDProfileState extends State<XDProfile> {
                                   });
                                 },
                                 child: Container(
-                                  height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.11,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.11,
                                   child: Row(
                                     children: [
                                       const SizedBox(
                                         width: 10,
                                       ),
                                       Container(
-                                        width: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .width * .55,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                .55,
                                         height: 25,
                                         child: Row(
                                           children: [
@@ -440,20 +413,17 @@ class _XDProfileState extends State<XDProfile> {
                                   });
                                 },
                                 child: Container(
-                                  height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.091,
+                                  height: MediaQuery.of(context).size.height *
+                                      0.091,
                                   child: Row(
                                     children: [
                                       const SizedBox(
                                         width: 10,
                                       ),
                                       Container(
-                                        width: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .width * .55,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                .55,
                                         height: 25,
                                         child: Row(
                                           children: [
@@ -491,20 +461,17 @@ class _XDProfileState extends State<XDProfile> {
                                   });
                                 },
                                 child: Container(
-                                  height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.091,
+                                  height: MediaQuery.of(context).size.height *
+                                      0.091,
                                   child: Row(
                                     children: [
                                       const SizedBox(
                                         width: 10,
                                       ),
                                       Container(
-                                        width: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .width * .55,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                .55,
                                         height: 25,
                                         child: Row(
                                           children: const [
@@ -541,7 +508,8 @@ class _XDProfileState extends State<XDProfile> {
             );
           }
           return const Center(child: CircularProgressIndicator());
-        },),
+        },
+      ),
     );
     return SafeArea(
       child: Scaffold(
@@ -611,8 +579,11 @@ class _XDProfileState extends State<XDProfile> {
                   children: [
                     CircleAvatar(
                       radius: width * .12,
-                      backgroundImage: NetworkImage(widget.profileData['profile_image'].toString()=='null' ? DEFAULTIMAGE
-                          : BASEURL + widget.profileData['profile_image']),
+                      backgroundImage: NetworkImage(
+                          widget.profileData['profile_image'].toString() ==
+                                  'null'
+                              ? DEFAULTIMAGE
+                              : BASEURL + widget.profileData['profile_image']),
                       backgroundColor: Colors.white,
                     ),
                     SizedBox(
@@ -720,7 +691,12 @@ class _XDProfileState extends State<XDProfile> {
                         child: Center(
                           child: AutoSizeText(
                             widget.profileData['favourite_category']
-                            ['category_name'],
+                                        .toString() ==
+                                    'null'
+                                ? ''
+                                : widget.profileData['favourite_category']
+                                        ['category_name']
+                                    .toString(),
                             style: const TextStyle(
                               fontFamily: kFontFamily,
                             ),
@@ -772,7 +748,7 @@ class _XDProfileState extends State<XDProfile> {
                         return ListTile(
                           title: AutoSizeText(
                             widget.profileData['certificates'][index]
-                            ['certificate_description'],
+                                ['certificate_description'],
                             minFontSize: 8,
                             maxFontSize: 12,
                             overflow: TextOverflow.ellipsis,
@@ -882,27 +858,27 @@ class _XDProfileState extends State<XDProfile> {
                               List<dynamic> course = allCourses['courses'];
                               return ListView.separated(
                                   physics: BouncingScrollPhysics(),
-                                  itemBuilder: (context, index) =>
-                                      MyCourse(
-                                          height: height,
-                                          width: width,
-                                          videoImage: BASEURL +
-                                              course[index]['course_image']
-                                                  .toString(),
-                                          courseName: course[index]['course_instructor']['user']['username']
+                                  itemBuilder: (context, index) => MyCourse(
+                                      height: height,
+                                      width: width,
+                                      videoImage: BASEURL +
+                                          course[index]['course_image']
                                               .toString(),
-                                          courseInstructor:
-                                          course[index]['course_instructor']['job_role']
-                                              .toString(),
-                                          courseBadges: course[index]['badges']
-                                              .toString(),
-                                          coursePrice: course[index]['course_price']
-                                              .toString(),
-                                          id: course[index]['course_id'],
-                                          courseRating: course[index]['course_rate']
-                                              .toString()),
-                                  separatorBuilder: (context, index) =>
-                                      Divider(
+                                      courseName: course[index]
+                                                  ['course_instructor']['user']
+                                              ['username']
+                                          .toString(),
+                                      courseInstructor: course[index]
+                                              ['course_instructor']['job_role']
+                                          .toString(),
+                                      courseBadges:
+                                          course[index]['badges'].toString(),
+                                      coursePrice: course[index]['course_price']
+                                          .toString(),
+                                      id: course[index]['course_id'],
+                                      courseRating: course[index]['course_rate']
+                                          .toString()),
+                                  separatorBuilder: (context, index) => Divider(
                                         color: kPrimaryColor,
                                       ),
                                   itemCount: course.length);
@@ -925,7 +901,9 @@ class _XDProfileState extends State<XDProfile> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => XDProfile2(oldData: courses,),
+                        builder: (context) => XDProfile2(
+                          oldData: courses,
+                        ),
                       ),
                     );
                   },

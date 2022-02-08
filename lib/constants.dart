@@ -234,3 +234,6 @@ String likeImage = 'assets/like (1).svg';
 String likedImage = 'assets/liked.svg';
 String disLikedImage = 'assets/disliked.svg';
 String disLikeImage = 'assets/dislike.svg';
+
+List<String> categories =[];
+Map<String , String> categoriesIds ={};
