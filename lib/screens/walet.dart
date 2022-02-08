@@ -403,7 +403,8 @@ class _WalletState extends State<Wallet> {
     ];
     List<List<Widget>> actions = [
       firstPop,
-      syriatelCash,
+      syriatelCash
+
     ];
 
     return SafeArea(
