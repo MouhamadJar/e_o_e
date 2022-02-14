@@ -1,3 +1,7 @@
+import 'package:e_o_e/component/components.dart';
+import 'package:e_o_e/network/online/dio_helper.dart';
+import 'package:e_o_e/network/online/end_points.dart';
+import 'package:e_o_e/network/online/http.dart';
 import 'package:e_o_e/screens/teacher/teacher.dart';
 import 'package:e_o_e/student/xd_profile.dart';
 import 'package:flutter/material.dart';
@@ -21,24 +25,28 @@ class XDInstructorCourses extends StatefulWidget {
   State<XDInstructorCourses> createState() => _XDInstructorCoursesState();
 }
 
-class _XDInstructorCoursesState extends State<XDInstructorCourses> with TickerProviderStateMixin {
+class _XDInstructorCoursesState extends State<XDInstructorCourses>
+    with TickerProviderStateMixin {
   late AnimationController controller;
 
   @override
   void initState() {
     super.initState();
     controller = AnimationController(
-      duration:const Duration(milliseconds: 700),
+      duration: const Duration(milliseconds: 700),
       vsync: this,
-      upperBound:  250,
+      upperBound: 250,
     );
     controller.forward();
-    controller.addListener((){setState((){});});
+    controller.addListener(() {
+      setState(() {});
+    });
   }
+
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context)?.size.width??double.nan;
-    final height = MediaQuery.of(context)?.size.height??double.nan;
+    final width = MediaQuery.of(context)?.size.width ?? double.nan;
+    final height = MediaQuery.of(context)?.size.height ?? double.nan;
 
     return Scaffold(
       appBar: AppBar(
@@ -58,8 +66,13 @@ class _XDInstructorCoursesState extends State<XDInstructorCourses> with TickerPr
             Image.asset("assets/Group 1107.png"),
             SizedBox(width: width * 0.09),
             GestureDetector(
-                onTap: (){Get.to(OverView(),);},
-                child: SvgPicture.asset("assets/file (3).svg"),),
+              onTap: () {
+                Get.to(
+                  const OverView(),
+                );
+              },
+              child: SvgPicture.asset("assets/file (3).svg"),
+            ),
             const Spacer(),
             IconButton(
               onPressed: () {
@@ -69,21 +82,21 @@ class _XDInstructorCoursesState extends State<XDInstructorCourses> with TickerPr
                 );
               },
               icon: GestureDetector(
-                  onTap: (){Get.to(const OverView());},
+                  onTap: () {
+                    Get.to(const OverView());
+                  },
                   child: SvgPicture.asset("assets/category (3).svg")),
             ),
           ],
         ),
-        leading: Builder(
-            builder: (context) {
-              return IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                icon: SvgPicture.asset("assets/list (2).svg"),
-              );
-            }
-        ),
+        leading: Builder(builder: (context) {
+          return IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: SvgPicture.asset("assets/list (2).svg"),
+          );
+        }),
       ),
       drawer: Drawer(
         child: SafeArea(
@@ -170,7 +183,7 @@ class _XDInstructorCoursesState extends State<XDInstructorCourses> with TickerPr
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>const TeacherPage(),
+                                builder: (context) => const TeacherPage(),
                               ),
                             );
                           });
@@ -185,7 +198,8 @@ class _XDInstructorCoursesState extends State<XDInstructorCourses> with TickerPr
                               InkWell(
                                 child: Container(
                                   height: 25,
-                                  width: MediaQuery.of(context).size.width * 0.75,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.75,
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
@@ -218,7 +232,7 @@ class _XDInstructorCoursesState extends State<XDInstructorCourses> with TickerPr
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => MainSetting(),
+                                builder: (context) => const MainSetting(),
                               ),
                             );
                           });
@@ -233,7 +247,8 @@ class _XDInstructorCoursesState extends State<XDInstructorCourses> with TickerPr
                               InkWell(
                                 child: Container(
                                   height: 25,
-                                  width: MediaQuery.of(context).size.width * 0.75,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.75,
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
@@ -448,205 +463,87 @@ class _XDInstructorCoursesState extends State<XDInstructorCourses> with TickerPr
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Container(
-            padding: const EdgeInsets.all(11),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Your courses",
-                  style: TextStyle(
-                      color: Colors.deepOrange,
-                      fontFamily: kFontFamily,
-                      fontSize: 20),
-                ),
-                SizedBox(
-                  width: width,
-                  height: height*0.015,
-                ),
-                Row(
-                  children: [
-                    const Spacer(),
-                    SizedBox(
-                      height:height*0.052,
-                      width: controller.value,
-                      child: TextField(
-                        onChanged: (value) {},
-                        decoration: const InputDecoration(
-                            icon: Icon(Icons.search),
-                            hintText: "Search for your course",
-                            hintStyle: TextStyle(
-                              fontSize: 12,
-                              fontFamily: kFontFamily,
-                              color: Colors.grey,
-                            ),
-                            filled: true,
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(3.0)),
-                            )),
+          child: FutureBuilder(
+              future: getInstructorProfile(id: id),
+              builder: (context, snapshot) {
+                if(snapshot.hasError){
+                  return const Text('Enternet connection');
+                }
+                if(snapshot.hasData) {
+                  dynamic x = snapshot.data;
+                  List<dynamic> courses = x['courses'];
+                  return Container(
+                  padding: const EdgeInsets.all(11),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Your courses",
+                        style: TextStyle(
+                            color: Colors.deepOrange,
+                            fontFamily: kFontFamily,
+                            fontSize: 20),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: height*0.015,
-                ),
-                Container(
-                  height: height,
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: 10,
-                    itemBuilder: (context , index) => InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const CoursePage(
-                              videoImage:
-                              "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
-                              tag : 'tag', id: '',
+                      SizedBox(
+                        width: width,
+                        height: height * 0.015,
+                      ),
+                      Row(
+                        children: [
+                          const Spacer(),
+                          SizedBox(
+                            height: height * 0.052,
+                            width: controller.value,
+                            child: TextField(
+                              onChanged: (value) {},
+                              decoration: const InputDecoration(
+                                  icon: Icon(Icons.search),
+                                  hintText: "Search for your course",
+                                  hintStyle: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: kFontFamily,
+                                    color: Colors.grey,
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.black),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(3.0)),
+                                  )),
                             ),
                           ),
-                        );
-                      },
-                      child:  GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const CoursePage(
-                                tag : 'w',
-                                videoImage:
-                                "assets/ilya-pavlov-OqtafYT5kTw-unsplash.png",
-                                  id: '1',
-                              ),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration:const BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.blueGrey,
-                                    blurRadius: 7
-                                ),
-                              ]
-                          ),
-                          height: height * 0.141,
-                          width: width * 0.94,
-                          margin:  EdgeInsets.only(left: width*0.012, top: height*0.012,right: width*0.021,bottom:height*0.012 ),
-                          child: Row(
-                            children: [
-                              Hero(
-                                  tag : 'w',
-                                  child: Image.asset("assets/ilya-pavlov-OqtafYT5kTw-unsplash.png")),
-                              SizedBox(
-                                width: width*0.01,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only( top: height*0.025),
-                                child: Column(
-                                  children: [
-                                    const Text(
-                                      "Name of course",
-                                      style: TextStyle(
-                                          color: Colors.blue, fontFamily: kFontFamily),
-                                    ),
-                                    const Text(
-                                      "By Teacher",
-                                      style: TextStyle(
-                                          color: Colors.grey, fontFamily: kFontFamily),
-                                    ),
-                                    SizedBox(
-                                      height: height*0.005,
-                                    ),
-                                    const Text(
-                                      "Best saller",
-                                      style: TextStyle(
-                                          color: Color(0xFFF67D20),
-                                          fontFamily: kFontFamily),
-                                    ),
-                                    const SizedBox(
-                                      height: 7.0,
-                                    ),
-                                    Row(
-                                      children: const [
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          "55,000 sp",
-                                          style: TextStyle(
-                                              fontFamily: kFontFamily,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text("123154"),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const Spacer(),
-                              Padding(
-                                padding: EdgeInsets.only( top: height*0.025),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            //   const SizedBox(width: 10,),
-                                            const Text(
-                                              "4.5",
-                                              style: TextStyle(
-                                                  color: Color(0xFFFB0000),
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            SvgPicture.asset("assets/pointed-star.svg")
-                                          ],
-                                        ),
-                                        const SizedBox(width: 3),
-                                        const Text(
-                                          "(123456)",
-                                          style: TextStyle(
-                                              color: Colors.black, fontFamily: kFontFamily),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: height*0.05,
-                                    ),
-                                    const Text(
-                                      "Move to course",
-                                      style: TextStyle(
-                                          color: Colors.blue,
-                                          fontFamily: kFontFamily,
-                                          fontSize: 15),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: height * 0.015,
+                      ),
+                      Container(
+                        height: height,
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: courses.length,
+                          itemBuilder: (context, index) => MyCourse(
+                              height: height,
+                              width: width,
+                              videoImage:BASEURL+ courses[index]['course_image'].toString(),
+                              courseName: courses[index]['course_name'].toString(),
+                              courseInstructor: courses[index]['course_instructor']['user']['username'].toString(),
+                              courseBadges: courses[index]['badges'].toString(),
+                              coursePrice: courses[index]['course_price'].toString(),
+                              courseRating: courses[index]['course_rate'].toString(),
+                              id: courses[index]['course_id'].toString()),
                         ),
+                      ), //list view for courses
+                      SizedBox(
+                        height: height * 0.0205,
                       ),
-                    ),
+                    ],
                   ),
-                ),//list view for courses
-                SizedBox(
-                  height: height*0.0205,
-                ),
-              ],
-            ),
-          ),
+                );
+                }
+                return   mySecondLoader();
+              }),
         ),
       ),
     );

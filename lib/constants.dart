@@ -237,3 +237,4 @@ String disLikeImage = 'assets/dislike.svg';
 
 List<String> categories =[];
 Map<String , String> categoriesIds ={};
+int id = 0;

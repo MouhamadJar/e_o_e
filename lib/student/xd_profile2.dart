@@ -74,21 +74,22 @@ class _XDProfile2State extends State<XDProfile2> {
                           InkWell(
                             child: SvgPicture.asset("assets/Path 113.svg"),
                             onTap: () {
-                              updateProfile(
-                                  first_name: firstNameController.text.toString(),
-                                  last_name: lastNameController.text.toString(),
-                                  email: emailController.text.toString(),
-                                  password: passwordController.text.toString(),
-                                  newPassword: newPasswordController.text.toString(),
-                                  age: ageController.text.toString(),
-                                  education: educationController.text.toString(),
-                                  favourite_category_id: categoriesIds[category].toString(),
-                                  job_role: jobRoleController.text.toString()).then((value) {
-                                    messageToast(msg: 'Done !', color: Colors.green);
-                                    print(jsonDecode(value.body).toString());
+                              DioHelper.updateProfile(data: {
+                                "email" : emailController.text.toString(),
+                                "password" : passwordController.text,
+                                "first_name" : firstNameController.text.toString(),
+                                "last_name" : lastNameController.text.toString(),
+                                "age" : ageController.toString(),
+                                "education" : educationController.text.toString(),
+                                "favourite_category_id" : categoriesIds[category].toString(),
+                                "job_role" : jobRoleController.text.toString(),
+                              }).then((value) {
+                                print('value \n');
+                                print(value.data);
+                                messageToast(msg: 'Done !', color: Colors.green);
                               }).catchError((onError){
-                                print('error is : \n' + onError.toString());
-                                messageToast(msg: 'Please pass vaild data', color: Colors.red);
+                                print('error \n');
+                                print(onError.toString());
                               });
                             },
                           ),
@@ -520,179 +521,6 @@ class _XDProfile2State extends State<XDProfile2> {
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: height * 0.02,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          const Text(
-                            "Certificate ",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontFamily: kFontFamily,
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.03,
-                          ),
-                          Container(
-                            height: height * 0.05,
-                            width: width * 0.63,
-                            padding: const EdgeInsets.only(left: 7),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(12),
-                                ),
-                                border: Border.all(
-                                  color: Color(0xFF0E564E),
-                                ),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    blurRadius: 5,
-                                    color: Color(0xFF0E564E),
-                                  ),
-                                ]),
-                            child: TextField(
-                              controller: certificateController,
-                              onChanged: (value) {},
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: oldProfile['instructor']
-                                                ['certificates']
-                                            .toString() ==
-                                        '[]'
-                                    ? 'Add certificates '
-                                    : oldProfile['instructor']['certificates']
-                                            [0]['certificates_description']
-                                        .toString(),
-                                hintStyle: const TextStyle(
-                                  color: Colors.grey,
-                                  fontFamily: kFontFamily,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: height * 0.02,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          const Text(
-                            "Date ",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontFamily: kFontFamily,
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.03,
-                          ),
-                          Container(
-                            height: height * 0.05,
-                            width: width * 0.23,
-                            padding: const EdgeInsets.only(left: 7),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(12),
-                                ),
-                                border: Border.all(
-                                  color: Color(0xFF0E564E),
-                                ),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    blurRadius: 5,
-                                    color: Color(0xFF0E564E),
-                                  ),
-                                ]),
-                            child: TextField(
-                              onChanged: (value) {},
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Day",
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                  fontFamily: kFontFamily,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: width * 0.02),
-                          Container(
-                            height: height * 0.05,
-                            width: width * 0.23,
-                            padding: const EdgeInsets.only(left: 7),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(12),
-                                ),
-                                border: Border.all(
-                                  color: Color(0xFF0E564E),
-                                ),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    blurRadius: 5,
-                                    color: Color(0xFF0E564E),
-                                  ),
-                                ]),
-                            child: TextField(
-                              onChanged: (value) {},
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Month",
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                  fontFamily: kFontFamily,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: width * 0.02),
-                          Container(
-                            height: height * 0.05,
-                            width: width * 0.23,
-                            padding: const EdgeInsets.only(left: 7),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(12),
-                                ),
-                                border: Border.all(
-                                  color: Color(0xFF0E564E),
-                                ),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    blurRadius: 5,
-                                    color: Color(0xFF0E564E),
-                                  ),
-                                ]),
-                            child: TextField(
-                              onChanged: (value) {},
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Year",
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                  fontFamily: kFontFamily,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: width * 0.02),
                         ],
                       ),
                     ),

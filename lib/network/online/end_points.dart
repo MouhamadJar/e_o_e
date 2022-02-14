@@ -11,3 +11,7 @@ const DELETE_ACCOUNT = '/close_account/';
 const ADD_MONEY = '/wallet_manager/';
 const SYRIATELL = '/wallet_manager/';
 const UPLOADIMAGE = '/update_profile_image/';
+const UPDATEPROFILE = '/update_account/';
+const ADDCOMMENT = '/comment_manager/';
+const DELETEACCOUNT = '/close_account/';
+const UPLOADVIDEO = '/upload_video/';
