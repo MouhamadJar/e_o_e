@@ -6,6 +6,7 @@ import 'package:e_o_e/screens/sign/light_theme/login_screen.dart';
 import 'package:e_o_e/screens/teacher/students_tests.dart';
 import 'package:e_o_e/screens/teacher/xd_instructor_courses.dart';
 import 'package:e_o_e/student/student.dart';
+import 'package:e_o_e/student/study_programme.dart';
 import 'package:e_o_e/student/xd_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -1049,7 +1050,7 @@ class _TeacherPageState extends State<TeacherPage> {
                         CircleAvatar(
                           radius: 42,
                           backgroundImage: NetworkImage(snapshot.data['profile_image'].toString()=='null' ? DEFAULTIMAGE:
-                              snapshot.data['profile_image']),
+                              BASEURL + snapshot.data['profile_image']),
                           backgroundColor: Colors.white,
                         ),
                         SizedBox(
@@ -1164,7 +1165,7 @@ class _TeacherPageState extends State<TeacherPage> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Get.to(StudentsTests());
+                                Get.to(()=> StudyProgramme());
                               },
                               child: Container(
                                 margin: EdgeInsets.only(

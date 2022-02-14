@@ -47,21 +47,7 @@ class MainSetting extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: height * 0.055, left: width * 0.57),
-              child: GestureDetector(
-                child: Image.asset("assets/Group 1326.png",filterQuality:FilterQuality.high,isAntiAlias: true,),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CreditsScreen(),
-                    ),
-                  );
-                },
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: height * 0.08, left: width * 0.3),
+              padding: EdgeInsets.only(top: height * 0.33, left: width * 0.3),
               child: GestureDetector(
                 child: Image.asset("assets/Group 1327.png",filterQuality:FilterQuality.high,isAntiAlias: true,),
                 onTap: () {

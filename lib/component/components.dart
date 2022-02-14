@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
+import 'package:loading_animations/loading_animations.dart';
 import '../constants.dart';
 
 void messageToast({required String msg, required Color color}) {
@@ -907,22 +908,26 @@ void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
     context, MaterialPageRoute(builder: (context) => widget), (route) => false);
 
 Widget myLoader() => Center(
-      child: SpinKitRotatingCircle(
-        color: kPrimaryColor,
-        size: 50.0,
-      ),
+      child: LoadingBouncingGrid.circle(backgroundColor: kPrimaryColor),
     );
+
+Widget mySecondLoader() => Center(
+  child: LoadingBumpingLine.circle(backgroundColor: kPrimaryColor),
+);
 
 class Article extends StatelessWidget {
   const Article({
     Key? key,
     required this.width,
     required this.height,
+    required this.title,
+    required this.contain,
   }) : super(key: key);
 
   final double width;
   final double height;
-
+  final String title ;
+  final String contain ;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -932,9 +937,9 @@ class Article extends StatelessWidget {
               horizontal: width * 0.3, vertical: height * 0.01),
           width: double.infinity,
           height: height * 0.07,
-          child: const AutoSizeText(
-            "Lorem ipsum",
-            style: TextStyle(
+          child:  AutoSizeText(
+           title,
+            style:const TextStyle(
               fontFamily: kFontFamily,
               fontSize: 200,
               fontWeight: FontWeight.bold,
@@ -963,11 +968,11 @@ class Article extends StatelessWidget {
           ),
           height: height * 0.25,
           width: width * 0.9,
-          child: const AutoSizeText(
-            kLorem + kLorem + kLorem + kLorem + kLorem + kLorem + kLorem,
+          child:  AutoSizeText(
+            contain,
             minFontSize: 14,
             maxFontSize: 24,
-            style: TextStyle(
+            style:const TextStyle(
               fontSize: 200,
               fontFamily: kFontFamily,
             ),
@@ -1501,3 +1506,65 @@ class MyCartItem extends StatelessWidget {
     );
   }
 }
+
+class MyNotification extends StatelessWidget {
+  const MyNotification({
+    Key? key,
+    required this.height,
+    required this.width,
+    required this.message,
+  }) : super(key: key);
+
+  final double height;
+  final double width;
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.blueGrey,
+                blurRadius: 7
+            ),
+          ]
+      ),
+      margin:  EdgeInsets.only(top: height*0.015),
+      height: height * 0.09,
+      width: width * 0.93,
+      child: Row(
+        mainAxisAlignment:MainAxisAlignment.start ,
+        children: [
+          SvgPicture.asset(
+            "assets/dry-clean (2).svg",
+            height: 12,
+          ),
+          SizedBox(
+            width: width * 0.04,
+          ),
+          Container(
+            height: height * 0.09,
+            width: width * 0.81,
+            child: Center(
+              child: AutoSizeText(
+                message,
+                style:const TextStyle(
+                  color: Colors.black,
+                  fontSize: 1300,
+                  fontFamily: kFontFamily,
+                ),
+                maxFontSize: 16,
+                minFontSize: 10,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+

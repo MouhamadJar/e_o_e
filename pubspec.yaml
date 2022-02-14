@@ -49,6 +49,10 @@ dependencies:
   smooth_page_indicator:
   flutter_spinkit:
   awesome_dropdown:
+  smooth_star_rating_null_safety:
+  loading_animations:
+  video_player:
+  file_picker:
 
 dev_dependencies:
   flutter_test:

@@ -63,7 +63,6 @@ class ReviewCard extends StatefulWidget {
 class _ReviewCardState extends State<ReviewCard> {
   bool isLiked = false;
   bool isDisLiked = false;
-
   @override
   Widget build(BuildContext context) {
     return Container(

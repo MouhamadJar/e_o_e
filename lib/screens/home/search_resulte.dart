@@ -45,7 +45,7 @@ class SearchResult extends StatelessWidget {
                       return MyCourse(
                           height: height,
                           width: width,
-                          videoImage: BASEURL + data[index]['course_image'],
+                        videoImage: BASEURL + data[index]['course_image'],
                           courseName: data[index]['course_instructor']
                               ['user']['username'],
                           courseInstructor: data[index]

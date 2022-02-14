@@ -166,6 +166,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               return Center(child: Text(snapshot.error.toString()));
             }
             if (snapshot.hasData) {
+              id = snapshot.data['id'];
               return SingleChildScrollView(
                 child: Form(
                   key: searchKey,

@@ -16,9 +16,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:video_player/video_player.dart';
 import '../constants.dart';
 import 'package:get/get.dart';
 
+import '../network/online/end_points.dart';
 import 'about_us.dart';
 import 'main_setting.dart';
 
@@ -37,9 +39,8 @@ class CoursePage extends StatefulWidget {
 
 class _CoursePageState extends State<CoursePage> with TickerProviderStateMixin {
   late AnimationController controller;
-
+  late VideoPlayerController videoController;
   _CoursePageState(this.videoImage, this.tag);
-
   @override
   void initState() {
     super.initState();
@@ -52,6 +53,15 @@ class _CoursePageState extends State<CoursePage> with TickerProviderStateMixin {
     controller.addListener(() {
       setState(() {});
     });
+    getCoursesInformation(id: widget.id).then((value) {
+      print('value\n');
+      print(value['course']['course_promotional_video']);
+      videoController =VideoPlayerController.network(BASEURL + value['course']['course_promotional_video'])
+        ..addListener(() =>setState(() {}))
+        ..setLooping(true)
+        ..initialize();
+    });
+
   }
 
   late String videoImage, tag;
@@ -69,8 +79,21 @@ class _CoursePageState extends State<CoursePage> with TickerProviderStateMixin {
         future: courseDetails,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data.toString());
             Map<String,dynamic> course =  snapshot.data['course'];
+            String formatTime(int seconds) {
+              return '${(Duration(seconds: seconds))}'.split('.')[0].padLeft(8, '0');
+            }
+            List<Article> articles= [];
+            course['course_sections'].forEach((article){
+              articles.add(
+                Article(
+                  width: width,
+                  height: height,
+                  title: article['section_name'].toString(),
+                  contain: article['section_article'].toString(),
+                ),
+              );
+            });
             return Scaffold(
               drawer: myDrawer,
               appBar: AppBar(
@@ -171,9 +194,9 @@ class _CoursePageState extends State<CoursePage> with TickerProviderStateMixin {
                       margin: EdgeInsets.only(top: height * 0.011),
                       width: width,
                       height: height * 0.03,
-                      child: const AutoSizeText(
-                        "Development / Web Development / PHP / Course Content",
-                        style: TextStyle(
+                      child:  AutoSizeText(
+                        "${course['course_parent_category'][0]['parent_category_name']} / ${course['course_category'][0]['category_name']}/ Course Content",
+                        style:const TextStyle(
                           color: Colors.black,
                           fontSize: 200,
                           fontFamily: kFontFamily,
@@ -188,17 +211,109 @@ class _CoursePageState extends State<CoursePage> with TickerProviderStateMixin {
                       children: [
                         Column(
                           children: [
-                            SizedBox(
+                            Container(
+                              color: Colors.grey.shade400,
                               height: height * 0.3,
                               width: double.infinity,
-                              child: Hero(
-                                tag: tag,
-                                child: Image.network(
-                                  videoImage,
-                                  filterQuality: FilterQuality.high,
-                                  fit: BoxFit.cover,
-                                  isAntiAlias: true,
+                              child:
+                              videoController.value.isInitialized
+                                  ? GestureDetector(
+                                onTap: (){
+                                  Get.defaultDialog(
+                                    title: 'Promotion video',
+                                    content : Column(
+                                    children: [
+                                      SizedBox(
+                                        height: height*0.02,
+                                        child: VideoProgressIndicator(videoController, allowScrubbing: true),
+                                      ),
+                                      AspectRatio(
+                                        aspectRatio: videoController.value.aspectRatio,
+                                        child: SizedBox(
+                                          child: GestureDetector(
+                                            onTap: (){videoController.value.isPlaying ?  videoController.pause(): videoController.play();},
+                                            child: VideoPlayer(
+                                              videoController,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ), );
+                                },
+                                    child: AspectRatio(aspectRatio: videoController.value.aspectRatio,
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                            height: height*.03,
+                                            width : double.infinity,
+                                            child: Row(
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: (){
+                                                  videoController.value.isPlaying ? videoController.pause() : videoController.play();
+                                                },
+                                                  child: Icon(
+                                                    videoController.value.isPlaying ? Icons.pause : Icons.play_arrow_outlined,
+                                                    size: width*.075,
+                                                  ),
+                                                ),
+                                                GestureDetector(
+                                                  onTap: (){
+                                                    videoController.value.volume == 1 ? videoController.setVolume(0) :videoController.setVolume(1);
+                                                  },
+                                                  child: Icon(
+                                                    videoController.value.volume == 1  ? Icons.volume_down_outlined : Icons.volume_off_outlined,
+                                                    size: width*.075,
+                                                  ),
+                                                ),
+                                                Container(
+                                                  height: height*.03,
+                                                  margin:const EdgeInsets.only(left: 8.0),
+                                                  child: Center(
+                                                    child: Text(
+                                                      formatTime(videoController.value.position.inSeconds) +
+                                                      '/' + formatTime(videoController.value.duration.inSeconds),
+                                                    ),
+                                                  ),
+                                                ),
+                                                GestureDetector(
+                                                  onTap: (){
+                                                    videoController.value.playbackSpeed == 1 ? videoController.setPlaybackSpeed(2) : videoController.setPlaybackSpeed(1);
+                                                  },
+                                                  child: Container(
+                                                    height: height*.03,
+                                                    margin:const EdgeInsets.only(left: 8.0),
+                                                    child: Center(
+                                                      child: Text(
+                                                          videoController.value.playbackSpeed == 1 ? '2X' : '1X',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                            SizedBox(
+                                              height: height*0.02,
+                                              child: VideoProgressIndicator(videoController, allowScrubbing: true),
+                                            ),
+                                            SizedBox(
+                                              height: height*.24,
+                                              width: double.infinity,
+                                              child: VideoPlayer(
+                                    videoController,
                                 ),
+                                            ),
+                                          ],
+                                        ),
+                              ),
+                                  )
+                                  :Image.network(
+                                videoImage,
+                                filterQuality: FilterQuality.high,
+                                fit: BoxFit.cover,
+                                isAntiAlias: true,
                               ),
                             ),
                             SizedBox(
@@ -514,10 +629,18 @@ class _CoursePageState extends State<CoursePage> with TickerProviderStateMixin {
                         ],
                       ),
                     ),
-                      Article(
-                        width: width,
-                        height: height,
-                      ),
+                     SizedBox(
+                       height: height*.35 * articles.length,
+                       child: ListView.separated(itemBuilder: (context,index) {
+                         return articles[index];
+                       },
+                           physics:const NeverScrollableScrollPhysics(),
+                           separatorBuilder: (context,index)
+                       {
+                         return SizedBox(height: height * 0.001,);
+                       },
+                           itemCount: articles.length),
+                     ),
                     Container(
                       margin: EdgeInsets.only(top: height * 0.02),
                       child: Row(
@@ -817,6 +940,12 @@ class _CoursePageState extends State<CoursePage> with TickerProviderStateMixin {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    videoController.dispose();
+      super.dispose();
   }
 }
 

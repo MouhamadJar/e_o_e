@@ -1,11 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_o_e/component/components.dart';
+import 'package:e_o_e/network/online/dio_helper.dart';
 import 'package:e_o_e/network/online/end_points.dart';
 import 'package:e_o_e/network/online/http.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
 import '../../constants.dart';
 import '../course_page.dart';
@@ -20,36 +23,45 @@ class TeacherProfile extends StatefulWidget {
 }
 
 class _TeacherProfileState extends State<TeacherProfile> {
+  var commentController = TextEditingController();
+  var rating = 0.0;
+
   @override
   Widget build(BuildContext context) {
     Future<Map<String, dynamic>> myProfile =
-        getInstructorProfile(id: widget.id);
-    final width = MediaQuery.of(context)?.size.width ?? double.nan;
-    final height = MediaQuery.of(context)?.size.height ?? double.nan;
+    getInstructorProfile(id: widget.id);
+    final width = MediaQuery
+        .of(context)
+        ?.size
+        .width ?? double.nan;
+    final height = MediaQuery
+        .of(context)
+        ?.size
+        .height ?? double.nan;
     List<ReviewerInfo> reviews = [
       ReviewerInfo(
         reviewerImg: "assets/person.png",
         reviewerName: "Name of Reviewer",
         reviewerComment:
-            "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",
+        "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",
       ),
       ReviewerInfo(
         reviewerImg: "assets/person.png",
         reviewerName: "Name of Reviewer",
         reviewerComment:
-            "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",
+        "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",
       ),
       ReviewerInfo(
         reviewerImg: "assets/person.png",
         reviewerName: "Name of Reviewer",
         reviewerComment:
-            "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",
+        "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",
       ),
       ReviewerInfo(
         reviewerImg: "assets/person.png",
         reviewerName: "Name of Reviewer",
         reviewerComment:
-            "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",
+        "   (Even) more (optional) exercises with available solution,especially involving external libraries. No complaint here, just thinking what would have made it even better.Thank you for a solid, well documented course. All the best!",
       ),
     ];
     int studentsNumber = 70000;
@@ -90,8 +102,13 @@ class _TeacherProfileState extends State<TeacherProfile> {
                             child: CircleAvatar(
                               maxRadius: 55.0,
                               minRadius: 25.0,
-                              backgroundImage: NetworkImage(data['instructor']['profile_image'].toString()=='null' ? DEFAULTIMAGE
-                                  : BASEURL + data['instructor']['profile_image']),
+                              backgroundImage: NetworkImage(data['instructor']
+                              ['profile_image']
+                                  .toString() ==
+                                  'null'
+                                  ? DEFAULTIMAGE
+                                  : BASEURL +
+                                  data['instructor']['profile_image']),
                             ),
                           ),
                           Container(
@@ -126,7 +143,7 @@ class _TeacherProfileState extends State<TeacherProfile> {
                                 ),
                                 AutoSizeText(
                                   data['instructor']['total_students']
-                                          .toString() +
+                                      .toString() +
                                       " students",
                                   style: const TextStyle(
                                     fontFamily: kFontFamily,
@@ -176,7 +193,7 @@ class _TeacherProfileState extends State<TeacherProfile> {
                           ),
                           Container(
                             padding:
-                                EdgeInsets.symmetric(horizontal: width * .04),
+                            EdgeInsets.symmetric(horizontal: width * .04),
                             height: height * .1765,
                             width: double.infinity,
                             //color: Colors.grey,
@@ -252,29 +269,29 @@ class _TeacherProfileState extends State<TeacherProfile> {
                                   color: Colors.grey[200],
                                   child: ListView.separated(
                                       physics: BouncingScrollPhysics(),
-                                      itemBuilder: (context, index) => MyCourse(
+                                      itemBuilder: (context, index) =>
+                                          MyCourse(
                                             height: height,
                                             width: width,
                                             videoImage: BASEURL +
                                                 course[index]['course_image']
                                                     .toString(),
                                             courseName: course[index]
-                                                        ['course_instructor']
-                                                    ['user']['username']
+                                            ['course_instructor']
+                                            ['user']['username']
                                                 .toString(),
-                                            courseInstructor: course[
-                                                            index]
-                                                        ['course_instructor']
-                                                    ['job_role']
+                                            courseInstructor: course[index]
+                                            ['course_instructor']
+                                            ['job_role']
                                                 .toString(),
                                             courseBadges: course[index]
-                                                    ['badges']
+                                            ['badges']
                                                 .toString(),
                                             coursePrice: course[index]
-                                                    ['course_price']
+                                            ['course_price']
                                                 .toString(),
                                             courseRating: course[index]
-                                                    ['course_rate']
+                                            ['course_rate']
                                                 .toString(),
                                             id: course[index]['course_id'],
                                           ),
@@ -317,31 +334,49 @@ class _TeacherProfileState extends State<TeacherProfile> {
                                         child: Text("No reviews"));
                                   } else {
                                     return ReviewCard(
-                                        onDisLike: (){
-                                          disLike(ratingId: reviews[index]
-                                          ['rating_id']);
+                                        onDisLike: () {
+                                          disLike(
+                                              ratingId: reviews[index]
+                                              ['rating_id']);
                                         },
-                                        onLike: (){
-                                          like(ratingId: reviews[index]
-                                          ['rating_id']);
+                                        onLike: () {
+                                          like(
+                                              ratingId: reviews[index]
+                                              ['rating_id']);
                                         },
                                         width: width,
                                         reviewerImg: BASEURL +
                                             reviews[index]['instructor']
-                                                ['profile_image'],
+                                            ['profile_image'],
                                         reviewerName: reviews[index]
-                                            ['instructor']['user']['username'],
+                                        ['instructor']['user']['username'],
                                         reviewerComment: reviews[index]
-                                            ['rating_content'],
+                                        ['rating_content'],
                                         height: height);
                                   }
                                 },
-                                separatorBuilder: (context, index) => Divider(
+                                separatorBuilder: (context, index) =>
+                                    Divider(
                                       color: kPrimaryColor,
                                     ),
                                 itemCount:
-                                    reviews.isEmpty ? 1 : reviews.length),
-                          ), //reviews LV
+                                reviews.isEmpty ? 1 : reviews.length),
+                          ),
+                          Center(
+                            child: SmoothStarRating(
+                                onRatingChanged: (v) {
+                                  rating = v;
+                                  setState(() {});
+                                },
+                                starCount: 5,
+                                rating: rating,
+                                size: 40.0,
+                                filledIconData: Icons.stars,
+                                halfFilledIconData: Icons.star_half_outlined,
+                                color: Color(0xFFCA5B5B),
+                                borderColor: Color(0xFFCA5B5B),
+                                spacing: 0.0),
+                          ),
                           Container(
                             margin: EdgeInsets.all(width * 0.05),
                             height: height * .04,
@@ -349,16 +384,36 @@ class _TeacherProfileState extends State<TeacherProfile> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                  height: height * .04,
-                                  width: width * .19,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFC345DD),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: const Center(
-                                    child: AutoSizeText(
-                                      "Add",
+                                InkWell(
+                                  onTap: () {
+                                    DioHelper.addComment(
+                                      comment: commentController.text,
+                                      ratingValue: rating,
+                                      instructorId: widget.id,)
+                                        .then((value) {
+                                    messageToast(
+                                    msg:
+                                    'Comment add to ${data['instructor']['user']['first_name']} successfully ',
+                                    color: Colors.green);
+                                    }).catchError((onError){
+                                      if (kDebugMode) {
+                                        print('error is \n' + onError.toString());
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                    height: height * .04,
+                                    width: width * .19,
+                                    decoration: BoxDecoration(
+                                      color: commentController.text.isEmpty
+                                          ? Colors.blueGrey
+                                          : Color(0xFFC345DD),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: const Center(
+                                      child: AutoSizeText(
+                                        "Add",
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -367,6 +422,10 @@ class _TeacherProfileState extends State<TeacherProfile> {
                                   width: width * .65,
                                   height: height * 0.3,
                                   child: TextField(
+                                    onChanged: (vs) {
+                                      setState(() {});
+                                    },
+                                    controller: commentController,
                                     decoration: InputDecoration(
                                       labelText: "Add a comment",
                                       border: OutlineInputBorder(
