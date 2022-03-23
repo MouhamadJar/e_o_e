@@ -10,8 +10,8 @@ class SearchResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context)?.size.width ?? double.nan;
-    final height = MediaQuery.of(context)?.size.height ?? double.nan;
+    final width = MediaQuery.of(context).size.width ?? double.nan;
+    final height = MediaQuery.of(context).size.height ?? double.nan;
     Future<dynamic> searchResult = search(data: data);
     return Scaffold(
       appBar: AppBar(
