@@ -11,8 +11,8 @@ class MainSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context)?.size.height ?? double.nan;
-    final width = MediaQuery.of(context)?.size.width ?? double.nan;
+    final height = MediaQuery.of(context).size.height ?? double.nan;
+    final width = MediaQuery.of(context).size.width ?? double.nan;
     return SafeArea(
       child: Container(
         decoration: const BoxDecoration(
